@@ -1,0 +1,88 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<h1>LOGIN</h1>
+<div id="fb-root"></div>
+
+@*<div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with"
+    data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="false" onlogin="checkLoginState();"></div>*@
+
+<div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with"
+     data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="true" onlogin="checkLoginState();"></div>
+
+<script>
+
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/th_TH/sdk.js#xfbml=1&version=v3.0&appId=1854024371526354&autoLogAppEvents=1';
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    $(document).ready(function () {
+        $.ajaxSetup({ cache: true });
+        $.getScript('https://connect.facebook.net/en_US/sdk.js', function () {
+            FB.init({
+                appId: '1854024371526354',
+                version: 'v2.7' // or v2.1, v2.2, v2.3, ...
+            });
+            //$('#loginbutton,#feedbutton').removeAttr('disabled');
+            //FB.getLoginStatus(updateStatusCallback);
+
+            FB.Event.subscribe('auth.authResponseChange', function (response) {
+                if (response.status === 'connected') {
+                    //yourcode } else if (response.status === 'not_authorized') { //your code } else { //yourcode }
+
+                    checkLoginState(response);
+                }
+            });
+        });
+    });
+
+
+
+    function checkLoginState(response) {
+
+        if (response == undefined) return;
+
+        let accessToken;
+        var userInfo;
+
+        console.log('Response', response);
+        accessToken = response.authResponse.accessToken;
+        console.log('AccessToken: ', accessToken);
+
+        if (accessToken !== undefined) {
+
+            FB.api('/me', 'get', {
+                fields: 'id,name,picture',
+                //access_token: accessToken
+                }, function (response) {
+                    postUserInfo(response)
+                });
+        }
+    }
+
+    function postUserInfo(userInfo) {
+        console.log("userInfo", userInfo);
+        console.log("userInfo-json", JSON.stringify({ id: userInfo.id, name: userInfo.name, photoURL: userInfo.picture.data.url }));
+
+        if (userInfo !== undefined) {
+            $.ajax({
+                url: "@Url.Action("Index", "home")",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({ id: userInfo.id, name: userInfo.name, photoURL: userInfo.picture.data.url }),
+                success: function (response) {
+                    response ? window.location.href = response.redirectToUrl
+                        : console.log("unsuccsfully send the session");
+                }
+            });
+        }
+    }
+
+
+</script>
