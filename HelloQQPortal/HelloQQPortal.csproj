@@ -148,6 +148,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\adminController.cs" />
     <Compile Include="Controllers\homeController.cs" />
     <Compile Include="Controllers\productController.cs" />
     <Compile Include="Global.asax.cs">
@@ -193,12 +194,21 @@
     <Content Include="Views\home\about.cshtml" />
     <Content Include="Views\home\contact.cshtml" />
     <Content Include="Views\home\index.cshtml" />
-    <Content Include="Views\Product\manual.cshtml" />
-    <Content Include="Views\Product\faq.cshtml" />
-    <Content Include="Views\Product\index.cshtml" />
+    <Content Include="Views\product\manual.cshtml" />
+    <Content Include="Views\product\faq.cshtml" />
+    <Content Include="Views\product\index.cshtml" />
     <Content Include="Views\home\login.cshtml" />
     <Content Include="Views\Shared\_AuthLayout.cshtml" />
     <Content Include="Views\Shared\_PartialHeaderMenu.cshtml" />
+    <Content Include="Views\admin\index.cshtml" />
+    <Content Include="Views\admin\productList.cshtml" />
+    <Content Include="Views\admin\productDetail.cshtml" />
+    <Content Include="Views\admin\userList.cshtml" />
+    <Content Include="Views\admin\userDetail.cshtml" />
+    <Content Include="Views\admin\manualList.cshtml" />
+    <Content Include="Views\admin\manualDetail.cshtml" />
+    <Content Include="Views\admin\faqList.cshtml" />
+    <Content Include="Views\admin\faqDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
