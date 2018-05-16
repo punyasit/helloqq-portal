@@ -172,6 +172,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\adminController.cs" />
     <Compile Include="Controllers\homeController.cs" />
+    <Compile Include="Controllers\membersController.cs" />
     <Compile Include="Controllers\productController.cs" />
     <Compile Include="Database\HelloQQDB.Context.cs">
       <AutoGen>True</AutoGen>
@@ -327,6 +328,11 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\members\Create.cshtml" />
+    <Content Include="Views\members\Delete.cshtml" />
+    <Content Include="Views\members\Details.cshtml" />
+    <Content Include="Views\members\Edit.cshtml" />
+    <Content Include="Views\members\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
