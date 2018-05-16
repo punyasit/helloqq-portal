@@ -13,7 +13,7 @@ namespace HelloQQPortal.Controllers
         {
             if(Session["userInfo"] == null)
             {
-                Redirect("/home/login");
+                Response.Redirect("/home/login");
             }
             return View();
         }
