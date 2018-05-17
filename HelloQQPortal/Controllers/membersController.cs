@@ -104,6 +104,7 @@ namespace HelloQQPortal.Controllers
             return View(member);
         }
 
+
         // POST: members/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -113,6 +114,12 @@ namespace HelloQQPortal.Controllers
             db.members.Remove(member);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Register()
+        {
+            return View();
+
         }
 
         protected override void Dispose(bool disposing)

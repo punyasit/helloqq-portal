@@ -12,6 +12,19 @@ namespace HelloQQPortal
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.IgnoreRoute("members/");
+
+            routes.MapRoute(
+               name: "admin-member",
+               url: "admin/member/{action}",
+               defaults: new { controller = "members", action = "Index", id = UrlParameter.Optional }
+               );
+
+            routes.MapRoute(
+              name: "register",
+              url: "register",
+              defaults: new { controller = "members", action = "register", id = UrlParameter.Optional }
+              );
 
             routes.MapRoute(
                 name:"default",
@@ -20,7 +33,7 @@ namespace HelloQQPortal
                 );
 
             routes.MapRoute(
-                name: "default2",
+                name: "default-action",
                 url: "{controller}/{action}",
                 defaults: new { controller = "home", action = "Index", id = UrlParameter.Optional }
                 );

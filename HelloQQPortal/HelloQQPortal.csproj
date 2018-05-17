@@ -333,6 +333,7 @@
     <Content Include="Views\members\Details.cshtml" />
     <Content Include="Views\members\Edit.cshtml" />
     <Content Include="Views\members\Index.cshtml" />
+    <Content Include="Views\members\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
