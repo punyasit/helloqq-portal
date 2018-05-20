@@ -11,6 +11,8 @@ namespace HelloQQPortal.Models
         public string name { get; set; }
         public string photoURL { get; set; }
         public string token { get; set; }
-        
+        public string location { get; set; }
+        public string hometown { get; set; }
+
     }
 }

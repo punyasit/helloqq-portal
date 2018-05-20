@@ -28,6 +28,9 @@ namespace HelloQQPortal.Database
         public System.DateTime created_on { get; set; }
         public Nullable<int> created_by { get; set; }
         public sbyte status { get; set; }
+        public string picture_url { get; set; }
+        public string address { get; set; }
+        public string facebook_name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<member_product> member_product { get; set; }

@@ -1,6 +1,219 @@
-﻿@{
+﻿@model HelloQQPortal.Database.member
+
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style type="text/css">
+    .register textarea {
+        width: 100%;
+    }
+
+    .no-padding{
+        padding:0;
+    }
+</style>
+
+<br />
+<h1>สมัครสมาชิก</h1>
+<div id="fb-root"></div>
+<div id="fbLoginButton" class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with"
+     data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="true" onlogin="checkLoginState();"></div>
+
+<script>
+
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/th_TH/sdk.js#xfbml=1&version=v3.0&appId=1854024371526354&autoLogAppEvents=1';
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    $(document).ready(function () {
+        $.ajaxSetup({ cache: true });
+        $.getScript('https://connect.facebook.net/en_US/sdk.js', function () {
+            FB.init({
+                appId: '1854024371526354',
+                version: 'v2.7' // or v2.1, v2.2, v2.3, ...
+            });
+            //$('#loginbutton,#feedbutton').removeAttr('disabled');
+            //FB.getLoginStatus(updateStatusCallback);
+
+            FB.Event.subscribe('auth.authResponseChange', function (response) {
+                if (response.status === 'connected') {
+                    //yourcode } else if (response.status === 'not_authorized') { //your code } else { //yourcode }
+
+                    checkLoginState(response);
+                }
+            });
+        });
+    });
 
 
-REGISTER
+
+    function checkLoginState(response) {
+
+        if (response == undefined) return;
+
+        let accessToken;
+        var userInfo;
+
+        console.log('Response', response);
+        accessToken = response.authResponse.accessToken;
+        console.log('AccessToken: ', accessToken);
+
+        if (accessToken !== undefined) {
+
+            FB.api('/me', 'get', {
+                fields: 'id,name,picture,hometown,location',
+                //access_token: accessToken
+                }, function (response) {
+                    postUserInfo(response)
+                });
+        }
+    }
+
+    function postUserInfo(userInfo) {
+
+        console.log("userInfo", userInfo);
+        console.log("userInfo-json", JSON.stringify({ id: userInfo.id, name: userInfo.name, photoURL: userInfo.picture.data.url }));
+        console.log("userInfo-json", JSON.stringify({ location: userInfo.location.name, hometown: userInfo.location.name }));
+
+        if (userInfo !== undefined) {
+
+            $('#fbLoginButton').attr("style", "display:none");
+            $('#frmRegister').attr("style", "display:block");
+
+            $('#hdnFacebookId').val(userInfo.id);
+            $('#hdnFacebookName').val(userInfo.name);
+            $('#hdnHomeTownCode').val(userInfo.hometown.name);
+            $('#hdnLocationCode').val(userInfo.location.name);
+
+            $('#txtFullname').val(userInfo.name);
+            $('#imgFBProfile').attr("src", userInfo.picture.data.url);
+            $('#lbFBUsername').text(userInfo.name);
+        }
+
+
+        @*if (userInfo !== undefined) {
+            $.ajax({
+                url: "@Url.Action("register", "member")",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({ id: userInfo.id, name: userInfo.name, photoURL: userInfo.picture.data.url }),
+                success: function (response) {
+                    response ? window.location.href = response.redirectToUrl
+                        : console.log("unsuccsfully send the session");
+                }
+            });
+        }*@
+    }
+
+</script>
+
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "frmRegister", style="display:none" }))
+{
+    @Html.AntiForgeryToken()
+    <br />
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.facebook_id, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.facebook_id, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.facebook_id, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        @Html.HiddenFor(model => model.facebook_id, new { id = "hdnFacebookId" })
+        @Html.HiddenFor(model => model.facebook_id, new { id = "hdnFacebookName" })
+        @Html.HiddenFor(model => model.hometown_code, new { id = "hdnHomeTownCode" })
+        @Html.HiddenFor(model => model.location_code, new { id = "hdnLocationCode" })
+        <div class="row">
+            <div class="col-12 col-sm-12 col-lg-4" style="min-width: 362px;">
+                <div class="card text-white bg-dark mb-3" >
+                    <div class="card-header">Facebook โปรไฟล์</div>
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <div class="row">
+                                <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="min-width:50px;"><img id="imgFBProfile" src="" width="50" height="50" /></div>
+                                <div class="col-10 col-sm-10 col-md-10 col-lg-10"><label id="lbFBUsername">UserName</label></div>
+                            </div>
+                        </h5>
+                        <p class="card-text">เมื่อสมัครลูกค้าจะสามารถเข้าใช้ระบบเพื่อเข้า ดูคู่มือการใช้งานของสินค้าที่ลูกค้าซื้อ และวิธีการแก้ไขปัญหาเบื้องต้นเมื่อพบปัญหาต่างๆจากระบบ HelloQQPortal ค่ะ</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-12 col-lg-8">
+                <div class="card bg-light mb-3" style="width:100%; min-width: 362px;">
+                    <div class="card-header">สมัครสมาชิกส่วนช่วยเหลือการใช้งาน HelloQQShop </div>
+                    <div class="card-body">
+                        <h5 class="card-title">ข้อมูลผู้ใช้งานเพิ่มเติม</h5>
+                        <div class="form-group">
+                            @Html.Label("lbFullName", "ชื่อ-นามสกุล", htmlAttributes: new { @class = "control-label", @value = "ชื่อ-นามสกุล" })
+                            <div>
+                                @Html.EditorFor(model => model.fullname, new { htmlAttributes = new { id = "txtFullname", @class = "form -control", @value = "" } })
+                                @Html.ValidationMessageFor(model => model.fullname, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group register">
+                            @Html.Label("lbFullName", "ที่อยู่ที่ใช้ในการจัดส่งสินค้า", htmlAttributes: new { @class = "control-label", })
+                            <div>
+                                @Html.TextAreaFor(model => model.address, new { htmlAttributes = new { id = "txtAddress", @class = "form -control register", value = ""} })
+                                @Html.ValidationMessageFor(model => model.fullname, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="no-padding" >
+                                <input type="submit" value="ยืนยันการสมัครสมาชิก" class="btn btn-lg btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.location_code, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.location_code, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.location_code, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.hometown_code, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.hometown_code, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.hometown_code, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.created_on, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.created_on, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.created_on, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.created_by, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.created_by, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.created_by, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.status, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.status, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.status, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+    </div>
+}

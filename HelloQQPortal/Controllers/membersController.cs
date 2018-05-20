@@ -6,13 +6,17 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+
 using HelloQQPortal.Database;
+using HelloQQPortal.Manager;
 
 namespace HelloQQPortal.Controllers
 {
     public class membersController : Controller
     {
+        
         private helloqqdbEntities db = new helloqqdbEntities();
+        private MetaDataManager metadataMgr = new MetaDataManager();
 
         // GET: members
         public ActionResult Index()
@@ -104,7 +108,6 @@ namespace HelloQQPortal.Controllers
             return View(member);
         }
 
-
         // POST: members/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -116,11 +119,59 @@ namespace HelloQQPortal.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Register()
+        public ActionResult Register(member member)
         {
-            return View();
+           
+                        
+
+            if (ModelState.IsValid && this.Request.RequestType == "POST")
+            {
+                if (db.members.Any(item => item.facebook_id == member.facebook_id))
+                {
+                    // Modify Record
+                    //return RedirectToAction("Index");
+                }
+                else
+                {
+                    //#Add Record
+                    member = AddNewEntity(member);
+                }
+
+                return RedirectToAction("Index");
+            }
+            return View(member);
 
         }
+
+        private member AddNewEntity(member member)
+        {
+            meta_location metaLocation = null;
+            member = this.AddProperty(member);
+            // Find Location Code
+            metaLocation = metadataMgr.GetMetaLocationInfo(member.location_code.Replace(", Thailand", ""));
+            if (metaLocation != null && metaLocation.id > 0)
+            {
+                member.location_code = metaLocation.ISO_code;
+            }
+            // Find HomeTown Code 
+            metaLocation = metadataMgr.GetMetaLocationInfo(member.hometown_code.Replace(", Thailand", ""));
+            if (metaLocation != null && metaLocation.id > 0)
+            {
+                member.hometown_code = metaLocation.ISO_code;
+            }
+
+            db.members.Add(member);
+            db.SaveChanges();
+            return member;
+        }
+
+        private member AddProperty(member member)
+        {
+            member.created_on = DateTime.Now;
+            member.created_by = 1;
+
+            return member;
+        } 
 
         protected override void Dispose(bool disposing)
         {
