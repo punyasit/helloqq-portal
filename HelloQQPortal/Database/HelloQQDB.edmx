@@ -18,6 +18,14 @@
           <Property Name="created_by" Type="int" Nullable="false" />
           <Property Name="status" Type="tinyint" Nullable="false" />
         </EntityType>
+        <EntityType Name="log_login">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="member_id" Type="int" Nullable="false" />
+          <Property Name="login_time" Type="datetime" Precision="0" Nullable="false" />
+        </EntityType>
         <EntityType Name="member">
           <Key>
             <PropertyRef Name="id" />
@@ -30,8 +38,10 @@
           <Property Name="address" Type="varchar" MaxLength="255" />
           <Property Name="location_code" Type="varchar" MaxLength="5" />
           <Property Name="hometown_code" Type="varchar" MaxLength="5" />
+          <Property Name="role" Type="tinyint" Nullable="false" />
           <Property Name="created_by" Type="int" />
           <Property Name="created_on" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="modified_on" Type="datetime" Precision="0" />
           <Property Name="status" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="member_product">
@@ -118,6 +128,7 @@
         </Association>
         <EntityContainer Name="helloQQdbModelStoreContainer">
           <EntitySet Name="images" EntityType="Self.images" Schema="helloqqdb" store:Type="Tables" />
+          <EntitySet Name="log_login" EntityType="Self.log_login" Schema="helloqqdb" store:Type="Tables" />
           <EntitySet Name="member" EntityType="Self.member" Schema="helloqqdb" store:Type="Tables" />
           <EntitySet Name="member_product" EntityType="Self.member_product" Schema="helloqqdb" store:Type="Tables" />
           <EntitySet Name="meta_location" EntityType="Self.meta_location" Schema="helloqqdb" store:Type="Tables" />
@@ -169,6 +180,8 @@
           <Property Name="picture_url" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="facebook_name" Type="String" MaxLength="125" FixedLength="false" Unicode="false" />
+          <Property Name="modified_on" Type="DateTime" />
+          <Property Name="role" Type="SByte" Nullable="false" />
         </EntityType>
         <EntityType Name="member_product">
           <Key>
@@ -276,7 +289,16 @@
             <End Role="product" EntitySet="products" />
             <End Role="product_review" EntitySet="product_review" />
           </AssociationSet>
+          <EntitySet Name="log_login" EntityType="helloQQdbModel.log_login" />
         </EntityContainer>
+        <EntityType Name="log_login">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="member_id" Type="Int32" Nullable="false" />
+          <Property Name="login_time" Type="DateTime" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -300,6 +322,8 @@
           <EntitySetMapping Name="members">
             <EntityTypeMapping TypeName="helloQQdbModel.member">
               <MappingFragment StoreEntitySet="member">
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="modified_on" ColumnName="modified_on" />
                 <ScalarProperty Name="facebook_name" ColumnName="facebook_name" />
                 <ScalarProperty Name="address" ColumnName="address" />
                 <ScalarProperty Name="picture_url" ColumnName="picture_url" />
@@ -361,6 +385,15 @@
                 <ScalarProperty Name="created_on" ColumnName="created_on" />
                 <ScalarProperty Name="created_by" ColumnName="created_by" />
                 <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="log_login">
+            <EntityTypeMapping TypeName="helloQQdbModel.log_login">
+              <MappingFragment StoreEntitySet="log_login">
+                <ScalarProperty Name="login_time" ColumnName="login_time" />
+                <ScalarProperty Name="member_id" ColumnName="member_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

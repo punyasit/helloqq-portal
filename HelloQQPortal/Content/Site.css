@@ -32,3 +32,13 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/* Register, Update Member */
+
+.register textarea {
+    width: 100%;
+}
+
+.no-padding {
+    padding: 0;
+}

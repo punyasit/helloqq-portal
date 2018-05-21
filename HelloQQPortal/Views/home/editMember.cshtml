@@ -1,0 +1,77 @@
+﻿@model HelloQQPortal.Database.member
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<br />
+<h1>อัพเดทข้อมูลสมาชิก</h1>
+<div id="fb-root"></div>
+<div id="fbLoginButton" class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with"
+     data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="true" onlogin="checkLoginState();"></div>
+
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "frmMemberUpdate" }))
+{
+    @Html.AntiForgeryToken()
+    <br />
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.facebook_id, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.facebook_id, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.facebook_id, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+
+        <div class="row">
+            <div class="col-12 col-sm-12 col-lg-4" style="min-width: 362px;">
+                <div class="card text-white bg-dark mb-3">
+                    <div class="card-header">Facebook โปรไฟล์</div>
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <div class="row">
+                                <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="min-width:50px;">
+                                    <img id="imgFBProfile" src="@Html.DisplayFor(model =>model.picture_url)" width="50" height="50" />
+                                </div>
+                                <div class="col-10 col-sm-10 col-md-10 col-lg-10"><label id="lbFBUsername">@Html.DisplayFor(model => model.facebook_name)</label></div>
+                            </div>
+                        </h5>
+                        <p class="card-text">เป็นสมาชิกตั้งแต่ : </p>
+                        <p class="card-text">เข้าใช้ล่าสุดเมื่อ : </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-12 col-lg-8">
+                <div class="card bg-light mb-3" style="width:100%; min-width: 362px;">
+                    <div class="card-header">สมัครสมาชิกส่วนช่วยเหลือการใช้งาน HelloQQShop </div>
+                    <div class="card-body">
+                        <h5 class="card-title">ข้อมูลผู้ใช้งานเพิ่มเติม</h5>
+                        <div class="form-group">
+                            @Html.Label("lbFullName", "ชื่อ-นามสกุล", htmlAttributes: new { @class = "control-label", @value = "ชื่อ-นามสกุล" })
+                            <div>
+                                @Html.EditorFor(model => model.fullname, new { htmlAttributes = new { id = "txtFullname", @class = "form -control", @value = "" } })
+                                @Html.ValidationMessageFor(model => model.fullname, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group register">
+                            @Html.Label("lbFullName", "ที่อยู่ที่ใช้ในการจัดส่งสินค้า", htmlAttributes: new { @class = "control-label", })
+                            <div>
+                                @Html.TextAreaFor(model => model.address, new { htmlAttributes = new { id = "txtAddress", @class = "form -control register", value = "" } })
+                                @Html.ValidationMessageFor(model => model.fullname, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="no-padding">
+                                <input type="submit" value="ยืนยันการสมัครสมาชิก" class="btn btn-lg btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

@@ -3,15 +3,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<style type="text/css">
-    .register textarea {
-        width: 100%;
-    }
 
-    .no-padding{
-        padding:0;
-    }
-</style>
 
 <br />
 <h1>สมัครสมาชิก</h1>
@@ -88,6 +80,7 @@
             $('#hdnFacebookName').val(userInfo.name);
             $('#hdnHomeTownCode').val(userInfo.hometown.name);
             $('#hdnLocationCode').val(userInfo.location.name);
+            $('#hdnPictureURL').val(userInfo.picture.data.url);
 
             $('#txtFullname').val(userInfo.name);
             $('#imgFBProfile').attr("src", userInfo.picture.data.url);
@@ -130,9 +123,12 @@
         @Html.HiddenFor(model => model.facebook_id, new { id = "hdnFacebookName" })
         @Html.HiddenFor(model => model.hometown_code, new { id = "hdnHomeTownCode" })
         @Html.HiddenFor(model => model.location_code, new { id = "hdnLocationCode" })
+        @Html.HiddenFor(model => model.picture_url, new { id = "hdnPictureURL" })
+
+
         <div class="row">
             <div class="col-12 col-sm-12 col-lg-4" style="min-width: 362px;">
-                <div class="card text-white bg-dark mb-3" >
+                <div class="card text-white bg-dark mb-3">
                     <div class="card-header">Facebook โปรไฟล์</div>
                     <div class="card-body">
                         <h5 class="card-title">
@@ -160,12 +156,12 @@
                         <div class="form-group register">
                             @Html.Label("lbFullName", "ที่อยู่ที่ใช้ในการจัดส่งสินค้า", htmlAttributes: new { @class = "control-label", })
                             <div>
-                                @Html.TextAreaFor(model => model.address, new { htmlAttributes = new { id = "txtAddress", @class = "form -control register", value = ""} })
+                                @Html.TextAreaFor(model => model.address, new { htmlAttributes = new { id = "txtAddress", @class = "form -control register", value = "" } })
                                 @Html.ValidationMessageFor(model => model.fullname, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="no-padding" >
+                            <div class="no-padding">
                                 <input type="submit" value="ยืนยันการสมัครสมาชิก" class="btn btn-lg btn-primary" />
                             </div>
                         </div>
@@ -174,7 +170,7 @@
             </div>
 
         </div>
-        
+
 
         @*<div class="form-group">
             @Html.LabelFor(model => model.location_code, htmlAttributes: new { @class = "control-label col-md-2" })

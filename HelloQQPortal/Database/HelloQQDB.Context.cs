@@ -31,5 +31,6 @@ namespace HelloQQPortal.Database
         public virtual DbSet<meta_location> meta_location { get; set; }
         public virtual DbSet<product> products { get; set; }
         public virtual DbSet<product_review> product_review { get; set; }
+        public virtual DbSet<log_login> log_login { get; set; }
     }
 }

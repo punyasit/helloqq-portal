@@ -167,6 +167,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Code\MemberManager.cs" />
     <Compile Include="App_Code\MetaDataManager.cs" />
     <Compile Include="App_GlobalResources\resource.designer.cs">
       <AutoGen>True</AutoGen>
@@ -196,6 +197,9 @@
       <DependentUpon>HelloQQDB.edmx</DependentUpon>
     </Compile>
     <Compile Include="Database\image.cs">
+      <DependentUpon>HelloQQDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\log_login.cs">
       <DependentUpon>HelloQQDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\member.cs">
@@ -339,7 +343,8 @@
     <Content Include="Views\members\Details.cshtml" />
     <Content Include="Views\members\Edit.cshtml" />
     <Content Include="Views\members\Index.cshtml" />
-    <Content Include="Views\members\Register.cshtml" />
+    <Content Include="Views\home\register.cshtml" />
+    <Content Include="Views\home\editMember.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -14,6 +14,7 @@
         <AssociationConnector Association="helloQQdbModel.member_product_lnk_member" ManuallyRouted="false" />
         <AssociationConnector Association="helloQQdbModel.member_product_lnk_product" ManuallyRouted="false" />
         <AssociationConnector Association="helloQQdbModel.product_review_lnk_product" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="helloQQdbModel.log_login" Width="1.5" PointX="8.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

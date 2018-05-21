@@ -23,7 +23,7 @@ namespace HelloQQPortal
             routes.MapRoute(
               name: "register",
               url: "register",
-              defaults: new { controller = "members", action = "register", id = UrlParameter.Optional }
+              defaults: new { controller = "home", action = "register", id = UrlParameter.Optional }
               );
 
             routes.MapRoute(

@@ -31,6 +31,8 @@ namespace HelloQQPortal.Database
         public string picture_url { get; set; }
         public string address { get; set; }
         public string facebook_name { get; set; }
+        public Nullable<System.DateTime> modified_on { get; set; }
+        public sbyte role { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<member_product> member_product { get; set; }

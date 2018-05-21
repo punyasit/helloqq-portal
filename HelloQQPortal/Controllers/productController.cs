@@ -11,7 +11,7 @@ namespace HelloQQPortal.Controllers
         // GET: Product
         public ActionResult Index()
         {
-            if(Session["userInfo"] == null)
+            if(Session["memberInfo"] == null)
             {
                 Response.Redirect("/home/login");
             }
