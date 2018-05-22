@@ -1,5 +1,108 @@
-﻿@{
+﻿@model HelloQQPortal.Database.member
+
+@{
+    ViewBag.Title = "การจัดการผู้ใช้งาน";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
+<h2>แก้ไขผู้ใช้งาน</h2>
+
+<div style="padding-left:40px;">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal admin">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.id)
+
+            <div class="form-group row">
+                @Html.Label("recordId", "หมายเลขเร็คคอร์ท", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+                <div class="col-sm-10">
+                    @Html.LabelForModel(Model.facebook_name, htmlAttributes: new { @class = "form-label" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.Label("facebookId", "หมายเลข Facebook", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+                <div class="col-md-10">
+                    @Html.LabelForModel(Model.facebook_id, htmlAttributes: new { @class = "form-label" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.Label("facebookName", "ชื่อใน Facebook", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+                <div class="col-md-10">
+                    @Html.LabelForModel(Model.facebook_name, htmlAttributes: new { @class = "form-label" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.Label("memberName", "ชื่อสมาชิก", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.fullname, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.fullname, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.Label("address", "ที่อยู่ในการจัดส่งสินค้า", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.address, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.Label("facebookName", "สมัครเมื่อ", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+
+                <div class="col-md-10">
+                    <label class="form-label">@Model.created_on.ToString("dd MMM yyyy HH:mm:ss") </label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.Label("facebookName", "อัพเดทล่าสุด", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+
+                <div class="col-md-10">
+                    <label class="form-label"> @(Model.modified_on.HasValue ? Model.modified_on.Value.ToString("dd MMM yyyy HH:mm:ss") : "") </label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.Label("facebookName", "สถานะผู้ใช้", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+                <div class="col-md-10" style="padding-top:6px;">
+                    @*@Html.EditorFor(model => model.status, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.status, "", new { @class = "text-danger" })*@
+
+                    @Html.DropDownListFor(model => model.status, new List<SelectListItem>
+                        {
+                            new SelectListItem{ Text="ใช้งาน", Value = "1" },
+                            new SelectListItem{ Text="ระงับการใช้งาน", Value = "0" }
+                        })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2 col-form-label">
+                    &nbsp;
+                </div>
+                <div class="col-md-10">
+                    @*<input type="submit" value="บันทึก" class="btn btn-default" />
+                    <input type="button" value="กลับหน้าหลัก" class="btn btn-default" />*@
+                    @Html.ActionLink("กลับหน้าหลัก", "userList", "admin", new { @class = "btn btn-primary btn-md active", @role="button" })
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@*<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>*@
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

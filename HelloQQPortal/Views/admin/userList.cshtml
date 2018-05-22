@@ -1,5 +1,88 @@
-﻿@{
+﻿@model IEnumerable<HelloQQPortal.Database.member>
+@Mvc.RazorTools.BundleManager.Styles.Render()
+
+@{
+    ViewBag.Title = "การจัดการผู้ใช้งาน";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<h2>Index</h2>
 
+<p>
+    <i class="fas fa-camera-retro fa-2x"></i>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="admin table">
+    <tr>
+        <th>
+            หมายเลขเฟสบุค
+        </th>
+        <th>
+            ชื่อเฟสบุค
+        </th>
+        <th>
+            ชื่อสมาชิก
+        </th>
+        <th>
+            บทบาท
+        </th>
+        <th>
+            สร้างเมื่อ
+        </th>
+        <th>
+            แก้ไขเมื่อ
+        </th>
+        @*<th>
+                สถานะ
+            </th>*@
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.facebook_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.facebook_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fullname)
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.role)*@
+
+                @((item.role == 1) ? "แอดมิน" : "ผู้ใช้งาน")
+            </td>
+            <td>
+                @item.created_on.ToString("dd MMM yyyy")
+            </td>
+            <td>
+                @if (item.modified_on.HasValue)
+                {
+                    @item.modified_on.Value.ToString("dd MMM yyyy");
+                }
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.status)
+                    @if (item.status == 1)
+                    {
+                        @Html.Display("ใช้งาน")
+                    }
+                    else
+                    {
+                        @Html.Display("ยกเลิก")
+                    }
+
+                </td>*@
+            <td>
+                <a href="/admin/member/edit/@item.id">แก้ไข</a>
+                @*@Html.ActionLink("Edit", "userdetail", new { id = item.id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.id })*@
+            </td>
+        </tr>
+    }
+
+</table>

@@ -15,9 +15,15 @@ namespace HelloQQPortal
             routes.IgnoreRoute("members/");
 
             routes.MapRoute(
+                name: "admin-member-edit",
+                url: "admin/member/edit/{id}",
+                defaults: new { controller = "admin", action = "userdetail", id = UrlParameter.Optional }
+                );
+
+            routes.MapRoute(
                name: "admin-member",
-               url: "admin/member/{action}",
-               defaults: new { controller = "members", action = "Index", id = UrlParameter.Optional }
+               url: "admin/member/{action}/{id}",
+               defaults: new { controller = "admin", action = "UserList", id = UrlParameter.Optional }
                );
 
             routes.MapRoute(
@@ -27,8 +33,8 @@ namespace HelloQQPortal
               );
 
             routes.MapRoute(
-                name:"default",
-                url:"{controller}",
+                name: "default",
+                url: "{controller}",
                 defaults: new { controller = "home", action = "Index", id = UrlParameter.Optional }
                 );
 
@@ -41,7 +47,7 @@ namespace HelloQQPortal
             routes.MapRoute(
               name: "Product",
               url: "product/{id}/{action}",
-              defaults: new { controller = "product"}
+              defaults: new { controller = "product" }
             );
 
             routes.MapRoute(
@@ -50,7 +56,7 @@ namespace HelloQQPortal
                 defaults: new { controller = "home" }
             );
 
-          
+
         }
     }
 }

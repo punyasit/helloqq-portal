@@ -14,12 +14,12 @@ namespace HelloQQPortal.Controllers
 {
     public class membersController : Controller
     {        
-        private helloqqdbEntities db = new helloqqdbEntities(); 
+        private helloqqdbEntities dbInfo = new helloqqdbEntities(); 
 
         // GET: members
         public ActionResult Index()
         {
-            return View(db.members.ToList());
+            return View(dbInfo.members.ToList());
         }
 
         // GET: members/Details/5
@@ -29,7 +29,7 @@ namespace HelloQQPortal.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            member member = db.members.Find(id);
+            member member = dbInfo.members.Find(id);
             if (member == null)
             {
                 return HttpNotFound();
@@ -52,8 +52,8 @@ namespace HelloQQPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.members.Add(member);
-                db.SaveChanges();
+                dbInfo.members.Add(member);
+                dbInfo.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -67,7 +67,7 @@ namespace HelloQQPortal.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            member member = db.members.Find(id);
+            member member = dbInfo.members.Find(id);
             if (member == null)
             {
                 return HttpNotFound();
@@ -84,8 +84,8 @@ namespace HelloQQPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(member).State = EntityState.Modified;
-                db.SaveChanges();
+                dbInfo.Entry(member).State = EntityState.Modified;
+                dbInfo.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(member);
@@ -98,7 +98,7 @@ namespace HelloQQPortal.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            member member = db.members.Find(id);
+            member member = dbInfo.members.Find(id);
             if (member == null)
             {
                 return HttpNotFound();
@@ -111,9 +111,9 @@ namespace HelloQQPortal.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            member member = db.members.Find(id);
-            db.members.Remove(member);
-            db.SaveChanges();
+            member member = dbInfo.members.Find(id);
+            dbInfo.members.Remove(member);
+            dbInfo.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -122,7 +122,7 @@ namespace HelloQQPortal.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                dbInfo.Dispose();
             }
             base.Dispose(disposing);
         }

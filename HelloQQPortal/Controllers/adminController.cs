@@ -4,10 +4,15 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+using System.Net;
+using HelloQQPortal.Database;
+using HelloQQPortal.Manager;
+
 namespace HelloQQPortal.Controllers
 {
     public class adminController : Controller
     {
+        private helloqqdbEntities dbInfo = new helloqqdbEntities();
         // GET: Admin
         public ActionResult Index()
         {
@@ -30,13 +35,23 @@ namespace HelloQQPortal.Controllers
 
         public ActionResult UserList()
         {
-            return View();
+            List<member> lstMember = dbInfo.members.ToList();
+            return View(dbInfo.members.ToList());
         }
 
         // GET: Admin
-        public ActionResult UserDetail()
+        public ActionResult UserDetail(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            member member = dbInfo.members.Find(id);
+            if (member == null)
+            {
+                return HttpNotFound();
+            }
+            return View(member);
         }
 
         public ActionResult ManualList()
