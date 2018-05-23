@@ -12,11 +12,23 @@ namespace HelloQQPortal.Manager
 {
     public class MemberManager
     {
-        private helloqqdbEntities dbInfo;
+        private helloqqdbEntities dbInfo = new helloqqdbEntities();
 
         public MemberManager()
         {
 
+        }
+
+        public List<member> GetMemberList()
+        {
+            List<member> lstMember = dbInfo.members.ToList();
+            return dbInfo.members.ToList();
+        }
+
+        public member GetMemberById(int id)
+        {
+            member member = dbInfo.members.Find(id);
+            return member;
         }
 
         public member Login(UserInfo userInfo)
@@ -69,6 +81,9 @@ namespace HelloQQPortal.Manager
                     result.fullname = memberInfo.fullname;
                     result.address = memberInfo.address;
                     result.modified_on = DateTime.Now;
+                    result.role = memberInfo.role;
+                    result.status = memberInfo.status;
+
                     dbInfo.SaveChanges();
                 }
             }

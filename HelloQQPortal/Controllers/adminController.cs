@@ -12,7 +12,7 @@ namespace HelloQQPortal.Controllers
 {
     public class adminController : Controller
     {
-        private helloqqdbEntities dbInfo = new helloqqdbEntities();
+        private MemberManager memberMgr = new MemberManager();
         // GET: Admin
         public ActionResult Index()
         {
@@ -35,8 +35,7 @@ namespace HelloQQPortal.Controllers
 
         public ActionResult UserList()
         {
-            List<member> lstMember = dbInfo.members.ToList();
-            return View(dbInfo.members.ToList());
+            return View(memberMgr.GetMemberList());
         }
 
         // GET: Admin
@@ -46,12 +45,30 @@ namespace HelloQQPortal.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            member member = dbInfo.members.Find(id);
+
+            member member = memberMgr.GetMemberById(id.Value);
+         
             if (member == null)
             {
                 return HttpNotFound();
             }
             return View(member);
+        }
+
+
+        [HttpPost]
+        public ActionResult UpdateUserDetail(member memberInfo)
+        {
+            try
+            {
+                memberMgr.UpdateMember(memberInfo);
+                return RedirectToAction("UserList");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+          
         }
 
         public ActionResult ManualList()
