@@ -1,4 +1,4 @@
-﻿@model HelloQQPortal.Database.member
+﻿@model HelloQQPortal.Database.hqq_member
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -120,7 +120,7 @@
         </div>*@
 
         @Html.HiddenFor(model => model.facebook_id, new { id = "hdnFacebookId" })
-        @Html.HiddenFor(model => model.facebook_id, new { id = "hdnFacebookName" })
+        @Html.HiddenFor(model => model.facebook_name, new { id = "hdnFacebookName" })
         @Html.HiddenFor(model => model.hometown_code, new { id = "hdnHomeTownCode" })
         @Html.HiddenFor(model => model.location_code, new { id = "hdnLocationCode" })
         @Html.HiddenFor(model => model.picture_url, new { id = "hdnPictureURL" })

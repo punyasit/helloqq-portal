@@ -19,30 +19,30 @@ namespace HelloQQPortal.Manager
 
         }
 
-        public List<member> GetMemberList()
+        public List<hqq_member> GetMemberList()
         {
-            List<member> lstMember = dbInfo.members.ToList();
-            return dbInfo.members.ToList();
+            List<hqq_member> lsthqq_member = dbInfo.hqq_member.ToList();
+            return dbInfo.hqq_member.ToList();
         }
 
-        public member GetMemberById(int id)
+        public hqq_member GetMemberById(int id)
         {
-            member member = dbInfo.members.Find(id);
-            return member;
+            hqq_member hqq_member = dbInfo.hqq_member.Find(id);
+            return hqq_member;
         }
 
-        public member Login(UserInfo userInfo)
+        public hqq_member Login(UserInfo userInfo)
         {
-            member result;
+            hqq_member result;
             using (dbInfo = new helloqqdbEntities())
             {
-                result = dbInfo.members
+                result = dbInfo.hqq_member
                     .Where(item => item.facebook_id == userInfo.id)
                     .FirstOrDefault();
 
                 if(result != null)
                 {
-                    log_login entityInfo = new log_login();
+                    hqq_log_login entityInfo = new hqq_log_login();
                     entityInfo.login_time = DateTime.Now;
                     entityInfo.member_id = result.id;
 
@@ -58,7 +58,7 @@ namespace HelloQQPortal.Manager
                         result.modified_on = DateTime.Now;
                     }
 
-                    dbInfo.log_login.Add(entityInfo);
+                    dbInfo.hqq_log_login.Add(entityInfo);
                     dbInfo.SaveChanges();
                 }
                 
@@ -67,28 +67,28 @@ namespace HelloQQPortal.Manager
             return result;
         }
 
-        public member UpdateMember(member memberInfo)
+        public hqq_member UpdateMember(hqq_member hqq_memberInfo)
         {
-            member result;
+            hqq_member result;
             using (dbInfo = new helloqqdbEntities())
             {
-                result = dbInfo.members
-                    .Where(item => item.id == memberInfo.id)
+                result = dbInfo.hqq_member
+                    .Where(item => item.id == hqq_memberInfo.id)
                     .FirstOrDefault();
 
                 if(result != null)
                 {
-                    result.fullname = memberInfo.fullname;
-                    result.address = memberInfo.address;
+                    result.fullname = hqq_memberInfo.fullname;
+                    result.address = hqq_memberInfo.address;
                     result.modified_on = DateTime.Now;
-                    result.role = memberInfo.role;
-                    result.status = memberInfo.status;
+                    result.role = hqq_memberInfo.role;
+                    result.status = hqq_memberInfo.status;
 
                     dbInfo.SaveChanges();
                 }
             }
 
-             return memberInfo;
+             return hqq_memberInfo;
         }
     }
 }

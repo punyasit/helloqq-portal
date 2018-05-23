@@ -12,25 +12,29 @@ namespace HelloQQPortal.Database
     using System;
     using System.Collections.Generic;
     
-    public partial class product
+    public partial class hqq_member
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public product()
+        public hqq_member()
         {
-            this.member_product = new HashSet<member_product>();
-            this.product_review = new HashSet<product_review>();
+            this.hqq_member_product = new HashSet<hqq_member_product>();
         }
     
         public int id { get; set; }
-        public string name { get; set; }
-        public string description { get; set; }
-        public Nullable<System.DateTime> created_on { get; set; }
+        public string facebook_id { get; set; }
+        public string fullname { get; set; }
+        public string facebook_name { get; set; }
+        public string picture_url { get; set; }
+        public string address { get; set; }
+        public string location_code { get; set; }
+        public string hometown_code { get; set; }
+        public sbyte role { get; set; }
         public Nullable<int> created_by { get; set; }
+        public System.DateTime created_on { get; set; }
+        public Nullable<System.DateTime> modified_on { get; set; }
         public sbyte status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<member_product> member_product { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<product_review> product_review { get; set; }
+        public virtual ICollection<hqq_member_product> hqq_member_product { get; set; }
     }
 }

@@ -22,14 +22,22 @@ namespace HelloQQPortal.Controllers
         }
 
         // GET: Admin
-        public ActionResult ProductList()
+        public ActionResult ProductList(List<hqq_product> lstProductInfo)
         {
             return View();
         }
 
         // GET: Admin
-        public ActionResult ProductDetail()
+        public ActionResult ProductDetail(hqq_product productInfo)
         {
+            if (productInfo.id == 0)
+            {
+               
+            }
+            else
+            {
+
+            }
             return View();
         }
 
@@ -46,7 +54,7 @@ namespace HelloQQPortal.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            member member = memberMgr.GetMemberById(id.Value);
+            hqq_member member = memberMgr.GetMemberById(id.Value);
          
             if (member == null)
             {
@@ -57,7 +65,7 @@ namespace HelloQQPortal.Controllers
 
 
         [HttpPost]
-        public ActionResult UpdateUserDetail(member memberInfo)
+        public ActionResult UpdateUserDetail(hqq_member memberInfo)
         {
             try
             {

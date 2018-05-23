@@ -175,6 +175,7 @@
   <ItemGroup>
     <Compile Include="App_Code\MemberManager.cs" />
     <Compile Include="App_Code\MetaDataManager.cs" />
+    <Content Include="App_Code\ProductManager.cs" />
     <Compile Include="App_GlobalResources\resource.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -187,41 +188,47 @@
     <Compile Include="Controllers\homeController.cs" />
     <Compile Include="Controllers\membersController.cs" />
     <Compile Include="Controllers\productController.cs" />
-    <Compile Include="Database\HelloQQDB.Context.cs">
+    <Compile Include="Database\HelloQQModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>HelloQQDB.Context.tt</DependentUpon>
+      <DependentUpon>HelloQQModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Database\HelloQQDB.cs">
+    <Compile Include="Database\HelloQQModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>HelloQQDB.tt</DependentUpon>
+      <DependentUpon>HelloQQModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Database\HelloQQDB.Designer.cs">
+    <Compile Include="Database\HelloQQModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>HelloQQDB.edmx</DependentUpon>
+      <DependentUpon>HelloQQModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Database\image.cs">
-      <DependentUpon>HelloQQDB.tt</DependentUpon>
+    <Compile Include="Database\hqq_images.cs">
+      <DependentUpon>HelloQQModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Database\log_login.cs">
-      <DependentUpon>HelloQQDB.tt</DependentUpon>
+    <Compile Include="Database\hqq_log_login.cs">
+      <DependentUpon>HelloQQModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Database\member.cs">
-      <DependentUpon>HelloQQDB.tt</DependentUpon>
+    <Compile Include="Database\hqq_member.cs">
+      <DependentUpon>HelloQQModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Database\member_product.cs">
-      <DependentUpon>HelloQQDB.tt</DependentUpon>
+    <Compile Include="Database\hqq_member_product.cs">
+      <DependentUpon>HelloQQModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Database\meta_location.cs">
-      <DependentUpon>HelloQQDB.tt</DependentUpon>
+    <Compile Include="Database\hqq_meta_location.cs">
+      <DependentUpon>HelloQQModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Database\product.cs">
-      <DependentUpon>HelloQQDB.tt</DependentUpon>
+    <Compile Include="Database\hqq_product.cs">
+      <DependentUpon>HelloQQModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Database\product_review.cs">
-      <DependentUpon>HelloQQDB.tt</DependentUpon>
+    <Compile Include="Database\hqq_product_faq.cs">
+      <DependentUpon>HelloQQModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\hqq_product_images.cs">
+      <DependentUpon>HelloQQModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\hqq_product_review.cs">
+      <DependentUpon>HelloQQModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -239,15 +246,15 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
-    <Content Include="Database\HelloQQDB.Context.tt">
+    <Content Include="Database\HelloQQModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>HelloQQDB.edmx</DependentUpon>
-      <LastGenOutput>HelloQQDB.Context.cs</LastGenOutput>
+      <DependentUpon>HelloQQModel.edmx</DependentUpon>
+      <LastGenOutput>HelloQQModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Database\HelloQQDB.tt">
+    <Content Include="Database\HelloQQModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>HelloQQDB.edmx</DependentUpon>
-      <LastGenOutput>HelloQQDB.cs</LastGenOutput>
+      <DependentUpon>HelloQQModel.edmx</DependentUpon>
+      <LastGenOutput>HelloQQModel.cs</LastGenOutput>
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
@@ -278,18 +285,18 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
-    <EntityDeploy Include="Database\HelloQQDB.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>HelloQQDB.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Database\HelloQQDB.edmx.diagram">
-      <DependentUpon>HelloQQDB.edmx</DependentUpon>
-    </Content>
     <Content Include="fonts\FontAwesome.otf" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
+    <EntityDeploy Include="Database\HelloQQModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>HelloQQModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Database\HelloQQModel.edmx.diagram">
+      <DependentUpon>HelloQQModel.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

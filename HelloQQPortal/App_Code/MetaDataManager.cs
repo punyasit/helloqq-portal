@@ -18,12 +18,12 @@ namespace HelloQQPortal.Manager
 
         }
 
-        public meta_location GetMetaLocationInfo(string strLocation)
+        public hqq_meta_location GetMetaLocationInfo(string strLocation)
         {
-            meta_location result;
+            hqq_meta_location result;
             using (dbInfo = new helloqqdbEntities())
             {
-                result = dbInfo.meta_location.Where(
+                result = dbInfo.hqq_meta_location.Where(
                     item => item.name == strLocation
                 || item.keyword.Contains(strLocation)).FirstOrDefault();
             }

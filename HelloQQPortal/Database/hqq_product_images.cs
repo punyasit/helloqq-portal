@@ -12,17 +12,18 @@ namespace HelloQQPortal.Database
     using System;
     using System.Collections.Generic;
     
-    public partial class product_review
+    public partial class hqq_product_images
     {
         public int id { get; set; }
-        public Nullable<int> product_id { get; set; }
-        public string subject { get; set; }
-        public string short_description { get; set; }
-        public string review { get; set; }
-        public string created_on { get; set; }
+        public int product_id { get; set; }
+        public string filename { get; set; }
+        public string path { get; set; }
+        public string file_type { get; set; }
+        public string location { get; set; }
+        public Nullable<System.DateTime> created_on { get; set; }
         public int created_by { get; set; }
         public sbyte status { get; set; }
     
-        public virtual product product { get; set; }
+        public virtual hqq_product hqq_product { get; set; }
     }
 }

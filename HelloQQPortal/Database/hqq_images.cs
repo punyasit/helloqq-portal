@@ -12,10 +12,15 @@ namespace HelloQQPortal.Database
     using System;
     using System.Collections.Generic;
     
-    public partial class log_login
+    public partial class hqq_images
     {
-        public long id { get; set; }
-        public int member_id { get; set; }
-        public System.DateTime login_time { get; set; }
+        public int id { get; set; }
+        public string filename { get; set; }
+        public string path { get; set; }
+        public string file_type { get; set; }
+        public string location { get; set; }
+        public Nullable<System.DateTime> created_on { get; set; }
+        public int created_by { get; set; }
+        public sbyte status { get; set; }
     }
 }

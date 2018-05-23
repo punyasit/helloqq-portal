@@ -25,12 +25,14 @@ namespace HelloQQPortal.Database
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<image> images { get; set; }
-        public virtual DbSet<member> members { get; set; }
-        public virtual DbSet<member_product> member_product { get; set; }
-        public virtual DbSet<meta_location> meta_location { get; set; }
-        public virtual DbSet<product> products { get; set; }
-        public virtual DbSet<product_review> product_review { get; set; }
-        public virtual DbSet<log_login> log_login { get; set; }
+        public virtual DbSet<hqq_images> hqq_images { get; set; }
+        public virtual DbSet<hqq_log_login> hqq_log_login { get; set; }
+        public virtual DbSet<hqq_member> hqq_member { get; set; }
+        public virtual DbSet<hqq_member_product> hqq_member_product { get; set; }
+        public virtual DbSet<hqq_meta_location> hqq_meta_location { get; set; }
+        public virtual DbSet<hqq_product> hqq_product { get; set; }
+        public virtual DbSet<hqq_product_faq> hqq_product_faq { get; set; }
+        public virtual DbSet<hqq_product_images> hqq_product_images { get; set; }
+        public virtual DbSet<hqq_product_review> hqq_product_review { get; set; }
     }
 }

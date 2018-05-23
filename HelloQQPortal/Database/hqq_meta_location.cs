@@ -12,7 +12,7 @@ namespace HelloQQPortal.Database
     using System;
     using System.Collections.Generic;
     
-    public partial class meta_location
+    public partial class hqq_meta_location
     {
         public int id { get; set; }
         public string ISO_code { get; set; }

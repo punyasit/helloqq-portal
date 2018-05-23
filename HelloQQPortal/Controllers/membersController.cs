@@ -19,7 +19,7 @@ namespace HelloQQPortal.Controllers
         // GET: members
         public ActionResult Index()
         {
-            return View(dbInfo.members.ToList());
+            return View(dbInfo.hqq_member.ToList());
         }
 
         // GET: members/Details/5
@@ -29,7 +29,7 @@ namespace HelloQQPortal.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            member member = dbInfo.members.Find(id);
+            hqq_member member = dbInfo.hqq_member.Find(id);
             if (member == null)
             {
                 return HttpNotFound();
@@ -48,11 +48,11 @@ namespace HelloQQPortal.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,facebook_id,fullname,location_code,hometown_code,created_on,created_by,status")] member member)
+        public ActionResult Create([Bind(Include = "id,facebook_id,fullname,location_code,hometown_code,created_on,created_by,status")] hqq_member member)
         {
             if (ModelState.IsValid)
             {
-                dbInfo.members.Add(member);
+                dbInfo.hqq_member.Add(member);
                 dbInfo.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -67,7 +67,7 @@ namespace HelloQQPortal.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            member member = dbInfo.members.Find(id);
+            hqq_member member = dbInfo.hqq_member.Find(id);
             if (member == null)
             {
                 return HttpNotFound();
@@ -80,7 +80,7 @@ namespace HelloQQPortal.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,facebook_id,fullname,location_code,hometown_code,created_on,created_by,status")] member member)
+        public ActionResult Edit([Bind(Include = "id,facebook_id,fullname,location_code,hometown_code,created_on,created_by,status")] hqq_member member)
         {
             if (ModelState.IsValid)
             {
@@ -98,7 +98,7 @@ namespace HelloQQPortal.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            member member = dbInfo.members.Find(id);
+            hqq_member member = dbInfo.hqq_member.Find(id);
             if (member == null)
             {
                 return HttpNotFound();
@@ -111,8 +111,8 @@ namespace HelloQQPortal.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            member member = dbInfo.members.Find(id);
-            dbInfo.members.Remove(member);
+            hqq_member member = dbInfo.hqq_member.Find(id);
+            dbInfo.hqq_member.Remove(member);
             dbInfo.SaveChanges();
             return RedirectToAction("Index");
         }
