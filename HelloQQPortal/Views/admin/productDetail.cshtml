@@ -1,5 +1,88 @@
-﻿@{
+﻿@model HelloQQPortal.Database.hqq_product
+
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<h2>การจัดการสินค้า</h2>
 
+<div style="padding-left:40px;">
+    @using (Html.BeginForm("UpdateProductDetail", "admin", FormMethod.Post, new { id = "frmInput" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal admin">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            @if (Model.id > 0)
+            {
+                @Html.HiddenFor(model => model.id)
+                @Html.HiddenFor(model => model.created_by)
+
+                <div class="form-group row">
+                    @Html.Label("recordId", "ไอดี", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+                    <div class="col-sm-10">
+                        @Html.LabelForModel(Model.id.ToString(), htmlAttributes: new { @class = "form-label" })
+                    </div>
+                </div>
+            }
+            <div class="form-group row">
+                @Html.Label("productName", "ชื่อสินค้า", htmlAttributes: new { @class = "col-sm-2 col-form-label", id = "txtProductName" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.Label("productDescription", "รายละเอียดสินค้า", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.description, new { htmlAttributes = new { @class = "form-control", id = "txtProductDesc" } })
+                    @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @if (Model.id > 0)
+            {
+                <div class="form-group row">
+                    @Html.Label("createdOn", "ลงเมื่อ", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+                    <div class="col-md-10">
+                        <label class="form-label">@Model.created_on.ToString("dd MMM yyyy HH:mm:ss") </label>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    @Html.Label("modifiedOn", "อัพเดทล่าสุด", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+
+                    <div class="col-md-10">
+                        <label class="form-label">@(Model.modified_on.HasValue ? Model.modified_on.Value.ToString("dd MMM yyyy HH:mm:ss") : "") </label>
+                    </div>
+                </div>
+            }
+
+            <div class="form-group row">
+                @Html.Label("status", "สถานะผู้ใช้", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+                <div class="col-md-10" style="padding-top:6px;">
+                    @Html.DropDownListFor(model => model.status, new List<SelectListItem>
+                    {
+                        new SelectListItem{ Text="ใช้งาน", Value = "1" },
+                        new SelectListItem{ Text="ไม่ใช้งาน", Value = "0" }
+                    })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2 col-form-label">
+                    &nbsp;
+                </div>
+                <div class="col-md-10">
+                    <input type="submit" value="บันทึก" class="btn btn-primary btn-md active" />
+                    @*<input type="button" value="กลับหน้าหลัก" class="btn btn-default" />*@
+                    @*@Html.ActionLink("กลับหน้าหลัก", "product", "admin", new { @class = "btn btn-primary btn-md active", @role = "button" })*@
+                    <a href="/admin/product" role="button" class="btn btn-primary btn-md active">กลับหน้าหลัก</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

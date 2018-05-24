@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="helloqqdbModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="helloqqdbModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="hqq_images">
           <Key>
             <PropertyRef Name="id" />
@@ -73,8 +73,8 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="120" />
           <Property Name="description" Type="varchar" MaxLength="255" />
-          <Property Name="created_on" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" />
-          <Property Name="created_by" Type="int" />
+          <Property Name="created_on" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="created_by" Type="int" Nullable="false" />
           <Property Name="modified_on" Type="datetime" Precision="0" />
           <Property Name="modified_by" Type="int" />
           <Property Name="status" Type="tinyint" Nullable="false" />
@@ -213,7 +213,8 @@
             <End Role="hqq_product_review" EntitySet="hqq_product_review" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="helloqqdbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -230,37 +231,6 @@
           <Property Name="created_by" Type="Int32" Nullable="false" />
           <Property Name="status" Type="SByte" Nullable="false" />
         </EntityType>
-        <EntityContainer Name="helloqqdbEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="hqq_images" EntityType="Self.hqq_images" />
-          <EntitySet Name="hqq_log_login" EntityType="helloqqdbModel.hqq_log_login" />
-          <EntitySet Name="hqq_member" EntityType="helloqqdbModel.hqq_member" />
-          <EntitySet Name="hqq_member_product" EntityType="helloqqdbModel.hqq_member_product" />
-          <EntitySet Name="hqq_meta_location" EntityType="helloqqdbModel.hqq_meta_location" />
-          <EntitySet Name="hqq_product" EntityType="helloqqdbModel.hqq_product" />
-          <EntitySet Name="hqq_product_faq" EntityType="helloqqdbModel.hqq_product_faq" />
-          <EntitySet Name="hqq_product_images" EntityType="helloqqdbModel.hqq_product_images" />
-          <EntitySet Name="hqq_product_review" EntityType="helloqqdbModel.hqq_product_review" />
-          <AssociationSet Name="member_product_lnk_member" Association="helloqqdbModel.member_product_lnk_member">
-            <End Role="hqq_member" EntitySet="hqq_member" />
-            <End Role="hqq_member_product" EntitySet="hqq_member_product" />
-          </AssociationSet>
-          <AssociationSet Name="member_product_lnk_product" Association="helloqqdbModel.member_product_lnk_product">
-            <End Role="hqq_product" EntitySet="hqq_product" />
-            <End Role="hqq_member_product" EntitySet="hqq_member_product" />
-          </AssociationSet>
-          <AssociationSet Name="product_faq_lnk_product" Association="helloqqdbModel.product_faq_lnk_product">
-            <End Role="hqq_product" EntitySet="hqq_product" />
-            <End Role="hqq_product_faq" EntitySet="hqq_product_faq" />
-          </AssociationSet>
-          <AssociationSet Name="product_images_lnk_product" Association="helloqqdbModel.product_images_lnk_product">
-            <End Role="hqq_product" EntitySet="hqq_product" />
-            <End Role="hqq_product_images" EntitySet="hqq_product_images" />
-          </AssociationSet>
-          <AssociationSet Name="product_review_lnk_product" Association="helloqqdbModel.product_review_lnk_product">
-            <End Role="hqq_product" EntitySet="hqq_product" />
-            <End Role="hqq_product_review" EntitySet="hqq_product_review" />
-          </AssociationSet>
-        </EntityContainer>
         <EntityType Name="hqq_log_login">
           <Key>
             <PropertyRef Name="id" />
@@ -275,8 +245,8 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="facebook_id" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="fullname" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
-          <Property Name="facebook_name" Type="String" MaxLength="125" FixedLength="false" Unicode="false" />
+          <Property Name="fullname" Type="String" MaxLength="120" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="facebook_name" Type="String" MaxLength="125" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="picture_url" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="location_code" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
@@ -286,7 +256,7 @@
           <Property Name="created_on" Type="DateTime" Nullable="false" />
           <Property Name="modified_on" Type="DateTime" />
           <Property Name="status" Type="SByte" Nullable="false" />
-          <NavigationProperty Name="hqq_member_product" Relationship="helloqqdbModel.member_product_lnk_member" FromRole="hqq_member" ToRole="hqq_member_product" />
+          <NavigationProperty Name="hqq_member_product" Relationship="Self.member_product_lnk_member" FromRole="hqq_member" ToRole="hqq_member_product" />
         </EntityType>
         <EntityType Name="hqq_member_product">
           <Key>
@@ -298,15 +268,15 @@
           <Property Name="purchase_date" Type="DateTime" Nullable="false" />
           <Property Name="garantee_expired" Type="DateTime" />
           <Property Name="status" Type="SByte" Nullable="false" />
-          <NavigationProperty Name="hqq_member" Relationship="helloqqdbModel.member_product_lnk_member" FromRole="hqq_member_product" ToRole="hqq_member" />
-          <NavigationProperty Name="hqq_product" Relationship="helloqqdbModel.member_product_lnk_product" FromRole="hqq_member_product" ToRole="hqq_product" />
+          <NavigationProperty Name="hqq_member" Relationship="Self.member_product_lnk_member" FromRole="hqq_member_product" ToRole="hqq_member" />
+          <NavigationProperty Name="hqq_product" Relationship="Self.member_product_lnk_product" FromRole="hqq_member_product" ToRole="hqq_product" />
         </EntityType>
         <EntityType Name="hqq_meta_location">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ISO_code" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="ISO_code" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="keyword" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="language" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
@@ -319,15 +289,15 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
           <Property Name="description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="created_on" Type="DateTime" />
-          <Property Name="created_by" Type="Int32" />
-          <Property Name="status" Type="SByte" Nullable="false" />
-          <NavigationProperty Name="hqq_member_product" Relationship="helloqqdbModel.member_product_lnk_product" FromRole="hqq_product" ToRole="hqq_member_product" />
-          <NavigationProperty Name="hqq_product_faq" Relationship="helloqqdbModel.product_faq_lnk_product" FromRole="hqq_product" ToRole="hqq_product_faq" />
-          <NavigationProperty Name="hqq_product_images" Relationship="helloqqdbModel.product_images_lnk_product" FromRole="hqq_product" ToRole="hqq_product_images" />
-          <NavigationProperty Name="hqq_product_review" Relationship="helloqqdbModel.product_review_lnk_product" FromRole="hqq_product" ToRole="hqq_product_review" />
+          <Property Name="created_on" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="created_by" Type="Int32" Nullable="false" />
           <Property Name="modified_on" Type="DateTime" />
           <Property Name="modified_by" Type="Int32" />
+          <Property Name="status" Type="SByte" Nullable="false" />
+          <NavigationProperty Name="hqq_member_product" Relationship="Self.member_product_lnk_product" FromRole="hqq_product" ToRole="hqq_member_product" />
+          <NavigationProperty Name="hqq_product_faq" Relationship="Self.product_faq_lnk_product" FromRole="hqq_product" ToRole="hqq_product_faq" />
+          <NavigationProperty Name="hqq_product_images" Relationship="Self.product_images_lnk_product" FromRole="hqq_product" ToRole="hqq_product_images" />
+          <NavigationProperty Name="hqq_product_review" Relationship="Self.product_review_lnk_product" FromRole="hqq_product" ToRole="hqq_product_review" />
         </EntityType>
         <EntityType Name="hqq_product_faq">
           <Key>
@@ -342,7 +312,7 @@
           <Property Name="modified_on" Type="DateTime" />
           <Property Name="modified_by" Type="Int32" />
           <Property Name="status" Type="SByte" Nullable="false" />
-          <NavigationProperty Name="hqq_product" Relationship="helloqqdbModel.product_faq_lnk_product" FromRole="hqq_product_faq" ToRole="hqq_product" />
+          <NavigationProperty Name="hqq_product" Relationship="Self.product_faq_lnk_product" FromRole="hqq_product_faq" ToRole="hqq_product" />
         </EntityType>
         <EntityType Name="hqq_product_images">
           <Key>
@@ -350,14 +320,14 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="product_id" Type="Int32" Nullable="false" />
-          <Property Name="filename" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="path" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="filename" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="path" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="file_type" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
-          <Property Name="location" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="location" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="created_on" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="created_by" Type="Int32" Nullable="false" />
           <Property Name="status" Type="SByte" Nullable="false" />
-          <NavigationProperty Name="hqq_product" Relationship="helloqqdbModel.product_images_lnk_product" FromRole="hqq_product_images" ToRole="hqq_product" />
+          <NavigationProperty Name="hqq_product" Relationship="Self.product_images_lnk_product" FromRole="hqq_product_images" ToRole="hqq_product" />
         </EntityType>
         <EntityType Name="hqq_product_review">
           <Key>
@@ -365,17 +335,17 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="product_id" Type="Int32" />
-          <Property Name="subject" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="short_description" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="review" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="created_on" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="subject" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="short_description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="review" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="created_on" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="created_by" Type="Int32" Nullable="false" />
           <Property Name="status" Type="SByte" Nullable="false" />
-          <NavigationProperty Name="hqq_product" Relationship="helloqqdbModel.product_review_lnk_product" FromRole="hqq_product_review" ToRole="hqq_product" />
+          <NavigationProperty Name="hqq_product" Relationship="Self.product_review_lnk_product" FromRole="hqq_product_review" ToRole="hqq_product" />
         </EntityType>
         <Association Name="member_product_lnk_member">
-          <End Type="helloqqdbModel.hqq_member" Role="hqq_member" Multiplicity="1" />
-          <End Type="helloqqdbModel.hqq_member_product" Role="hqq_member_product" Multiplicity="*" />
+          <End Role="hqq_member" Type="Self.hqq_member" Multiplicity="1" />
+          <End Role="hqq_member_product" Type="Self.hqq_member_product" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="hqq_member">
               <PropertyRef Name="id" />
@@ -386,8 +356,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="member_product_lnk_product">
-          <End Type="helloqqdbModel.hqq_product" Role="hqq_product" Multiplicity="1" />
-          <End Type="helloqqdbModel.hqq_member_product" Role="hqq_member_product" Multiplicity="*" />
+          <End Role="hqq_product" Type="Self.hqq_product" Multiplicity="1" />
+          <End Role="hqq_member_product" Type="Self.hqq_member_product" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="hqq_product">
               <PropertyRef Name="id" />
@@ -398,8 +368,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="product_faq_lnk_product">
-          <End Type="helloqqdbModel.hqq_product" Role="hqq_product" Multiplicity="0..1" />
-          <End Type="helloqqdbModel.hqq_product_faq" Role="hqq_product_faq" Multiplicity="*" />
+          <End Role="hqq_product" Type="Self.hqq_product" Multiplicity="0..1" />
+          <End Role="hqq_product_faq" Type="Self.hqq_product_faq" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="hqq_product">
               <PropertyRef Name="id" />
@@ -410,10 +380,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="product_images_lnk_product">
-          <End Type="helloqqdbModel.hqq_product" Role="hqq_product" Multiplicity="1">
+          <End Role="hqq_product" Type="Self.hqq_product" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="helloqqdbModel.hqq_product_images" Role="hqq_product_images" Multiplicity="*" />
+          <End Role="hqq_product_images" Type="Self.hqq_product_images" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="hqq_product">
               <PropertyRef Name="id" />
@@ -424,8 +394,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="product_review_lnk_product">
-          <End Type="helloqqdbModel.hqq_product" Role="hqq_product" Multiplicity="0..1" />
-          <End Type="helloqqdbModel.hqq_product_review" Role="hqq_product_review" Multiplicity="*" />
+          <End Role="hqq_product" Type="Self.hqq_product" Multiplicity="0..1" />
+          <End Role="hqq_product_review" Type="Self.hqq_product_review" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="hqq_product">
               <PropertyRef Name="id" />
@@ -435,6 +405,37 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityContainer Name="helloqqdbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="hqq_images" EntityType="Self.hqq_images" />
+          <EntitySet Name="hqq_log_login" EntityType="Self.hqq_log_login" />
+          <EntitySet Name="hqq_member" EntityType="Self.hqq_member" />
+          <EntitySet Name="hqq_member_product" EntityType="Self.hqq_member_product" />
+          <EntitySet Name="hqq_meta_location" EntityType="Self.hqq_meta_location" />
+          <EntitySet Name="hqq_product" EntityType="Self.hqq_product" />
+          <EntitySet Name="hqq_product_faq" EntityType="Self.hqq_product_faq" />
+          <EntitySet Name="hqq_product_images" EntityType="Self.hqq_product_images" />
+          <EntitySet Name="hqq_product_review" EntityType="Self.hqq_product_review" />
+          <AssociationSet Name="member_product_lnk_member" Association="Self.member_product_lnk_member">
+            <End Role="hqq_member" EntitySet="hqq_member" />
+            <End Role="hqq_member_product" EntitySet="hqq_member_product" />
+          </AssociationSet>
+          <AssociationSet Name="member_product_lnk_product" Association="Self.member_product_lnk_product">
+            <End Role="hqq_product" EntitySet="hqq_product" />
+            <End Role="hqq_member_product" EntitySet="hqq_member_product" />
+          </AssociationSet>
+          <AssociationSet Name="product_faq_lnk_product" Association="Self.product_faq_lnk_product">
+            <End Role="hqq_product" EntitySet="hqq_product" />
+            <End Role="hqq_product_faq" EntitySet="hqq_product_faq" />
+          </AssociationSet>
+          <AssociationSet Name="product_images_lnk_product" Association="Self.product_images_lnk_product">
+            <End Role="hqq_product" EntitySet="hqq_product" />
+            <End Role="hqq_product_images" EntitySet="hqq_product_images" />
+          </AssociationSet>
+          <AssociationSet Name="product_review_lnk_product" Association="Self.product_review_lnk_product">
+            <End Role="hqq_product" EntitySet="hqq_product" />
+            <End Role="hqq_product_review" EntitySet="hqq_product_review" />
+          </AssociationSet>
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -458,110 +459,110 @@
           <EntitySetMapping Name="hqq_log_login">
             <EntityTypeMapping TypeName="helloqqdbModel.hqq_log_login">
               <MappingFragment StoreEntitySet="hqq_log_login">
-                <ScalarProperty Name="login_time" ColumnName="login_time" />
-                <ScalarProperty Name="member_id" ColumnName="member_id" />
                 <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="member_id" ColumnName="member_id" />
+                <ScalarProperty Name="login_time" ColumnName="login_time" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="hqq_member">
             <EntityTypeMapping TypeName="helloqqdbModel.hqq_member">
               <MappingFragment StoreEntitySet="hqq_member">
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="modified_on" ColumnName="modified_on" />
-                <ScalarProperty Name="created_on" ColumnName="created_on" />
-                <ScalarProperty Name="created_by" ColumnName="created_by" />
-                <ScalarProperty Name="role" ColumnName="role" />
-                <ScalarProperty Name="hometown_code" ColumnName="hometown_code" />
-                <ScalarProperty Name="location_code" ColumnName="location_code" />
-                <ScalarProperty Name="address" ColumnName="address" />
-                <ScalarProperty Name="picture_url" ColumnName="picture_url" />
-                <ScalarProperty Name="facebook_name" ColumnName="facebook_name" />
-                <ScalarProperty Name="fullname" ColumnName="fullname" />
-                <ScalarProperty Name="facebook_id" ColumnName="facebook_id" />
                 <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="facebook_id" ColumnName="facebook_id" />
+                <ScalarProperty Name="fullname" ColumnName="fullname" />
+                <ScalarProperty Name="facebook_name" ColumnName="facebook_name" />
+                <ScalarProperty Name="picture_url" ColumnName="picture_url" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="location_code" ColumnName="location_code" />
+                <ScalarProperty Name="hometown_code" ColumnName="hometown_code" />
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="created_on" ColumnName="created_on" />
+                <ScalarProperty Name="modified_on" ColumnName="modified_on" />
+                <ScalarProperty Name="status" ColumnName="status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="hqq_member_product">
             <EntityTypeMapping TypeName="helloqqdbModel.hqq_member_product">
               <MappingFragment StoreEntitySet="hqq_member_product">
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="garantee_expired" ColumnName="garantee_expired" />
-                <ScalarProperty Name="purchase_date" ColumnName="purchase_date" />
-                <ScalarProperty Name="product_id" ColumnName="product_id" />
-                <ScalarProperty Name="member_id" ColumnName="member_id" />
                 <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="member_id" ColumnName="member_id" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="purchase_date" ColumnName="purchase_date" />
+                <ScalarProperty Name="garantee_expired" ColumnName="garantee_expired" />
+                <ScalarProperty Name="status" ColumnName="status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="hqq_meta_location">
             <EntityTypeMapping TypeName="helloqqdbModel.hqq_meta_location">
               <MappingFragment StoreEntitySet="hqq_meta_location">
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="language" ColumnName="language" />
-                <ScalarProperty Name="keyword" ColumnName="keyword" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="ISO_code" ColumnName="ISO_code" />
                 <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ISO_code" ColumnName="ISO_code" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="keyword" ColumnName="keyword" />
+                <ScalarProperty Name="language" ColumnName="language" />
+                <ScalarProperty Name="status" ColumnName="status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="hqq_product">
             <EntityTypeMapping TypeName="helloqqdbModel.hqq_product">
               <MappingFragment StoreEntitySet="hqq_product">
-                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
-                <ScalarProperty Name="modified_on" ColumnName="modified_on" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="created_by" ColumnName="created_by" />
-                <ScalarProperty Name="created_on" ColumnName="created_on" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="created_on" ColumnName="created_on" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="modified_on" ColumnName="modified_on" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="status" ColumnName="status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="hqq_product_faq">
             <EntityTypeMapping TypeName="helloqqdbModel.hqq_product_faq">
               <MappingFragment StoreEntitySet="hqq_product_faq">
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
-                <ScalarProperty Name="modified_on" ColumnName="modified_on" />
-                <ScalarProperty Name="created_by" ColumnName="created_by" />
-                <ScalarProperty Name="created_on" ColumnName="created_on" />
-                <ScalarProperty Name="answer" ColumnName="answer" />
-                <ScalarProperty Name="question" ColumnName="question" />
-                <ScalarProperty Name="product_id" ColumnName="product_id" />
                 <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="question" ColumnName="question" />
+                <ScalarProperty Name="answer" ColumnName="answer" />
+                <ScalarProperty Name="created_on" ColumnName="created_on" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="modified_on" ColumnName="modified_on" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="status" ColumnName="status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="hqq_product_images">
             <EntityTypeMapping TypeName="helloqqdbModel.hqq_product_images">
               <MappingFragment StoreEntitySet="hqq_product_images">
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="created_by" ColumnName="created_by" />
-                <ScalarProperty Name="created_on" ColumnName="created_on" />
-                <ScalarProperty Name="location" ColumnName="location" />
-                <ScalarProperty Name="file_type" ColumnName="file_type" />
-                <ScalarProperty Name="path" ColumnName="path" />
-                <ScalarProperty Name="filename" ColumnName="filename" />
-                <ScalarProperty Name="product_id" ColumnName="product_id" />
                 <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="filename" ColumnName="filename" />
+                <ScalarProperty Name="path" ColumnName="path" />
+                <ScalarProperty Name="file_type" ColumnName="file_type" />
+                <ScalarProperty Name="location" ColumnName="location" />
+                <ScalarProperty Name="created_on" ColumnName="created_on" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="status" ColumnName="status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="hqq_product_review">
             <EntityTypeMapping TypeName="helloqqdbModel.hqq_product_review">
               <MappingFragment StoreEntitySet="hqq_product_review">
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="created_by" ColumnName="created_by" />
-                <ScalarProperty Name="created_on" ColumnName="created_on" />
-                <ScalarProperty Name="review" ColumnName="review" />
-                <ScalarProperty Name="short_description" ColumnName="short_description" />
-                <ScalarProperty Name="subject" ColumnName="subject" />
-                <ScalarProperty Name="product_id" ColumnName="product_id" />
                 <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="short_description" ColumnName="short_description" />
+                <ScalarProperty Name="review" ColumnName="review" />
+                <ScalarProperty Name="created_on" ColumnName="created_on" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="status" ColumnName="status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

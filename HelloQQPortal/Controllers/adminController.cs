@@ -13,6 +13,8 @@ namespace HelloQQPortal.Controllers
     public class adminController : Controller
     {
         private MemberManager memberMgr = new MemberManager();
+        private ProductManager productManager = new ProductManager();
+
         // GET: Admin
         public ActionResult Index()
         {
@@ -21,25 +23,7 @@ namespace HelloQQPortal.Controllers
             return View();
         }
 
-        // GET: Admin
-        public ActionResult ProductList(List<hqq_product> lstProductInfo)
-        {
-            return View();
-        }
-
-        // GET: Admin
-        public ActionResult ProductDetail(hqq_product productInfo)
-        {
-            if (productInfo.id == 0)
-            {
-               
-            }
-            else
-            {
-
-            }
-            return View();
-        }
+        
 
         public ActionResult UserList()
         {
@@ -76,6 +60,53 @@ namespace HelloQQPortal.Controllers
             {
                 throw ex;
             }
+          
+        }
+
+        // GET: Admin
+        public ActionResult ProductList()
+        {
+            List<hqq_product> lstProductInfo =  productManager.GetProductList();
+            return View(lstProductInfo);
+        }
+
+        // GET: Admin
+        public ActionResult ProductDetail(int? id)
+        {
+            hqq_product productInfo = new hqq_product();
+
+            if (id.HasValue && id.Value > 0)
+            {
+                productInfo = productManager.GetProductById(id.Value);
+            }
+
+            return View(productInfo);
+        }
+
+        [HttpPost]
+        public ActionResult UpdateProductDetail(hqq_product productInfo)
+        {
+            try
+            {
+                if (productInfo.id == 0)
+                {
+                    productInfo.created_on = DateTime.Now;
+                    productInfo.created_by = 1;
+                    productInfo = productManager.UpdateMember(productInfo);
+                }
+                else
+                {
+                    productInfo.modified_on = DateTime.Now;
+                    productInfo.modified_by = 1;
+                    productInfo = productManager.UpdateMember(productInfo);
+                }
+            }
+            catch(Exception)
+            {
+                return View(productInfo);
+            }
+
+            return Redirect("/admin/product");
           
         }
 

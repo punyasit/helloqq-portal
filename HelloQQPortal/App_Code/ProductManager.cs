@@ -9,7 +9,7 @@ using System.Data;
 using System.Data.Entity;
 
 
-namespace HelloQQPortal.App_Code
+namespace HelloQQPortal.Manager
 {
     public class ProductManager
     {
@@ -50,8 +50,14 @@ namespace HelloQQPortal.App_Code
             {
                 if(productInfo.id > 0)
                 {
-                    productInfo.created_on = DateTime.Now;
-                    dbInfo.hqq_product.Attach(productInfo);
+                    productInfo.modified_on = DateTime.Now;
+                    productInfo.modified_by = 1;
+                    dbInfo.Entry(productInfo).State = EntityState.Modified;
+                    //dbInfo.hqq_product.Attach(productInfo);
+                }
+                else
+                {
+                    dbInfo.hqq_product.Add(productInfo);
                 }
 
                 dbInfo.SaveChanges();

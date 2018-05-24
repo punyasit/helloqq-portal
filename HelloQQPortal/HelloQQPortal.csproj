@@ -175,7 +175,7 @@
   <ItemGroup>
     <Compile Include="App_Code\MemberManager.cs" />
     <Compile Include="App_Code\MetaDataManager.cs" />
-    <Content Include="App_Code\ProductManager.cs" />
+    <Compile Include="App_Code\ProductManager.cs" />
     <Compile Include="App_GlobalResources\resource.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -298,6 +298,7 @@
       <DependentUpon>HelloQQModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\formValidate-product.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
