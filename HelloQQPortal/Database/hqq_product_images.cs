@@ -19,10 +19,10 @@ namespace HelloQQPortal.Database
         public string filename { get; set; }
         public string path { get; set; }
         public string file_type { get; set; }
-        public string location { get; set; }
         public Nullable<System.DateTime> created_on { get; set; }
         public int created_by { get; set; }
         public sbyte status { get; set; }
+        public Nullable<long> length { get; set; }
     
         public virtual hqq_product hqq_product { get; set; }
     }

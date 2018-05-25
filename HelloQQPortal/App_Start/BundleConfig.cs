@@ -21,7 +21,8 @@ namespace HelloQQPortal
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+                      "~/Scripts/respond.js",
+                      "~/Scripts/dropzone/dropzone.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/FormValidation").Include(
                 "~/Scripts/FormValidation.js"));
@@ -30,7 +31,8 @@ namespace HelloQQPortal
                 .Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
-                      "~/Content/admin.css")
+                      "~/Content/admin.css",
+                      "~/Scripts/dropzone/dropzone.min.css")
                 .Include("~/Content/font-awesome.css", new CssRewriteUrlTransform()));
         }
     }

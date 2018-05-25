@@ -7,6 +7,9 @@ using HelloQQPortal.Models;
 using HelloQQPortal.Database;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
+using System.Web.Configuration;
+using System.Collections.Specialized;
 
 
 namespace HelloQQPortal.Manager
@@ -14,10 +17,12 @@ namespace HelloQQPortal.Manager
     public class ProductManager
     {
         private helloqqdbEntities dbInfo;
+        private HttpServerUtility server;
+        private NameValueCollection webConfig = WebConfigurationManager.AppSettings;
 
         public ProductManager()
         {
-           
+            server = System.Web.HttpContext.Current.Server;
         }
 
         public List<hqq_product> GetProductList()
@@ -44,7 +49,7 @@ namespace HelloQQPortal.Manager
         }
 
        
-        public hqq_product UpdateMember(hqq_product productInfo)
+        public hqq_product UpdateProductDetail(hqq_product productInfo)
         {
             using (dbInfo = new helloqqdbEntities())
             {
@@ -65,6 +70,55 @@ namespace HelloQQPortal.Manager
             }
 
             return productInfo;
+        }
+
+        public hqq_product_images AddProductImage(hqq_product productDetail, HttpPostedFileBase imageUpload)
+        {
+            hqq_product_images prdImgInfo;
+
+            string pathPattern = "{0}/{1:0000}/";
+            string filePattern = "{0}/{1}";
+            string filePath = string.Format(pathPattern, webConfig["image.location"],
+                productDetail.id.ToString());
+
+            if (!Directory.Exists(server.MapPath(filePath)))
+            {
+                Directory.CreateDirectory(server.MapPath(filePath));
+            }
+
+            filePath = string.Format(filePattern, filePath, imageUpload.FileName);
+            imageUpload.SaveAs(server.MapPath(filePath));
+
+            using (dbInfo = new helloqqdbEntities())
+            {
+                prdImgInfo = dbInfo.hqq_product_images.Where(
+                    item => item.hqq_product.id == productDetail.id)
+                    .FirstOrDefault();
+
+                if(prdImgInfo != null)
+                {
+                    File.Delete(server.MapPath(prdImgInfo.path));
+                    dbInfo.Entry(prdImgInfo).State = EntityState.Deleted;
+                    dbInfo.SaveChanges();
+                }
+
+                prdImgInfo = new hqq_product_images();
+                prdImgInfo.product_id = productDetail.id;
+
+                prdImgInfo.filename = imageUpload.FileName;
+                prdImgInfo.file_type = imageUpload.ContentType;
+                prdImgInfo.length = imageUpload.ContentLength;
+
+                prdImgInfo.created_on = DateTime.Now;
+                prdImgInfo.created_by = 1;
+
+                prdImgInfo.path = filePath;
+
+                dbInfo.hqq_product_images.Add(prdImgInfo);
+                dbInfo.SaveChanges();
+            }
+
+            return prdImgInfo;
         }
     }
 }
