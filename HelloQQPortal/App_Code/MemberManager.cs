@@ -21,7 +21,9 @@ namespace HelloQQPortal.Manager
 
         public List<hqq_member> GetMemberList()
         {
-            List<hqq_member> lsthqq_member = dbInfo.hqq_member.ToList();
+            List<hqq_member> lsthqq_member = dbInfo.hqq_member
+                                            .Include("hqq_member_product")
+                                            .ToList();
             return dbInfo.hqq_member.ToList();
         }
 
@@ -89,6 +91,30 @@ namespace HelloQQPortal.Manager
             }
 
              return hqq_memberInfo;
+        }
+
+        public hqq_member_product UpdateMemberProduct(hqq_member_product memberProductInfo)
+        {
+            using (dbInfo = new helloqqdbEntities())
+            {
+                if (memberProductInfo.id > 0)
+                {
+                    dbInfo.Entry(memberProductInfo).State = EntityState.Modified;
+                    dbInfo.SaveChanges();
+                }
+                else
+                {
+                    if (!dbInfo.hqq_member_product.Any(item => item.product_id == memberProductInfo.product_id))
+                    {
+                        dbInfo.hqq_member_product.Add(memberProductInfo);
+                        dbInfo.SaveChanges();
+                    }
+                }
+
+                dbInfo.SaveChanges();
+            }
+
+            return memberProductInfo;
         }
     }
 }

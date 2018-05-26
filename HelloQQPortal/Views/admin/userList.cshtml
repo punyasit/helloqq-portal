@@ -77,10 +77,10 @@
 
                 </td>*@
             <td>
-                <a href="/admin/member/edit/@item.id">แก้ไข</a>
+                <a href="/admin/member/@item.id">แก้ไข</a>
                 @*@Html.ActionLink("Edit", "userdetail", new { id = item.id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.id })*@
+                    @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.id })*@
             </td>
         </tr>
     }

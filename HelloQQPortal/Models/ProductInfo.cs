@@ -11,6 +11,9 @@ namespace HelloQQPortal.Models
     {
         public hqq_product ProductDetail { get; set; }
         public hqq_product_images ProductImage { get; set; }
+        public string ProductImageThumbURL { get; set; }
         public HttpPostedFileBase ImageUpload { get; set; }
     }
+
+
 }

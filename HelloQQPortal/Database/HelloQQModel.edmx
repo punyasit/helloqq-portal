@@ -101,6 +101,7 @@
           <Property Name="product_id" Type="int" Nullable="false" />
           <Property Name="filename" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="path" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="url" Type="varchar" MaxLength="255" />
           <Property Name="file_type" Type="varchar" MaxLength="16" />
           <Property Name="length" Type="bigint" />
           <Property Name="created_on" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" />
@@ -327,6 +328,7 @@
           <Property Name="status" Type="SByte" Nullable="false" />
           <NavigationProperty Name="hqq_product" Relationship="Self.product_images_lnk_product" FromRole="hqq_product_images" ToRole="hqq_product" />
           <Property Name="length" Type="Int64" />
+          <Property Name="url" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="hqq_product_review">
           <Key>
@@ -539,6 +541,7 @@
           <EntitySetMapping Name="hqq_product_images">
             <EntityTypeMapping TypeName="helloqqdbModel.hqq_product_images">
               <MappingFragment StoreEntitySet="hqq_product_images">
+                <ScalarProperty Name="url" ColumnName="url" />
                 <ScalarProperty Name="length" ColumnName="length" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="product_id" ColumnName="product_id" />

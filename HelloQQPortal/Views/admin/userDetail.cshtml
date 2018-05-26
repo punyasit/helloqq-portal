@@ -1,122 +1,193 @@
-﻿@model HelloQQPortal.Database.hqq_member
+﻿@model HelloQQPortal.Models.MemberInfo
 
 @{
     ViewBag.Title = "การจัดการผู้ใช้งาน";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
 <h2>แก้ไขผู้ใช้งาน</h2>
 
 <div style="padding-left:40px;">
-    @using (Html.BeginForm("updateUserDetail", "admin",FormMethod.Post))
+    @using (Html.BeginForm("UpdateUserDetail", "admin", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
 
-    <div class="form-horizontal admin">
+        <div class="form-horizontal admin">
 
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.id)
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.MemberDetail.id)
 
-        <div class="form-group row">
-            @Html.Label("recordId", "หมายเลขเร็คคอร์ท", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
-            <div class="col-sm-10">
-                @Html.LabelForModel(Model.facebook_name, htmlAttributes: new { @class = "form-label" })
+            <div class="form-group row">
+                @Html.Label("recordId", "หมายเลขเร็คคอร์ท", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+                <div class="col-sm-10">
+                    @Html.LabelForModel(Model.MemberDetail.facebook_name, htmlAttributes: new { @class = "form-label" })
+                </div>
             </div>
+
+            <div class="form-group row">
+                @Html.Label("facebookId", "หมายเลข Facebook", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+                <div class="col-md-10">
+                    @Html.LabelForModel(Model.MemberDetail.facebook_id, htmlAttributes: new { @class = "form-label" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.Label("facebookName", "ชื่อใน Facebook", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+                <div class="col-md-10">
+                    @Html.LabelForModel(Model.MemberDetail.facebook_name, htmlAttributes: new { @class = "form-label" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.Label("memberName", "ชื่อสมาชิก", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.MemberDetail.fullname, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.MemberDetail.fullname, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.Label("address", "ที่อยู่ในการจัดส่งสินค้า", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.MemberDetail.address, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.MemberDetail.address, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.Label("createdOn", "สมัครเมื่อ", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+
+                <div class="col-md-10">
+                    <label class="form-label">@Model.MemberDetail.created_on.ToString("dd MMM yyyy HH:mm:ss") </label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.Label("modifiedOn", "อัพเดทล่าสุด", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+
+                <div class="col-md-10">
+                    <label class="form-label"> @(Model.MemberDetail.modified_on.HasValue ? Model.MemberDetail.modified_on.Value.ToString("dd MMM yyyy HH:mm:ss") : "") </label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.Label("modifiedOn", "สินค้าผู้ใช้งาน", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+                <div class="col-md-10">
+                    <div class="form-row align-items-center">
+                        <div class="form-row align-items-center">
+                            <div class="col-sm-5 my-1">
+                                @Html.DropDownListFor(model => model.MemberProduct, 
+                                new SelectList(Model.ProductList, "id", "name"), 
+                                new { @class = "custom-select", id = "ddlProduct" })
+                            </div>
+                            <div class="col-sm-4 my-1">
+                                <label class="sr-only" for="inlineFormInputGroupUsername">Username</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"></div>
+                                    </div>
+                                    @Html.EditorFor(model => model.PurchasedOn,
+                                   new {htmlAttributes = new{
+                                                @Value = Model.MemberDetail.created_on.ToString("dd/MM/yyyy"),
+                                                @class = "form-control",
+                                                id = "txtPurchaseDate"
+                                            }})
+                                </div>
+                            </div>
+
+                            <div class="col-auto my-1">
+                                <input type="submit" formaction="UpdateUserProduct" class="btn btn-primary btn-md active" value="เพิ่มสินค้า"/>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-sm" style="margin-top:5px;">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">First</th>
+                                <th scope="col">Last</th>
+                                <th scope="col">Handle</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>mdo</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>Jacob</td>
+                                <td>Thornton</td>
+                                <td>fat</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>Larry</td>
+                                <td>the Bird</td>
+                                <td>twitter</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.Label("role", "ระดับผู้ใช้งาน", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+                <div class="col-md-10" style="padding-top:6px;">
+                    @*@Html.EditorFor(model => model.MemberDetail.status, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.MemberDetail.status, "", new { @class = "text-danger" })*@
+
+                    @Html.DropDownListFor(model => model.MemberDetail.role, new List<SelectListItem>
+                                {
+                                    new SelectListItem{ Text="ผู้ดูแล", Value = "99" },
+                                    new SelectListItem{ Text="สมาชิก", Value = "1" }
+                                },
+                          htmlAttributes: new { @class = "custom-select" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @Html.Label("status", "สถานะผู้ใช้", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+                <div class="col-md-10" style="padding-top:6px;">
+                    @*@Html.EditorFor(model => model.MemberDetail.status, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.MemberDetail.status, "", new { @class = "text-danger" })*@
+
+                    @Html.DropDownListFor(model => model.MemberDetail.status, new List<SelectListItem>
+                                {
+                                    new SelectListItem{ Text="ใช้งาน", Value = "1" },
+                                    new SelectListItem{ Text="ระงับการใช้งาน", Value = "0" }
+                                },
+                          htmlAttributes: new { @class = "custom-select" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2 col-form-label">
+                    &nbsp;
+                </div>
+                <div class="col-md-10">
+                    <input type="submit"  value="บันทึก" class="btn btn-primary btn-md active" />
+                    <a href="/admin/member" class="btn btn-primary btn-md active">กลับหน้าหลัก</a>
+                    @*@Html.ActionLink("กลับหน้าหลัก", "userList", "admin", new { @class = "btn btn-primary btn-md active", @role = "button" })*@
+                </div>
+            </div>
+
         </div>
-
-        <div class="form-group row">
-            @Html.Label("facebookId", "หมายเลข Facebook", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
-            <div class="col-md-10">
-                @Html.LabelForModel(Model.facebook_id, htmlAttributes: new { @class = "form-label" })
-            </div>
-        </div>
-
-        <div class="form-group row">
-            @Html.Label("facebookName", "ชื่อใน Facebook", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
-            <div class="col-md-10">
-                @Html.LabelForModel(Model.facebook_name, htmlAttributes: new { @class = "form-label" })
-            </div>
-        </div>
-
-        <div class="form-group row">
-            @Html.Label("memberName", "ชื่อสมาชิก", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.fullname, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.fullname, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group row">
-            @Html.Label("address", "ที่อยู่ในการจัดส่งสินค้า", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
-            <div class="col-md-10">
-                @Html.TextAreaFor(model => model.address, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group row">
-            @Html.Label("createdOn", "สมัครเมื่อ", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
-
-            <div class="col-md-10">
-                <label class="form-label">@Model.created_on.ToString("dd MMM yyyy HH:mm:ss") </label>
-            </div>
-        </div>
-
-        <div class="form-group row">
-            @Html.Label("modifiedOn", "อัพเดทล่าสุด", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
-
-            <div class="col-md-10">
-                <label class="form-label"> @(Model.modified_on.HasValue ? Model.modified_on.Value.ToString("dd MMM yyyy HH:mm:ss") : "") </label>
-            </div>
-        </div>
-
-        <div class="form-group row">
-            @Html.Label("role", "สถานะผู้ใช้", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
-            <div class="col-md-10" style="padding-top:6px;">
-                @*@Html.EditorFor(model => model.status, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.status, "", new { @class = "text-danger" })*@
-
-                @Html.DropDownListFor(model => model.role, new List<SelectListItem>
-                    {
-                        new SelectListItem{ Text="ผู้ดูแล", Value = "99" },
-                        new SelectListItem{ Text="สมาชิก", Value = "1" }
-                    })
-            </div>
-        </div>
-
-        <div class="form-group row">
-            @Html.Label("status", "สถานะผู้ใช้", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
-            <div class="col-md-10" style="padding-top:6px;">
-                @*@Html.EditorFor(model => model.status, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.status, "", new { @class = "text-danger" })*@
-
-                @Html.DropDownListFor(model => model.status, new List<SelectListItem>
-                    {
-                        new SelectListItem{ Text="ใช้งาน", Value = "1" },
-                        new SelectListItem{ Text="ระงับการใช้งาน", Value = "0" }
-                    })
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <div class="col-sm-2 col-form-label">
-                &nbsp;
-            </div>
-            <div class="col-md-10">
-                <input type="submit" value="บันทึก" class="btn btn-primary btn-md active" />
-                @*<input type="button" value="กลับหน้าหลัก" class="btn btn-default" />*@
-                @Html.ActionLink("กลับหน้าหลัก", "userList", "admin", new { @class = "btn btn-primary btn-md active", @role = "button" })
-            </div>
-        </div>
-    </div>
     }
 </div>
 
-@*<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>*@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
 }
+<script>
+    $(function () {
+        $('#txtPurchaseDate').datepicker({ dateFormat: 'dd/mm/yy' });
+    });
+</script>

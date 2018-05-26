@@ -23,6 +23,7 @@ namespace HelloQQPortal.Database
         public int created_by { get; set; }
         public sbyte status { get; set; }
         public Nullable<long> length { get; set; }
+        public string url { get; set; }
     
         public virtual hqq_product hqq_product { get; set; }
     }
