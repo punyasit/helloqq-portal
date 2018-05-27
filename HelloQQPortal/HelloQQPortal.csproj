@@ -369,8 +369,8 @@
     <Content Include="Views\admin\index.cshtml" />
     <Content Include="Views\admin\productList.cshtml" />
     <Content Include="Views\admin\productDetail.cshtml" />
-    <Content Include="Views\admin\userList.cshtml" />
-    <Content Include="Views\admin\userDetail.cshtml" />
+    <Content Include="Views\admin\memberList.cshtml" />
+    <Content Include="Views\admin\memberDetail.cshtml" />
     <Content Include="Views\admin\manualList.cshtml" />
     <Content Include="Views\admin\manualDetail.cshtml" />
     <Content Include="Views\admin\faqList.cshtml" />

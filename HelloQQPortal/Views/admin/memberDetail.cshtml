@@ -8,7 +8,7 @@
 <h2>แก้ไขผู้ใช้งาน</h2>
 
 <div style="padding-left:40px;">
-    @using (Html.BeginForm("UpdateUserDetail", "admin", FormMethod.Post))
+    @using (Html.BeginForm("UpdateMemberDetail", "admin", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
 
@@ -77,9 +77,11 @@
                     <div class="form-row align-items-center">
                         <div class="form-row align-items-center">
                             <div class="col-sm-5 my-1">
-                                @Html.DropDownListFor(model => model.MemberProduct, 
-                                new SelectList(Model.ProductList, "id", "name"), 
-                                new { @class = "custom-select", id = "ddlProduct" })
+                                @Html.DropDownListFor(model => model.SelectedProductId,
+                                     new SelectList(Model.ProductList,
+                                     "id", "name",
+                                     Model.SelectedProductId),
+                                     new { @class = "custom-select", id = "ddlProduct" })
                             </div>
                             <div class="col-sm-4 my-1">
                                 <label class="sr-only" for="inlineFormInputGroupUsername">Username</label>
@@ -88,16 +90,20 @@
                                         <div class="input-group-text"></div>
                                     </div>
                                     @Html.EditorFor(model => model.PurchasedOn,
-                                   new {htmlAttributes = new{
+                                        new
+                                        {
+                                            htmlAttributes = new
+                                            {
                                                 @Value = Model.MemberDetail.created_on.ToString("dd/MM/yyyy"),
                                                 @class = "form-control",
                                                 id = "txtPurchaseDate"
-                                            }})
+                                            }
+                                        })
                                 </div>
                             </div>
 
                             <div class="col-auto my-1">
-                                <input type="submit" formaction="UpdateUserProduct" class="btn btn-primary btn-md active" value="เพิ่มสินค้า"/>
+                                <button type="submit" name="Command" value="updateMemberProduct" class="btn btn-primary btn-md active">เพิ่มสินค้า</button>
                             </div>
                         </div>
                     </div>
@@ -105,34 +111,29 @@
                         <thead class="thead-dark">
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
+                                <th scope="col">สินค้า</th>
+                                <th scope="col">วันที่ซื้อ</th>
+                                <th scope="col">วันที่หมดประกัน</th>
+                                <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
+                              @if (Model.MemberProduct != null)
+                            {
+                                foreach (var item in Model.MemberProduct)
+                                {
                             <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>mdo</td>
+                                <th scope="row"> @Html.DisplayFor(modelItem => item.id)</th>
+                                <td>@Html.DisplayFor(modelItem => item.hqq_product.name)</td>
+                                <td>@item.purchase_date.ToString("dd MMM yyyy")</td>
+                                <td>@(item.garantee_expired.HasValue ? item.garantee_expired.Value.ToString("dd MMM yyyy") : "-")</td>
+                                <td><button type="submit" name="Command" value="cancel-purchase.@item.id" class="btn btn-outline-danger btn-sm">ยกเลิกการสั่งซื้อ</button></td>
+
                             </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>fat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>twitter</td>
-                            </tr>
+                             }
+                            }
                         </tbody>
                     </table>
-
-
                 </div>
             </div>
 
@@ -143,11 +144,11 @@
                         @Html.ValidationMessageFor(model => model.MemberDetail.status, "", new { @class = "text-danger" })*@
 
                     @Html.DropDownListFor(model => model.MemberDetail.role, new List<SelectListItem>
-                                {
-                                    new SelectListItem{ Text="ผู้ดูแล", Value = "99" },
-                                    new SelectListItem{ Text="สมาชิก", Value = "1" }
-                                },
-                          htmlAttributes: new { @class = "custom-select" })
+                                    {
+                                        new SelectListItem{ Text="ผู้ดูแล", Value = "99" },
+                                        new SelectListItem{ Text="สมาชิก", Value = "1" }
+                                    },
+                               htmlAttributes: new { @class = "custom-select" })
                 </div>
             </div>
 
@@ -158,11 +159,11 @@
                         @Html.ValidationMessageFor(model => model.MemberDetail.status, "", new { @class = "text-danger" })*@
 
                     @Html.DropDownListFor(model => model.MemberDetail.status, new List<SelectListItem>
-                                {
-                                    new SelectListItem{ Text="ใช้งาน", Value = "1" },
-                                    new SelectListItem{ Text="ระงับการใช้งาน", Value = "0" }
-                                },
-                          htmlAttributes: new { @class = "custom-select" })
+                                    {
+                                        new SelectListItem{ Text="ใช้งาน", Value = "1" },
+                                        new SelectListItem{ Text="ระงับการใช้งาน", Value = "0" }
+                                    },
+                               htmlAttributes: new { @class = "custom-select" })
                 </div>
             </div>
 
@@ -171,7 +172,7 @@
                     &nbsp;
                 </div>
                 <div class="col-md-10">
-                    <input type="submit"  value="บันทึก" class="btn btn-primary btn-md active" />
+                    <input type="submit" value="บันทึก" class="btn btn-primary btn-md active" />
                     <a href="/admin/member" class="btn btn-primary btn-md active">กลับหน้าหลัก</a>
                     @*@Html.ActionLink("กลับหน้าหลัก", "userList", "admin", new { @class = "btn btn-primary btn-md active", @role = "button" })*@
                 </div>
@@ -180,7 +181,6 @@
         </div>
     }
 </div>
-
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

@@ -42,13 +42,13 @@ namespace HelloQQPortal.Manager
                     .Where(item => item.facebook_id == userInfo.id)
                     .FirstOrDefault();
 
-                if(result != null)
+                if (result != null)
                 {
                     hqq_log_login entityInfo = new hqq_log_login();
                     entityInfo.login_time = DateTime.Now;
                     entityInfo.member_id = result.id;
 
-                    if(result.picture_url != userInfo.photoURL)
+                    if (result.picture_url != userInfo.photoURL)
                     {
                         result.picture_url = userInfo.photoURL;
                         result.modified_on = DateTime.Now;
@@ -63,7 +63,7 @@ namespace HelloQQPortal.Manager
                     dbInfo.hqq_log_login.Add(entityInfo);
                     dbInfo.SaveChanges();
                 }
-                
+
             }
 
             return result;
@@ -78,7 +78,7 @@ namespace HelloQQPortal.Manager
                     .Where(item => item.id == hqq_memberInfo.id)
                     .FirstOrDefault();
 
-                if(result != null)
+                if (result != null)
                 {
                     result.fullname = hqq_memberInfo.fullname;
                     result.address = hqq_memberInfo.address;
@@ -90,7 +90,7 @@ namespace HelloQQPortal.Manager
                 }
             }
 
-             return hqq_memberInfo;
+            return hqq_memberInfo;
         }
 
         public hqq_member_product UpdateMemberProduct(hqq_member_product memberProductInfo)
@@ -115,6 +115,24 @@ namespace HelloQQPortal.Manager
             }
 
             return memberProductInfo;
+        }
+
+        public bool DeleteMemberProduct(int id)
+        {
+            bool result = false;
+            using (dbInfo = new helloqqdbEntities())
+            {
+
+                hqq_member_product selectedItem = dbInfo.hqq_member_product.Find(id);
+                if (selectedItem != null)
+                {
+                    dbInfo.Entry(selectedItem).State = EntityState.Deleted;
+                    dbInfo.SaveChanges();
+
+                    result = true;
+                }
+            }
+            return result;
         }
     }
 }

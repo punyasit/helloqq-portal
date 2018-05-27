@@ -14,9 +14,6 @@ namespace HelloQQPortal
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.IgnoreRoute("members/");
 
-           
-
-
             routes.MapRoute(
                 name: "admin-product",
                 url: "admin/product/",
@@ -32,13 +29,13 @@ namespace HelloQQPortal
             routes.MapRoute(
                name: "admin-member",
                url: "admin/member/",
-               defaults: new { controller = "admin", action = "UserList", id = UrlParameter.Optional }
+               defaults: new { controller = "admin", action = "MemberList", id = UrlParameter.Optional }
                );
 
             routes.MapRoute(
                name: "admin-member-edit",
                url: "admin/member/{id}",
-               defaults: new { controller = "admin", action = "userdetail", id = UrlParameter.Optional }
+               defaults: new { controller = "admin", action = "Memberdetail", id = UrlParameter.Optional }
                );
 
             routes.MapRoute(

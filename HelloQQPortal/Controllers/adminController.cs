@@ -36,7 +36,7 @@ namespace HelloQQPortal.Controllers
         }
 
         // GET: Admin
-        public ActionResult UserDetail(int? id)
+        public ActionResult MemberDetail(int? id)
         {
             hqq_member member;
 
@@ -67,13 +67,41 @@ namespace HelloQQPortal.Controllers
 
 
         [HttpPost]
-        public ActionResult UpdateUserDetail(MemberInfo memberInfo)
+        public ActionResult UpdateMemberDetail(MemberInfo memberInfo, string command)
         {
             string rtnURL = "/admin/member";
 
             try
             {
-                memberMgr.UpdateMember(memberInfo.MemberDetail);
+                if (command.Equals("updateMemberProduct"))
+                {
+                    if (memberInfo.SelectedProductId > 0)
+                    {
+                        hqq_member_product mpInfo = new hqq_member_product();
+                       
+                            mpInfo.member_id = memberInfo.MemberDetail.id;
+                            mpInfo.product_id = memberInfo.SelectedProductId;
+                            mpInfo.purchase_date = DateTime.ParseExact(memberInfo.PurchasedOn, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                            mpInfo.garantee_expired = mpInfo
+                                .purchase_date.AddMonths(
+                                int.Parse(webConfig["product.garantee"]));
+
+                            memberMgr.UpdateMemberProduct(mpInfo);
+
+                            //memberProductInfo.garantee_expired = 
+                            //memberInfo.PurchasedOn
+                            //memberProductInfo.purchase_date =                       
+                    }
+                }
+                else if (command.Contains("cancel-purchase"))
+                {
+                    string selectedId = command.Split('.')[1];
+                    memberMgr.DeleteMemberProduct(int.Parse(selectedId));
+                }
+                else
+                {
+                    memberMgr.UpdateMember(memberInfo.MemberDetail);
+                }
             }
             catch (Exception ex)
             {
@@ -90,7 +118,7 @@ namespace HelloQQPortal.Controllers
         }
 
         [HttpPost]
-        public ActionResult UpdateUserProduct(MemberInfo memberInfo)
+        public ActionResult UpdateMemberProduct(MemberInfo memberInfo)
         {
             string rtnURL = "/admin/member";
             hqq_member_product mpInfo;
