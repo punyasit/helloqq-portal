@@ -9,8 +9,7 @@ using System.Collections.Specialized;
 
 
 namespace HelloQQPortal.Manager
-{
-   
+{  
 
     public class ImageManager
     {

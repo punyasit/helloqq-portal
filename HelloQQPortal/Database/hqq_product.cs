@@ -21,6 +21,7 @@ namespace HelloQQPortal.Database
             this.hqq_product_faq = new HashSet<hqq_product_faq>();
             this.hqq_product_images = new HashSet<hqq_product_images>();
             this.hqq_product_review = new HashSet<hqq_product_review>();
+            this.hqq_product_manual = new HashSet<hqq_product_manual>();
         }
     
         public int id { get; set; }
@@ -40,5 +41,7 @@ namespace HelloQQPortal.Database
         public virtual ICollection<hqq_product_images> hqq_product_images { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<hqq_product_review> hqq_product_review { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<hqq_product_manual> hqq_product_manual { get; set; }
     }
 }

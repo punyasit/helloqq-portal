@@ -33,6 +33,7 @@ namespace HelloQQPortal.Database
         public System.DateTime created_on { get; set; }
         public Nullable<System.DateTime> modified_on { get; set; }
         public sbyte status { get; set; }
+        public string postcode { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<hqq_member_product> hqq_member_product { get; set; }

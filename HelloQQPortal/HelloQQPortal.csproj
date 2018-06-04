@@ -174,8 +174,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Code\ImageManager.cs" />
+    <Content Include="App_Code\ProductManualManager.cs" />
     <Compile Include="App_Code\MemberManager.cs" />
     <Compile Include="App_Code\MetaDataManager.cs" />
+    <Content Include="App_Code\ProductFAQManager.cs" />
     <Compile Include="App_Code\ProductManager.cs" />
     <Compile Include="App_GlobalResources\resource.designer.cs">
       <AutoGen>True</AutoGen>
@@ -226,6 +228,9 @@
       <DependentUpon>HelloQQModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\hqq_product_images.cs">
+      <DependentUpon>HelloQQModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Database\hqq_product_manual.cs">
       <DependentUpon>HelloQQModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\hqq_product_review.cs">
@@ -431,7 +436,9 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50775</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:50775/</IISUrl>
+          <IISUrl>http://localhost:5500/</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://localhost:5500/</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

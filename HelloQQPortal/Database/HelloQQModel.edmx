@@ -38,6 +38,7 @@
           <Property Name="address" Type="varchar" MaxLength="255" />
           <Property Name="location_code" Type="varchar" MaxLength="5" />
           <Property Name="hometown_code" Type="varchar" MaxLength="5" />
+          <Property Name="postcode" Type="varchar" MaxLength="5" Nullable="false" />
           <Property Name="role" Type="tinyint" Nullable="false" />
           <Property Name="created_by" Type="int" />
           <Property Name="created_on" Type="datetime" Precision="0" Nullable="false" />
@@ -108,6 +109,20 @@
           <Property Name="created_by" Type="int" Nullable="false" />
           <Property Name="status" Type="tinyint" Nullable="false" />
         </EntityType>
+        <EntityType Name="hqq_product_manual">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="product_id" Type="int" Nullable="false" />
+          <Property Name="subject" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="content" Type="text" Nullable="false" />
+          <Property Name="created_on" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="created_by" Type="int" Nullable="false" />
+          <Property Name="modified_on" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="modified_by" Type="int" />
+          <Property Name="status" Type="tinyint" Nullable="false" />
+        </EntityType>
         <EntityType Name="hqq_product_review">
           <Key>
             <PropertyRef Name="id" />
@@ -171,6 +186,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="product_manual_lnk_product">
+          <End Role="hqq_product" Type="Self.hqq_product" Multiplicity="1" />
+          <End Role="hqq_product_manual" Type="Self.hqq_product_manual" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="hqq_product">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="hqq_product_manual">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="product_review_lnk_product">
           <End Role="hqq_product" Type="Self.hqq_product" Multiplicity="0..1" />
           <End Role="hqq_product_review" Type="Self.hqq_product_review" Multiplicity="*" />
@@ -192,6 +219,7 @@
           <EntitySet Name="hqq_product" EntityType="Self.hqq_product" Schema="helloqqdb" store:Type="Tables" />
           <EntitySet Name="hqq_product_faq" EntityType="Self.hqq_product_faq" Schema="helloqqdb" store:Type="Tables" />
           <EntitySet Name="hqq_product_images" EntityType="Self.hqq_product_images" Schema="helloqqdb" store:Type="Tables" />
+          <EntitySet Name="hqq_product_manual" EntityType="Self.hqq_product_manual" Schema="helloqqdb" store:Type="Tables" />
           <EntitySet Name="hqq_product_review" EntityType="Self.hqq_product_review" Schema="helloqqdb" store:Type="Tables" />
           <AssociationSet Name="member_product_lnk_member" Association="Self.member_product_lnk_member">
             <End Role="hqq_member" EntitySet="hqq_member" />
@@ -208,6 +236,10 @@
           <AssociationSet Name="product_images_lnk_product" Association="Self.product_images_lnk_product">
             <End Role="hqq_product" EntitySet="hqq_product" />
             <End Role="hqq_product_images" EntitySet="hqq_product_images" />
+          </AssociationSet>
+          <AssociationSet Name="product_manual_lnk_product" Association="Self.product_manual_lnk_product">
+            <End Role="hqq_product" EntitySet="hqq_product" />
+            <End Role="hqq_product_manual" EntitySet="hqq_product_manual" />
           </AssociationSet>
           <AssociationSet Name="product_review_lnk_product" Association="Self.product_review_lnk_product">
             <End Role="hqq_product" EntitySet="hqq_product" />
@@ -257,6 +289,7 @@
           <Property Name="modified_on" Type="DateTime" />
           <Property Name="status" Type="SByte" Nullable="false" />
           <NavigationProperty Name="hqq_member_product" Relationship="Self.member_product_lnk_member" FromRole="hqq_member" ToRole="hqq_member_product" />
+          <Property Name="postcode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="hqq_member_product">
           <Key>
@@ -298,6 +331,7 @@
           <NavigationProperty Name="hqq_product_faq" Relationship="Self.product_faq_lnk_product" FromRole="hqq_product" ToRole="hqq_product_faq" />
           <NavigationProperty Name="hqq_product_images" Relationship="Self.product_images_lnk_product" FromRole="hqq_product" ToRole="hqq_product_images" />
           <NavigationProperty Name="hqq_product_review" Relationship="Self.product_review_lnk_product" FromRole="hqq_product" ToRole="hqq_product_review" />
+          <NavigationProperty Name="hqq_product_manual" Relationship="helloqqdbModel.product_manual_lnk_product" FromRole="hqq_product" ToRole="hqq_product_manual" />
         </EntityType>
         <EntityType Name="hqq_product_faq">
           <Key>
@@ -436,7 +470,39 @@
             <End Role="hqq_product" EntitySet="hqq_product" />
             <End Role="hqq_product_review" EntitySet="hqq_product_review" />
           </AssociationSet>
+          <EntitySet Name="hqq_product_manual" EntityType="helloqqdbModel.hqq_product_manual" />
+          <AssociationSet Name="product_manual_lnk_product" Association="helloqqdbModel.product_manual_lnk_product">
+            <End Role="hqq_product" EntitySet="hqq_product" />
+            <End Role="hqq_product_manual" EntitySet="hqq_product_manual" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="hqq_product_manual">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="product_id" Type="Int32" Nullable="false" />
+          <Property Name="subject" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="content" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="created_on" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="created_by" Type="Int32" Nullable="false" />
+          <Property Name="modified_on" Type="DateTime" Nullable="false" />
+          <Property Name="modified_by" Type="Int32" />
+          <Property Name="status" Type="SByte" Nullable="false" />
+          <NavigationProperty Name="hqq_product" Relationship="helloqqdbModel.product_manual_lnk_product" FromRole="hqq_product_manual" ToRole="hqq_product" />
+        </EntityType>
+        <Association Name="product_manual_lnk_product">
+          <End Type="helloqqdbModel.hqq_product" Role="hqq_product" Multiplicity="1" />
+          <End Type="helloqqdbModel.hqq_product_manual" Role="hqq_product_manual" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="hqq_product">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="hqq_product_manual">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -469,6 +535,7 @@
           <EntitySetMapping Name="hqq_member">
             <EntityTypeMapping TypeName="helloqqdbModel.hqq_member">
               <MappingFragment StoreEntitySet="hqq_member">
+                <ScalarProperty Name="postcode" ColumnName="postcode" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="facebook_id" ColumnName="facebook_id" />
                 <ScalarProperty Name="fullname" ColumnName="fullname" />
@@ -565,6 +632,21 @@
                 <ScalarProperty Name="created_on" ColumnName="created_on" />
                 <ScalarProperty Name="created_by" ColumnName="created_by" />
                 <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="hqq_product_manual">
+            <EntityTypeMapping TypeName="helloqqdbModel.hqq_product_manual">
+              <MappingFragment StoreEntitySet="hqq_product_manual">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="modified_on" ColumnName="modified_on" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="created_on" ColumnName="created_on" />
+                <ScalarProperty Name="content" ColumnName="content" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

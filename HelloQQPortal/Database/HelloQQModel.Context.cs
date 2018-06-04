@@ -34,5 +34,6 @@ namespace HelloQQPortal.Database
         public virtual DbSet<hqq_product_faq> hqq_product_faq { get; set; }
         public virtual DbSet<hqq_product_images> hqq_product_images { get; set; }
         public virtual DbSet<hqq_product_review> hqq_product_review { get; set; }
+        public virtual DbSet<hqq_product_manual> hqq_product_manual { get; set; }
     }
 }

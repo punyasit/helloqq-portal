@@ -157,7 +157,14 @@
                             @Html.Label("lbFullName", "ที่อยู่ที่ใช้ในการจัดส่งสินค้า", htmlAttributes: new { @class = "control-label", })
                             <div>
                                 @Html.TextAreaFor(model => model.address, new { htmlAttributes = new { id = "txtAddress", @class = "form -control register", value = "" } })
-                                @Html.ValidationMessageFor(model => model.fullname, "", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group register">
+                            @Html.Label("lbPostCode", "รหัสไปรษณย์", htmlAttributes: new { @class = "control-label", })
+                            <div>
+                                @Html.EditorFor(model => model.postcode, new { htmlAttributes = new { id = "txtAddress", @class = "form -control register", value = "", required="", pattern = "\\d*"  } })
+                                @Html.ValidationMessageFor(model => model.postcode, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
