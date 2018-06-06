@@ -7,19 +7,19 @@
       <Diagram DiagramId="84b0106ce5a7422c848514b679e79e95" Name="Diagram1">
         <EntityTypeShape EntityType="helloqqdbModel.hqq_images" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="helloqqdbModel.hqq_log_login" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="helloqqdbModel.hqq_member" Width="1.5" PointX="3.75" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="helloqqdbModel.hqq_member_product" Width="1.5" PointX="6" PointY="7" IsExpanded="true" />
-        <EntityTypeShape EntityType="helloqqdbModel.hqq_meta_location" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="helloqqdbModel.hqq_member" Width="1.5" PointX="3.25" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="helloqqdbModel.hqq_member_product" Width="2" PointX="6" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="helloqqdbModel.hqq_meta_location" Width="2.25" PointX="5.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="helloqqdbModel.hqq_product" Width="1.5" PointX="0.75" PointY="6.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="helloqqdbModel.hqq_product_faq" Width="1.5" PointX="3" PointY="6.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="helloqqdbModel.hqq_product_images" Width="1.5" PointX="3" PointY="10.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="helloqqdbModel.hqq_product_review" Width="1.5" PointX="3" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="helloqqdbModel.hqq_product_faq" Width="1.875" PointX="3" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="helloqqdbModel.hqq_product_images" Width="2" PointX="3" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="helloqqdbModel.hqq_product_review" Width="2.25" PointX="3" PointY="13.875" IsExpanded="true" />
         <AssociationConnector Association="helloqqdbModel.member_product_lnk_member" ManuallyRouted="false" />
         <AssociationConnector Association="helloqqdbModel.member_product_lnk_product" ManuallyRouted="false" />
         <AssociationConnector Association="helloqqdbModel.product_faq_lnk_product" ManuallyRouted="false" />
         <AssociationConnector Association="helloqqdbModel.product_images_lnk_product" ManuallyRouted="false" />
         <AssociationConnector Association="helloqqdbModel.product_review_lnk_product" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="helloqqdbModel.hqq_product_manual" Width="1.5" PointX="3" PointY="17.75" />
+        <EntityTypeShape EntityType="helloqqdbModel.hqq_product_manual" Width="2.25" PointX="3" PointY="17.75" />
         <AssociationConnector Association="helloqqdbModel.product_manual_lnk_product" />
       </Diagram>
     </edmx:Diagrams>

@@ -100,4 +100,3 @@ namespace HelloQQPortal.Manager
         }
     }
 }
-}

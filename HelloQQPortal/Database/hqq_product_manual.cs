@@ -20,7 +20,7 @@ namespace HelloQQPortal.Database
         public string content { get; set; }
         public System.DateTime created_on { get; set; }
         public int created_by { get; set; }
-        public System.DateTime modified_on { get; set; }
+        public Nullable<System.DateTime> modified_on { get; set; }
         public Nullable<int> modified_by { get; set; }
         public sbyte status { get; set; }
     

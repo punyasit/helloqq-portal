@@ -19,7 +19,9 @@ namespace HelloQQPortal.Controllers
     {
         private MemberManager memberMgr = new MemberManager();
         private ProductManager productManager = new ProductManager();
+        private ProductManualManager productManualMgr = new ProductManualManager();
         private NameValueCollection webConfig = WebConfigurationManager.AppSettings;
+
         public MemberInfo memberInfo = new MemberInfo();
 
         // GET: Admin
@@ -231,15 +233,43 @@ namespace HelloQQPortal.Controllers
             return Redirect(rtnURL);
         }
 
-        public ActionResult ManualList()
+        public ActionResult ProductManualList()
         {
             return View();
         }
 
         // GET: Admin
-        public ActionResult ManualDetail()
+        public ActionResult ProductManualDetail(int? id)
         {
-            return View();
+            ProductManualInfo productManualInfo = new ProductManualInfo();
+            productManualInfo.ProductManual = new hqq_product_manual();
+
+            productManualInfo.ProductList = productManager.GetProductList();
+
+            return View(productManualInfo);
+        }
+
+        [HttpPost]
+        // GET: Admin
+        public ActionResult UpdateProductManualDetail(ProductManualInfo productManualInfo)
+        {
+            hqq_product_manual productManual = new hqq_product_manual();
+
+            if (productManualInfo.SelectedProductId > 0)
+            {
+                productManual = productManualInfo.ProductManual;
+                productManual.content = productManualInfo.ProductManualContent;
+                productManual.modified_on = DateTime.Now;
+                productManual.modified_by = 1;
+            }
+            else
+            {
+                productManual.content = productManualInfo.ProductManualContent;
+                productManual.created_on = DateTime.Now;
+                productManual.created_by = 1;
+            }
+
+            return View(productManualInfo);
         }
 
         public ActionResult FaqList()

@@ -119,7 +119,7 @@
           <Property Name="content" Type="text" Nullable="false" />
           <Property Name="created_on" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="created_by" Type="int" Nullable="false" />
-          <Property Name="modified_on" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="modified_on" Type="datetime" Precision="0" />
           <Property Name="modified_by" Type="int" />
           <Property Name="status" Type="tinyint" Nullable="false" />
         </EntityType>
@@ -486,7 +486,7 @@
           <Property Name="content" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="created_on" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="created_by" Type="Int32" Nullable="false" />
-          <Property Name="modified_on" Type="DateTime" Nullable="false" />
+          <Property Name="modified_on" Type="DateTime" />
           <Property Name="modified_by" Type="Int32" />
           <Property Name="status" Type="SByte" Nullable="false" />
           <NavigationProperty Name="hqq_product" Relationship="helloqqdbModel.product_manual_lnk_product" FromRole="hqq_product_manual" ToRole="hqq_product" />

@@ -174,7 +174,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Code\ImageManager.cs" />
-    <Content Include="App_Code\ProductManualManager.cs" />
+    <Compile Include="App_Code\ProductManualManager.cs" />
     <Compile Include="App_Code\MemberManager.cs" />
     <Compile Include="App_Code\MetaDataManager.cs" />
     <Content Include="App_Code\ProductFAQManager.cs" />
@@ -241,6 +241,7 @@
     </Compile>
     <Compile Include="Models\MemberInfo.cs" />
     <Compile Include="Models\ProductInfo.cs" />
+    <Compile Include="Models\ProductManualInfo.cs" />
     <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -376,8 +377,8 @@
     <Content Include="Views\admin\productDetail.cshtml" />
     <Content Include="Views\admin\memberList.cshtml" />
     <Content Include="Views\admin\memberDetail.cshtml" />
-    <Content Include="Views\admin\manualList.cshtml" />
-    <Content Include="Views\admin\manualDetail.cshtml" />
+    <Content Include="Views\admin\productManualList.cshtml" />
+    <Content Include="Views\admin\productManualDetail.cshtml" />
     <Content Include="Views\admin\faqList.cshtml" />
     <Content Include="Views\admin\faqDetail.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
