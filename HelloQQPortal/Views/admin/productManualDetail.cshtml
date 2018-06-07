@@ -26,6 +26,7 @@
         @if (Model.ProductManual.id > 0)
     {
         @Html.HiddenFor(model => model.ProductManual.id)
+        @Html.HiddenFor(model => model.ProductManualContent)
         @Html.HiddenFor(model => model.ProductManual.created_by)
 
         <div class="form-group row">
@@ -39,10 +40,10 @@
             @Html.Label("product", "สินค้า", htmlAttributes: new { @class = "col-sm-2 col-form-label", id = "lbProductName" })
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.SelectedProductId,
-                     new SelectList(Model.ProductList,
-                     "id", "name",
-                     Model.SelectedProductId),
-                     new { @class = "custom-select", id = "ddlProduct" })
+                      new SelectList(Model.ProductList,
+                      "id", "name",
+                      Model.SelectedProductId),
+                      new { @class = "custom-select", id = "ddlProduct" })
             </div>
         </div>
 
@@ -97,7 +98,7 @@
             <div class="col-md-10">
                 <label class="form-label">
                     @(Model.ProductManual.modified_on.HasValue
-                                                                                                ? Model.ProductManual.modified_on.Value.ToString("dd MMM yyyy HH:mm:ss") : "")
+                                                                                                    ? Model.ProductManual.modified_on.Value.ToString("dd MMM yyyy HH:mm:ss") : "")
                 </label>
             </div>
         </div>
@@ -107,11 +108,11 @@
             @Html.Label("status", "สถานะผู้ใช้", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
             <div class="col-md-10" style="padding-top:6px;">
                 @Html.DropDownListFor(model => model.ProductManual.status, new List<SelectListItem>
-                                            {
-                                                new SelectListItem{ Text="ใช้งาน", Value = "1" },
-                                                new SelectListItem{ Text="ไม่ใช้งาน", Value = "0" }
-                                            },
-                                                   htmlAttributes: new { @class = "custom-select" })
+                                        {
+                                            new SelectListItem{ Text="ใช้งาน", Value = "1" },
+                                            new SelectListItem{ Text="ไม่ใช้งาน", Value = "0" }
+                                        },
+                                                    htmlAttributes: new { @class = "custom-select" })
             </div>
         </div>
 
@@ -120,27 +121,21 @@
                 &nbsp;
             </div>
             <div class="col-md-10">
-                <input type="submit" value="บันทึก" class="btn btn-primary btn-md active" />
+                <input type="submit" value="บันทึก" onclick="updateContent()" class="btn btn-primary btn-md active" />
                 @*<input type="button" value="กลับหน้าหลัก" class="btn btn-default" />*@
                 @*@Html.ActionLink("กลับหน้าหลัก", "product", "admin", new { @class = "btn btn-primary btn-md active", @role = "button" })*@
-                <a href="/admin/product" role="button" class="btn btn-primary btn-md active">กลับหน้าหลัก</a>
+                <a href="/admin/product-manual" role="button" class="btn btn-primary btn-md active">กลับหน้าหลัก</a>
             </div>
         </div>
     </div>
 
-        <script>
-            $('#summernote').summernote({
-                tabsize: 2,
-                height: 300
-            });
-
+        <script>          
             var edit = function () {
                 $('#summernote').summernote({
                     tabsize: 2,
                     height: 300,
                     focus: true
                 });
-
             };
 
             var preview = function () {
@@ -148,6 +143,19 @@
                 $('#ProductManualContent').val($('#summernote').summernote('code'));
                 $('#summernote').summernote('destroy');
             };
+
+            var updateContent = function () {
+                $('#ProductManualContent').val($('#summernote').summernote('code'));
+            }
+
+            $(document).ready(function () {
+                $('#summernote').html($('#ProductManualContent').val());
+                $('#summernote').summernote({
+                    tabsize: 2,
+                    height: 300
+                });                
+            })
+            
         </script>
     }
 </div>

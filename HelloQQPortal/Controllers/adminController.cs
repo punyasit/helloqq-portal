@@ -67,7 +67,6 @@ namespace HelloQQPortal.Controllers
             return View(memberInfo);
         }
 
-
         [HttpPost]
         public ActionResult UpdateMemberDetail(MemberInfo memberInfo, string command)
         {
@@ -235,7 +234,8 @@ namespace HelloQQPortal.Controllers
 
         public ActionResult ProductManualList()
         {
-            return View();
+            List<hqq_product_manual> lstProductManual = productManualMgr.GetProductManualList();
+            return View(lstProductManual);
         }
 
         // GET: Admin
@@ -243,9 +243,14 @@ namespace HelloQQPortal.Controllers
         {
             ProductManualInfo productManualInfo = new ProductManualInfo();
             productManualInfo.ProductManual = new hqq_product_manual();
-
             productManualInfo.ProductList = productManager.GetProductList();
 
+            if (id.HasValue)
+            {
+                productManualInfo.ProductManual = productManualMgr.GetProdutManualById(id.Value);
+                productManualInfo.ProductManualContent = productManualInfo.ProductManual.content;
+                productManualInfo.SelectedProductId = productManualInfo.ProductManual.product_id;
+            }
             return View(productManualInfo);
         }
 
@@ -254,22 +259,34 @@ namespace HelloQQPortal.Controllers
         public ActionResult UpdateProductManualDetail(ProductManualInfo productManualInfo)
         {
             hqq_product_manual productManual = new hqq_product_manual();
+            string rtnURL = "/admin/product-manual";
 
-            if (productManualInfo.SelectedProductId > 0)
+            if (productManualInfo.ProductManual.id > 0)
             {
                 productManual = productManualInfo.ProductManual;
+                productManual.product_id = productManualInfo.SelectedProductId;
                 productManual.content = productManualInfo.ProductManualContent;
                 productManual.modified_on = DateTime.Now;
                 productManual.modified_by = 1;
             }
             else
             {
+                productManual = productManualInfo.ProductManual;
+                productManual.product_id = productManualInfo.SelectedProductId;
                 productManual.content = productManualInfo.ProductManualContent;
                 productManual.created_on = DateTime.Now;
                 productManual.created_by = 1;
+                productManual.status = 1;
             }
 
-            return View(productManualInfo);
+            productManual = productManualMgr.UpdateProductManualDetail(productManual);
+
+            if (productManualInfo.ProductManual.id > 0)
+            {
+                rtnURL = rtnURL + "/" + productManualInfo.ProductManual.id;
+            }
+
+            return Redirect(rtnURL);
         }
 
         public ActionResult FaqList()
