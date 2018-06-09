@@ -39,6 +39,12 @@ namespace HelloQQPortal
                 );
 
             routes.MapRoute(
+                    name: "admin-product-manual-delete-image",
+                    url: "admin/product-manual-image/{productManualId}/{imageId}",
+                    defaults: new { controller = "admin", action = "ProductManualImageDelete" }
+                    );
+
+            routes.MapRoute(
                name: "admin-member",
                url: "admin/member/",
                defaults: new { controller = "admin", action = "MemberList", id = UrlParameter.Optional }
@@ -49,6 +55,12 @@ namespace HelloQQPortal
                url: "admin/member/{id}",
                defaults: new { controller = "admin", action = "Memberdetail", id = UrlParameter.Optional }
                );
+
+            routes.MapRoute(
+               name: "GetImage",
+                url: "image/{id}/{param}",
+               defaults: new { controller = "Home", action = "GetImage", id = UrlParameter.Optional, param = UrlParameter.Optional }
+            );
 
             routes.MapRoute(
               name: "register",

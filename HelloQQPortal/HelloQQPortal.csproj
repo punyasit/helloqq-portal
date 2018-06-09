@@ -173,6 +173,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Code\HQQBase.cs" />
     <Compile Include="App_Code\ImageManager.cs" />
     <Compile Include="App_Code\ProductManualManager.cs" />
     <Compile Include="App_Code\MemberManager.cs" />
@@ -257,10 +258,10 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
-    <Content Include="Content\Images\00001\sq-Xventure2-012.png" />
-    <Content Include="Content\Images\00001\thmb-sq-Xventure2-012.png" />
-    <Content Include="Content\Images\00002\sq-Xventure2-016.png" />
-    <Content Include="Content\Images\00002\thmb-sq-Xventure2-016.png" />
+    <Content Include="Content\Images\Product\00001\sq-Xventure2-012.png" />
+    <Content Include="Content\Images\Product\00001\thmb-sq-Xventure2-012.png" />
+    <Content Include="Content\Images\Product\00002\sq-Xventure2-016.png" />
+    <Content Include="Content\Images\Product\00002\thmb-sq-Xventure2-016.png" />
     <Content Include="Content\Images\ui-icons_444444_256x240.png" />
     <Content Include="Content\Images\ui-icons_555555_256x240.png" />
     <Content Include="Content\Images\ui-icons_777620_256x240.png" />

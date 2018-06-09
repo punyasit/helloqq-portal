@@ -52,7 +52,15 @@
                         <image src="@Url.Content(Model.ProductImageThumbURL)" style="width:100px;"></image>
                     }
                     @*<img src="@Url.Content("~/content/images/000001/sq-Xventure2-001.png")" style="width:100px;"/>*@
-                    @Html.TextBoxFor(m => m.ImageUpload, new { type = "file", @class = "custom-file-input" })
+                    @*<label class="custom-file">
+                            @Html.TextBoxFor(m => m.ImageUpload, new { type = "file", @class = "custom-file-input" })
+                            <span class="custom-file-control"></span>
+                        </label>*@
+                    <br />
+                    <div class="custom-file">
+                        @Html.TextBoxFor(m => m.ImageUpload, new { type = "file", @class = "custom-file-input" })
+                        <label class="custom-file-label" for="customFile">Choose file</label>
+                    </div>
                 </div>
             </div>
 
@@ -70,11 +78,11 @@
 
                     <div class="col-md-10">
                         <label class="form-label">
-                            @(Model.ProductDetail.modified_on.HasValue 
-                            ? Model.ProductDetail.modified_on.Value.ToString("dd MMM yyyy HH:mm:ss") : "")
-                    </label>
+                            @(Model.ProductDetail.modified_on.HasValue
+                                                                    ? Model.ProductDetail.modified_on.Value.ToString("dd MMM yyyy HH:mm:ss") : "")
+                        </label>
+                    </div>
                 </div>
-            </div>
             }
 
 
@@ -82,11 +90,11 @@
                 @Html.Label("status", "สถานะผู้ใช้", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
                 <div class="col-md-10" style="padding-top:6px;">
                     @Html.DropDownListFor(model => model.ProductDetail.status, new List<SelectListItem>
-                                                {
-                                                    new SelectListItem{ Text="ใช้งาน", Value = "1" },
-                                                    new SelectListItem{ Text="ไม่ใช้งาน", Value = "0" }
-                                                },
-                                 htmlAttributes: new { @class = "custom-select" });
+                                                                    {
+                                                                        new SelectListItem{ Text="ใช้งาน", Value = "1" },
+                                                                        new SelectListItem{ Text="ไม่ใช้งาน", Value = "0" }
+                                                                    },
+                                                          htmlAttributes: new { @class = "custom-select" });
                 </div>
             </div>
 

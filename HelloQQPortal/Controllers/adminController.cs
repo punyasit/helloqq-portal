@@ -18,6 +18,7 @@ namespace HelloQQPortal.Controllers
     public class adminController : Controller
     {
         private MemberManager memberMgr = new MemberManager();
+        private ImageManager imageMgr = new ImageManager();
         private ProductManager productManager = new ProductManager();
         private ProductManualManager productManualMgr = new ProductManualManager();
         private NameValueCollection webConfig = WebConfigurationManager.AppSettings;
@@ -175,7 +176,7 @@ namespace HelloQQPortal.Controllers
 
                     productInfo.ProductImage = productInfo.ProductDetail.hqq_product_images.FirstOrDefault();
                     FileInfo fileInfo = new FileInfo(productInfo.ProductImage.url);
-                    productInfo.ProductImageThumbURL = string.Format("{0}thmb-{1}",
+                    productInfo.ProductImageThumbURL = string.Format("{0}/thmb-{1}",
                         productInfo.ProductImage.url.Substring(0, productInfo.ProductImage.url.LastIndexOf("/"))
                         , fileInfo.Name, fileInfo.Extension);
                 }
@@ -250,16 +251,20 @@ namespace HelloQQPortal.Controllers
                 productManualInfo.ProductManual = productManualMgr.GetProdutManualById(id.Value);
                 productManualInfo.ProductManualContent = productManualInfo.ProductManual.content;
                 productManualInfo.SelectedProductId = productManualInfo.ProductManual.product_id;
+                productManualInfo.ProductManualImage = productManualMgr.GetManualImagesList(id.Value);
             }
             return View(productManualInfo);
         }
 
+       
         [HttpPost]
         // GET: Admin
         public ActionResult UpdateProductManualDetail(ProductManualInfo productManualInfo)
         {
             hqq_product_manual productManual = new hqq_product_manual();
+            
             string rtnURL = "/admin/product-manual";
+            string strProductImg = "";
 
             if (productManualInfo.ProductManual.id > 0)
             {
@@ -279,7 +284,53 @@ namespace HelloQQPortal.Controllers
                 productManual.status = 1;
             }
 
-            productManual = productManualMgr.UpdateProductManualDetail(productManual);
+            strProductImg = productManualMgr.AddProductManualImage(productManualInfo.ImageUpload, productManual.id, productManual.product_id);
+
+            if (productManualInfo.ProductManual.id > 0)
+            {
+                rtnURL = rtnURL + "/" + productManualInfo.ProductManual.id;
+            }
+
+            return Redirect(rtnURL);
+        }
+
+        public ActionResult ProductManualImageDelete(int productManualId,int imageId)
+        {
+            string rtnURL = "/admin/product-manual";
+            rtnURL = rtnURL + "/" + productManualId;
+
+            imageMgr.DeleteImage(imageId);
+
+            return Redirect(rtnURL);
+        }
+
+        [HttpPost]
+        // GET: Admin
+        public ActionResult AddProductManual(ProductManualInfo productManualInfo)
+        {
+            hqq_product_manual productManual = new hqq_product_manual();
+
+            string rtnURL = "/admin/product-manual";
+
+            //if (productManualInfo.ProductManual.id > 0)
+            //{
+            //    productManual = productManualInfo.ProductManual;
+            //    productManual.product_id = productManualInfo.SelectedProductId;
+            //    productManual.content = productManualInfo.ProductManualContent;
+            //    productManual.modified_on = DateTime.Now;
+            //    productManual.modified_by = 1;
+            //}
+            //else
+            //{
+            //    productManual = productManualInfo.ProductManual;
+            //    productManual.product_id = productManualInfo.SelectedProductId;
+            //    productManual.content = productManualInfo.ProductManualContent;
+            //    productManual.created_on = DateTime.Now;
+            //    productManual.created_by = 1;
+            //    productManual.status = 1;
+            //}
+
+            //productManual = productManualMgr.UpdateProductManualDetail(productManual);
 
             if (productManualInfo.ProductManual.id > 0)
             {

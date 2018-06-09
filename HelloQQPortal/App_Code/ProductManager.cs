@@ -14,14 +14,14 @@ using System.Collections.Specialized;
 
 namespace HelloQQPortal.Manager
 {
-    public class ProductManager
+    public class ProductManager : HQQBase
     {
         private helloqqdbEntities dbInfo;
         private HttpServerUtility server;
-        private NameValueCollection webConfig = WebConfigurationManager.AppSettings;
+       
         private ImageManager imgMgr = new ImageManager();
 
-        public ProductManager()
+        public ProductManager() : base()
         {
             server = System.Web.HttpContext.Current.Server;
         }
@@ -42,7 +42,7 @@ namespace HelloQQPortal.Manager
             hqq_product productInfo;
 
             using (dbInfo = new helloqqdbEntities())
-            { 
+            {
                 productInfo = dbInfo.hqq_product
                     .Where(item => item.id == id)
                     .Include("hqq_product_images")
@@ -51,7 +51,7 @@ namespace HelloQQPortal.Manager
 
             return productInfo;
         }
-        
+
         public hqq_product UpdateProductDetail(hqq_product productInfo)
         {
             using (dbInfo = new helloqqdbEntities())
@@ -78,10 +78,7 @@ namespace HelloQQPortal.Manager
         {
             hqq_product_images prdImgInfo;
 
-            string pathPattern = "{0}/{1:D5}/";
-            string filePattern = "{0}/{1}";
-            string fileURLPattern = "~{0}/{1}";
-            string fileURL = string.Format(pathPattern, webConfig["image.location"],
+            string fileURL = string.Format(this.PRODUCT_IMAGE_PATH_PATTERN, base.webConfig["image.product.location"],
                 productDetail.id);
             string filePath = string.Empty;
 
@@ -94,7 +91,7 @@ namespace HelloQQPortal.Manager
             //    string.Format(
             //        filePattern, filePath, imageUpload.FileName);));
 
-            filePath = server.MapPath(string.Format(filePattern, fileURL, imageUpload.FileName));
+            filePath = server.MapPath(string.Format(this.PRODUCT_IMAGE_FILE_PATTERN, fileURL, imageUpload.FileName));
 
             using (dbInfo = new helloqqdbEntities())
             {
@@ -125,7 +122,7 @@ namespace HelloQQPortal.Manager
                 prdImgInfo.created_by = 1;
 
                 prdImgInfo.path = filePath;
-                prdImgInfo.url = string.Format(fileURLPattern, fileURL, imageUpload.FileName);
+                prdImgInfo.url = string.Format(this.PRODUCT_IMAGE_URL_PATTERN, fileURL, imageUpload.FileName);
 
                 dbInfo.hqq_product_images.Add(prdImgInfo);
                 dbInfo.SaveChanges();

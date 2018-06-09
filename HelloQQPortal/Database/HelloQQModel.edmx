@@ -10,6 +10,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="entity_id" Type="int" Nullable="false" />
           <Property Name="filename" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="path" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="file_type" Type="varchar" MaxLength="16" />
@@ -262,6 +263,7 @@
           <Property Name="created_on" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="created_by" Type="Int32" Nullable="false" />
           <Property Name="status" Type="SByte" Nullable="false" />
+          <Property Name="entity_id" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="hqq_log_login">
           <Key>
@@ -512,6 +514,7 @@
           <EntitySetMapping Name="hqq_images">
             <EntityTypeMapping TypeName="helloqqdbModel.hqq_images">
               <MappingFragment StoreEntitySet="hqq_images">
+                <ScalarProperty Name="entity_id" ColumnName="entity_id" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="filename" ColumnName="filename" />
                 <ScalarProperty Name="path" ColumnName="path" />

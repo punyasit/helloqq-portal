@@ -15,13 +15,15 @@ div.admin {
     /* font-size: 13px;*/
 }
 
-
-
-
 .col-form-label{
     font-weight:bold;
 }
 
 .form-label {
     margin-top: 6px;
+}
+
+.custom-file{
+    margin: 10px 0 4px 0;
+    max-width:300px;
 }

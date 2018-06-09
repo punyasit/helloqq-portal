@@ -17,6 +17,7 @@ namespace HelloQQPortal.Controllers
 
         private MetaDataManager metadataMgr = new MetaDataManager();
         private helloqqdbEntities dbInfo = new helloqqdbEntities();
+        private ImageManager imgMgr = new ImageManager();
 
         public ActionResult Index()
         {
@@ -135,6 +136,28 @@ namespace HelloQQPortal.Controllers
         public ActionResult Login()
         {
             return View();
+        }
+
+       // [OutputCache(Duration = 20, VaryByParam = "photoId")]
+        public ActionResult GetImage(int id, string param)
+        {
+            byte[] img = null;
+
+            if (param == "thumbnail" || param == "thmb")
+            {
+                img = imgMgr.GetHQQImage(id, true);
+            }
+            else if (param == "delete" || param == "del")
+            {
+                //Check Admin Permission 
+                //imgMgr.DeleteImage(id);
+            }
+            else
+            {
+                img = imgMgr.GetHQQImage(id, false);
+            }
+
+            return File(img, "image/png");
         }
     }
 }

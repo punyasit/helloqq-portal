@@ -22,5 +22,6 @@ namespace HelloQQPortal.Database
         public Nullable<System.DateTime> created_on { get; set; }
         public int created_by { get; set; }
         public sbyte status { get; set; }
+        public int entity_id { get; set; }
     }
 }
