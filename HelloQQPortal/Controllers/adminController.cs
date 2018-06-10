@@ -284,6 +284,7 @@ namespace HelloQQPortal.Controllers
                 productManual.status = 1;
             }
 
+            productManualMgr.UpdateProductManualDetail(productManual);
             strProductImg = productManualMgr.AddProductManualImage(productManualInfo.ImageUpload, productManual.id, productManual.product_id);
 
             if (productManualInfo.ProductManual.id > 0)

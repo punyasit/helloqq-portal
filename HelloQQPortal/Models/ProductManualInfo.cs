@@ -16,7 +16,7 @@ namespace HelloQQPortal.Models
         [AllowHtml]
         public string ProductManualContent { get; set; }
         public int SelectedProductId { get; set; }
-        public HttpPostedFileBase ImageUpload { get; set; }
+        public HttpPostedFileBase[] ImageUpload { get; set; }
 
 
     }

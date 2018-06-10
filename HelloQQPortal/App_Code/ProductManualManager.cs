@@ -20,7 +20,7 @@ namespace HelloQQPortal.Manager
 
         public ProductManualManager() : base()
         {
-            
+
         }
 
         public List<hqq_product_manual> GetProductManualList()
@@ -101,34 +101,44 @@ namespace HelloQQPortal.Manager
             return productManual;
         }
 
-        public string AddProductManualImage(HttpPostedFileBase imageUpload, int productManualId, int productId)
+        public string AddProductManualImage(HttpPostedFileBase[] imageUploads, int productManualId, int productId)
         {
             string strResult = string.Empty;
+
+            if (imageUploads.Count() > 0)
+            {
+                return strResult;
+            }
             hqq_images hqqImageInfo = new hqq_images();
+            FileInfo fileInfo;
             ImageManager.UploadResult uploadResult = new ImageManager.UploadResult();
 
-           string strImageURL = string.Empty;
+            string strImageURL = string.Empty;
 
             using (dbInfo = new helloqqdbEntities())
             {
-                uploadResult = imgMgr.UploadProductManualImage(imageUpload, productId, 
-                    productManualId, ImageManager.IMAGE_TYPE.PRODUCT_MANUAL);
-                hqqImageInfo = new hqq_images();
+                foreach (var imageUpload in imageUploads)
+                {
+                    uploadResult = imgMgr.UploadProductManualImage(imageUpload, productId,
+                        productManualId, ImageManager.IMAGE_TYPE.PRODUCT_MANUAL);
+                    hqqImageInfo = new hqq_images();
 
-                FileInfo fileInfo = new FileInfo(base.currServer.MapPath(strImageURL));
+                    fileInfo = new FileInfo(base.currServer.MapPath(strImageURL));
 
-                hqqImageInfo.file_type = ImageManager.IMAGE_TYPE.PRODUCT_MANUAL.ToString();
-                hqqImageInfo.filename = fileInfo.Name + "." + fileInfo.Extension;
-                hqqImageInfo.path = uploadResult.URL;
-                hqqImageInfo.location = uploadResult.Location;
-                hqqImageInfo.entity_id = productManualId;
-                hqqImageInfo.created_on = DateTime.Now;
-                hqqImageInfo.created_by = 1;
-                hqqImageInfo.status = 1;
+                    hqqImageInfo.file_type = ImageManager.IMAGE_TYPE.PRODUCT_MANUAL.ToString();
+                    hqqImageInfo.filename = fileInfo.Name + "." + fileInfo.Extension;
+                    hqqImageInfo.path = uploadResult.URL;
+                    hqqImageInfo.location = uploadResult.Location;
+                    hqqImageInfo.entity_id = productManualId;
+                    hqqImageInfo.created_on = DateTime.Now;
+                    hqqImageInfo.created_by = 1;
+                    hqqImageInfo.status = 1;
 
-                dbInfo.hqq_images.Add(hqqImageInfo);
-                dbInfo.SaveChanges();
+                    dbInfo.hqq_images.Add(hqqImageInfo);
+                    dbInfo.SaveChanges();
+                }
             }
+
 
             return strResult;
         }

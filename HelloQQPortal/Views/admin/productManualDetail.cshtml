@@ -75,7 +75,7 @@
                     @Html.Label("imageUpload", "รูปภาพ", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
                     <div class="col-md-10">
                         <div class="custom-file">
-                            @Html.TextBoxFor(m => m.ImageUpload, new { type = "file", @class = "custom-file-input" })
+                            @Html.TextBoxFor(m => m.ImageUpload, new { type = "file", @class = "custom-file-input", multiple="", id="imgUpload", accpept="image/jpg" })
                             <label class="custom-file-label" for="customFile">Choose file</label>
                         </div>
                         <table class="admin table">
@@ -84,7 +84,7 @@
                             </tr>
 
                             @foreach (var item in Model.ProductManualImage)
-                            {
+                                    {
                                 <tr>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.id)
@@ -93,14 +93,14 @@
                                         <image src="/image/@Url.Content(item.id.ToString())/thumbnail" style="width:100px;"></image>
                                     </td>
                                     <td>
-                                        <label id="img_@item.id" onclick="CopyToClipboard('img_@item.id')">/image/@item.id/thumbnail</label>                                       
+                                        <label id="img_@item.id" onclick="CopyToClipboard('img_@item.id')">/image/@item.id/thumbnail</label>
                                     </td>
                                     <td>
                                         @item.created_on.Value.ToString("dd MMM yyyy")
 
                                     </td>
                                     <td>
-                                        <a href="/admin/product-manual-image/@Model.ProductManual.id/item.id">ลบ</a>
+                                        <a href="/admin/product-manual-image/@Model.ProductManual.id/@item.id">ลบ</a>
                                     </td>
                                 </tr>
                             }
@@ -109,8 +109,8 @@
                 </div>
             }
 
-            @if (Model.ProductManual.id > 0)
-            {
+                                @if (Model.ProductManual.id > 0)
+                                {
                 <div class="form-group row">
                     @Html.Label("createdOn", "ลงเมื่อ", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
                     <div class="col-md-10">
@@ -120,7 +120,7 @@
             }
 
             @if (Model.ProductManual.modified_on.HasValue)
-            {
+                            {
                 <div class="form-group row">
                     @Html.Label("modifiedOn", "อัพเดทล่าสุด", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
 
@@ -184,11 +184,24 @@
             })
 
             function CopyToClipboard(containerid) {
-                var range = document.getSelection().getRangeAt(0);
-                range.selectNode(document.getElementById(containerid));
-                window.getSelection().addRange(range);
-                document.execCommand("copy")
+                //var range = document.getSelection().getRangeAt(0);
+                //range.selectNode(document.getElementById(containerid));
+                //window.getSelection().addRange(range);
+                //document.execCommand("copy")
+
+                var $temp = $("<input>");
+                $("body").append($temp);
+                $temp.val("<img src='" + $('#' + containerid).text()+"'/>").select();
+                document.execCommand("copy");
+                $temp.remove();
             }
+
+            $('#imgUpload').on('change', function () {
+                //get the file name
+                var fileName = $(this).val();
+                //replace the "Choose a file" label
+                $(this).next('.custom-file-label').html(fileName);
+            })
 
         </script>
     }

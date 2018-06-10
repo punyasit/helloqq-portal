@@ -99,7 +99,7 @@ namespace HelloQQPortal.Manager
 
                         strFileTypeURL = string.Format(strFileTypeURL, fileURL, 
                             imageType.ToString(), 
-                            DateTime.Now.ToString("yyyyMMdd"),
+                            DateTime.Now.ToString("yyyyMMddHHmmss"),
                             imageUpload.FileName);
 
                         break;

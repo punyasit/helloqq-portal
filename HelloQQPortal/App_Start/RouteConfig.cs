@@ -39,10 +39,10 @@ namespace HelloQQPortal
                 );
 
             routes.MapRoute(
-                    name: "admin-product-manual-delete-image",
-                    url: "admin/product-manual-image/{productManualId}/{imageId}",
-                    defaults: new { controller = "admin", action = "ProductManualImageDelete" }
-                    );
+                name: "admin-product-manual-delete-image",
+                url: "admin/product-manual-image/{productManualId}/{imageId}",
+                defaults: new { controller = "admin", action = "ProductManualImageDelete" }
+                );
 
             routes.MapRoute(
                name: "admin-member",
