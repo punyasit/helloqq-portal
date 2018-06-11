@@ -1,15 +1,16 @@
-﻿@model IEnumerable<HelloQQPortal.Database.hqq_product>
+﻿@model IEnumerable<HelloQQPortal.Database.hqq_product_faq>
 
 @{
+    ViewBag.Title = "การจัดการคำถามที่พบบ่อย : HelloQQShop ";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>การจัดการคู่มือ</h2>
+<h2>การจัดการคำถามที่พบบ่อย</h2>
 
 <p>
     <i class="fas fa-camera-retro fa-2x"></i>
     @*@Html.ActionLink("Create New", "productDetail","admin")*@
-    <a href="/admin/productManualDetail">สร้างคู่มือสินค้า</a>
+    <a href="/admin/productManualDetail">สร้างคำถามที่พบบ่อย</a>
 </p>
 
 <table class="admin table">
@@ -41,7 +42,7 @@
                     @Html.DisplayFor(modelItem => item.id)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.subject)
+                    @Html.DisplayFor(modelItem => item.hqq_product.name)
                 </td>
 
                 <td>

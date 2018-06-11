@@ -60,7 +60,6 @@ namespace HelloQQPortal.Manager
             return productManual;
         }
 
-
         public bool DeleteMemberProduct(int id)
         {
             bool result = false;
@@ -109,6 +108,7 @@ namespace HelloQQPortal.Manager
             {
                 return strResult;
             }
+
             hqq_images hqqImageInfo = new hqq_images();
             FileInfo fileInfo;
             ImageManager.UploadResult uploadResult = new ImageManager.UploadResult();
@@ -138,7 +138,6 @@ namespace HelloQQPortal.Manager
                     dbInfo.SaveChanges();
                 }
             }
-
 
             return strResult;
         }

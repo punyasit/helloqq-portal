@@ -23,6 +23,7 @@ namespace HelloQQPortal.Database
         public Nullable<System.DateTime> modified_on { get; set; }
         public Nullable<int> modified_by { get; set; }
         public sbyte status { get; set; }
+        public sbyte order { get; set; }
     
         public virtual hqq_product hqq_product { get; set; }
     }

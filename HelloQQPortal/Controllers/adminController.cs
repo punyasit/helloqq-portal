@@ -17,13 +17,13 @@ namespace HelloQQPortal.Controllers
 {
     public class adminController : Controller
     {
-        private MemberManager memberMgr = new MemberManager();
-        private ImageManager imageMgr = new ImageManager();
-        private ProductManager productManager = new ProductManager();
-        private ProductManualManager productManualMgr = new ProductManualManager();
-        private NameValueCollection webConfig = WebConfigurationManager.AppSettings;
+        private MemberManager memberMgr;
+        private ImageManager imageMgr;
+        private ProductManager productManager;
+        private ProductFaqManager productFaqManager;
+        private ProductManualManager productManualMgr;
 
-        public MemberInfo memberInfo = new MemberInfo();
+        private NameValueCollection webConfig = WebConfigurationManager.AppSettings;
 
         // GET: Admin
         public ActionResult Index()
@@ -41,7 +41,9 @@ namespace HelloQQPortal.Controllers
         // GET: Admin
         public ActionResult MemberDetail(int? id)
         {
+            MemberInfo memberInfo = new MemberInfo();
             hqq_member member;
+            memberMgr = new MemberManager();            
 
             memberInfo.MemberDetail = new hqq_member();
 
@@ -72,6 +74,7 @@ namespace HelloQQPortal.Controllers
         public ActionResult UpdateMemberDetail(MemberInfo memberInfo, string command)
         {
             string rtnURL = "/admin/member";
+            memberMgr = new MemberManager();
 
             try
             {
@@ -124,6 +127,7 @@ namespace HelloQQPortal.Controllers
         {
             string rtnURL = "/admin/member";
             hqq_member_product mpInfo;
+            memberMgr = new MemberManager();
 
             try
             {
@@ -160,6 +164,7 @@ namespace HelloQQPortal.Controllers
         // GET: Admin
         public ActionResult ProductList()
         {
+            productManager = new ProductManager();
             List<hqq_product> lstProductInfo = productManager.GetProductList();
             return View(lstProductInfo);
         }
@@ -167,8 +172,10 @@ namespace HelloQQPortal.Controllers
         // GET: Admin
         public ActionResult ProductDetail(int? id)
         {
-            ProductInfo productInfo = new ProductInfo();
+            productManager = new ProductManager();
 
+            ProductInfo productInfo = new ProductInfo();
+            
             if (id.HasValue && id.Value > 0)
             {
                 productInfo.ProductDetail = productManager.GetProductById(id.Value);
@@ -192,6 +199,8 @@ namespace HelloQQPortal.Controllers
         [HttpPost]
         public ActionResult UpdateProductDetail(ProductInfo productInfo)
         {
+            productManager = new ProductManager();
+
             hqq_product productDetail = productInfo.ProductDetail;
             string rtnURL = "/admin/product";
 
@@ -235,6 +244,8 @@ namespace HelloQQPortal.Controllers
 
         public ActionResult ProductManualList()
         {
+            this.productManualMgr = new ProductManualManager();
+
             List<hqq_product_manual> lstProductManual = productManualMgr.GetProductManualList();
             return View(lstProductManual);
         }
@@ -242,6 +253,9 @@ namespace HelloQQPortal.Controllers
         // GET: Admin
         public ActionResult ProductManualDetail(int? id)
         {
+            productManualMgr = new ProductManualManager();
+            productManager = new ProductManager();
+
             ProductManualInfo productManualInfo = new ProductManualInfo();
             productManualInfo.ProductManual = new hqq_product_manual();
             productManualInfo.ProductList = productManager.GetProductList();
@@ -261,6 +275,8 @@ namespace HelloQQPortal.Controllers
         // GET: Admin
         public ActionResult UpdateProductManualDetail(ProductManualInfo productManualInfo)
         {
+            this.productManualMgr = new ProductManualManager();
+
             hqq_product_manual productManual = new hqq_product_manual();
             
             string rtnURL = "/admin/product-manual";
@@ -297,6 +313,8 @@ namespace HelloQQPortal.Controllers
 
         public ActionResult ProductManualImageDelete(int productManualId,int imageId)
         {
+            imageMgr = new ImageManager();
+
             string rtnURL = "/admin/product-manual";
             rtnURL = rtnURL + "/" + productManualId;
 
@@ -309,6 +327,8 @@ namespace HelloQQPortal.Controllers
         // GET: Admin
         public ActionResult AddProductManual(ProductManualInfo productManualInfo)
         {
+            productManualMgr = new ProductManualManager();
+
             hqq_product_manual productManual = new hqq_product_manual();
 
             string rtnURL = "/admin/product-manual";
@@ -341,17 +361,47 @@ namespace HelloQQPortal.Controllers
             return Redirect(rtnURL);
         }
 
-        public ActionResult FaqList()
+        public ActionResult ProductFaqList()
         {
             return View();
         }
 
         // GET: Admin
-        public ActionResult FaqDetail()
+        public ActionResult ProductFaqDetail(int? id)
         {
-            return View();
+            productManager = new ProductManager();
+            productFaqManager = new ProductFaqManager();
+
+            ProductFaqInfo productFaqInfo = new ProductFaqInfo();
+            productFaqInfo.ProductFaqList = new List<hqq_product_faq>();
+            productFaqInfo.ProductFaq = new hqq_product_faq();
+
+            productFaqInfo.ProductList = productManager.GetProductList();
+
+            if (id.HasValue && id.Value > 0)
+            {                
+                productFaqInfo.ProductFaq = this.productFaqManager.GetFaqById(id.Value);
+                if (productFaqInfo.ProductFaq != null)
+                {
+                    productFaqInfo.ProductFaqList = this.productFaqManager.GetFaqByProductId(productFaqInfo.ProductFaq.hqq_product.id);
+                }
+                else
+                {
+                    productFaqInfo.ProductFaq = new hqq_product_faq();
+                    productFaqInfo.ProductFaqList = new List<hqq_product_faq>();
+                }
+            }
+
+            return View(productFaqInfo);
         }
 
-     
+        public ActionResult UpdateProductFaqDetail(ProductFaqInfo productFaqInfo)
+        {
+            productFaqManager = new ProductFaqManager();
+
+            return View(productFaqInfo);
+        }
+
+
     }
 }

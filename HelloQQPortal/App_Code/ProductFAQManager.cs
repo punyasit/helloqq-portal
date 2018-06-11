@@ -13,11 +13,11 @@ using System.Collections.Specialized;
 
 namespace HelloQQPortal.Manager
 {
-    public class ProductFAQManager
+    public class ProductFaqManager
     {
         private helloqqdbEntities dbInfo = new helloqqdbEntities();
 
-        public ProductFAQManager()
+        public ProductFaqManager()
         {
 
         }
@@ -31,10 +31,16 @@ namespace HelloQQPortal.Manager
             return lstProductFAQ;
         }
 
-        public hqq_product_faq GetProdutManualById(int id)
+        public hqq_product_faq GetFaqById(int id)
         {
             hqq_product_faq productFAQ = dbInfo.hqq_product_faq.Find(id);
             return productFAQ;
+        }
+
+        public List<hqq_product_faq> GetFaqByProductId(int id)
+        {
+            List<hqq_product_faq> lstProductFAQ = dbInfo.hqq_product_faq.Where(item => item.hqq_product.id == id).ToList();
+            return lstProductFAQ;
         }
 
         public hqq_product_faq UpdateProductFAQlDetail(hqq_product_faq productFAQ)

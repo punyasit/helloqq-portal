@@ -87,6 +87,7 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="product_id" Type="int" />
+          <Property Name="order" Type="tinyint" Nullable="false" />
           <Property Name="question" Type="text" />
           <Property Name="answer" Type="text" />
           <Property Name="created_on" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
@@ -349,6 +350,7 @@
           <Property Name="modified_by" Type="Int32" />
           <Property Name="status" Type="SByte" Nullable="false" />
           <NavigationProperty Name="hqq_product" Relationship="Self.product_faq_lnk_product" FromRole="hqq_product_faq" ToRole="hqq_product" />
+          <Property Name="order" Type="SByte" Nullable="false" />
         </EntityType>
         <EntityType Name="hqq_product_images">
           <Key>
@@ -596,6 +598,7 @@
           <EntitySetMapping Name="hqq_product_faq">
             <EntityTypeMapping TypeName="helloqqdbModel.hqq_product_faq">
               <MappingFragment StoreEntitySet="hqq_product_faq">
+                <ScalarProperty Name="order" ColumnName="order" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="product_id" ColumnName="product_id" />
                 <ScalarProperty Name="question" ColumnName="question" />
