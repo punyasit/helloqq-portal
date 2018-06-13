@@ -43,7 +43,7 @@ namespace HelloQQPortal.Controllers
         {
             MemberInfo memberInfo = new MemberInfo();
             hqq_member member;
-            memberMgr = new MemberManager();            
+            memberMgr = new MemberManager();
 
             memberInfo.MemberDetail = new hqq_member();
 
@@ -53,7 +53,7 @@ namespace HelloQQPortal.Controllers
             }
 
             member = memberMgr.GetMemberById(id.Value);
-            
+
 
             if (member == null)
             {
@@ -61,7 +61,7 @@ namespace HelloQQPortal.Controllers
             }
 
             memberInfo.MemberDetail = member;
-            if(member.hqq_member_product.Count> 0)
+            if (member.hqq_member_product.Count > 0)
             {
                 memberInfo.MemberProduct = member.hqq_member_product.ToList();
             }
@@ -83,19 +83,19 @@ namespace HelloQQPortal.Controllers
                     if (memberInfo.SelectedProductId > 0)
                     {
                         hqq_member_product mpInfo = new hqq_member_product();
-                       
-                            mpInfo.member_id = memberInfo.MemberDetail.id;
-                            mpInfo.product_id = memberInfo.SelectedProductId;
-                            mpInfo.purchase_date = DateTime.ParseExact(memberInfo.PurchasedOn, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                            mpInfo.garantee_expired = mpInfo
-                                .purchase_date.AddMonths(
-                                int.Parse(webConfig["product.garantee"]));
 
-                            memberMgr.UpdateMemberProduct(mpInfo);
+                        mpInfo.member_id = memberInfo.MemberDetail.id;
+                        mpInfo.product_id = memberInfo.SelectedProductId;
+                        mpInfo.purchase_date = DateTime.ParseExact(memberInfo.PurchasedOn, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                        mpInfo.garantee_expired = mpInfo
+                            .purchase_date.AddMonths(
+                            int.Parse(webConfig["product.garantee"]));
 
-                            //memberProductInfo.garantee_expired = 
-                            //memberInfo.PurchasedOn
-                            //memberProductInfo.purchase_date =                       
+                        memberMgr.UpdateMemberProduct(mpInfo);
+
+                        //memberProductInfo.garantee_expired = 
+                        //memberInfo.PurchasedOn
+                        //memberProductInfo.purchase_date =                       
                     }
                 }
                 else if (command.Contains("cancel-purchase"))
@@ -132,15 +132,15 @@ namespace HelloQQPortal.Controllers
             try
             {
                 mpInfo = memberInfo.MemberProduct.FirstOrDefault();
-                if(mpInfo != null)
+                if (mpInfo != null)
                 {
                     mpInfo.member_id = memberInfo.MemberDetail.id;
-                    mpInfo.purchase_date = DateTime.ParseExact(memberInfo.PurchasedOn, "dd/MM/yyyy", CultureInfo.InvariantCulture); 
+                    mpInfo.purchase_date = DateTime.ParseExact(memberInfo.PurchasedOn, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                     mpInfo.garantee_expired = mpInfo
                         .purchase_date.AddMonths(
                         int.Parse(webConfig["product.garantee"]));
 
-                    memberMgr.UpdateMemberProduct(mpInfo);                    
+                    memberMgr.UpdateMemberProduct(mpInfo);
 
                     //memberProductInfo.garantee_expired = 
                     //memberInfo.PurchasedOn
@@ -175,11 +175,12 @@ namespace HelloQQPortal.Controllers
             productManager = new ProductManager();
 
             ProductInfo productInfo = new ProductInfo();
-            
+
             if (id.HasValue && id.Value > 0)
             {
                 productInfo.ProductDetail = productManager.GetProductById(id.Value);
-                if (productInfo.ProductDetail.hqq_product_images.Count() > 0)                {
+                if (productInfo.ProductDetail.hqq_product_images.Count() > 0)
+                {
 
                     productInfo.ProductImage = productInfo.ProductDetail.hqq_product_images.FirstOrDefault();
                     FileInfo fileInfo = new FileInfo(productInfo.ProductImage.url);
@@ -224,9 +225,9 @@ namespace HelloQQPortal.Controllers
                 if (productInfo.ImageUpload != null && productDetail.id > 0)
                 {
                     productManager.AddProductImage(
-                        productInfo.ProductDetail, 
+                        productInfo.ProductDetail,
                         productInfo.ImageUpload);
-                    
+
                 }
             }
             catch (Exception ex)
@@ -270,7 +271,7 @@ namespace HelloQQPortal.Controllers
             return View(productManualInfo);
         }
 
-       
+
         [HttpPost]
         // GET: Admin
         public ActionResult UpdateProductManualDetail(ProductManualInfo productManualInfo)
@@ -278,7 +279,7 @@ namespace HelloQQPortal.Controllers
             this.productManualMgr = new ProductManualManager();
 
             hqq_product_manual productManual = new hqq_product_manual();
-            
+
             string rtnURL = "/admin/product-manual";
             string strProductImg = "";
 
@@ -311,7 +312,7 @@ namespace HelloQQPortal.Controllers
             return Redirect(rtnURL);
         }
 
-        public ActionResult ProductManualImageDelete(int productManualId,int imageId)
+        public ActionResult ProductManualImageDelete(int productManualId, int imageId)
         {
             imageMgr = new ImageManager();
 
@@ -379,17 +380,9 @@ namespace HelloQQPortal.Controllers
             productFaqInfo.ProductList = productManager.GetProductList();
 
             if (id.HasValue && id.Value > 0)
-            {                
-                productFaqInfo.ProductFaq = this.productFaqManager.GetFaqById(id.Value);
-                if (productFaqInfo.ProductFaq != null)
-                {
-                    productFaqInfo.ProductFaqList = this.productFaqManager.GetFaqByProductId(productFaqInfo.ProductFaq.hqq_product.id);
-                }
-                else
-                {
-                    productFaqInfo.ProductFaq = new hqq_product_faq();
-                    productFaqInfo.ProductFaqList = new List<hqq_product_faq>();
-                }
+            {
+                productFaqInfo.ProductFaqList = this.productFaqManager.GetFaqByProductId(id.Value);
+                productFaqInfo.ProductFaq = new hqq_product_faq();               
             }
 
             return View(productFaqInfo);
@@ -397,9 +390,17 @@ namespace HelloQQPortal.Controllers
 
         public ActionResult UpdateProductFaqDetail(ProductFaqInfo productFaqInfo)
         {
+            string rtnURL = "/admin/product-faq";
             productFaqManager = new ProductFaqManager();
 
-            return View(productFaqInfo);
+            productFaqManager.UpdateProductFAQDetail(productFaqInfo.ProductFaq, productFaqInfo.SelectedProductId);
+
+            if (productFaqInfo.SelectedProductId > 0)
+            {
+                rtnURL = rtnURL + "/" + productFaqInfo.SelectedProductId;
+            }
+
+            return Redirect(rtnURL);
         }
 
 

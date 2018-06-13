@@ -8,7 +8,7 @@
 <h2>การจัดการคำถามที่พบบ่อย</h2>
 
 <div style="padding-left:40px;">
-    @using (Html.BeginForm("UpdateFaqDetail", "admin", FormMethod.Post, new { id = "frmInput" }))
+    @using (Html.BeginForm("UpdateProductFaqDetail", "admin", FormMethod.Post, new { id = "frmInput" }))
     {
         @Html.AntiForgeryToken()
 
@@ -39,16 +39,16 @@
 
             <div class="form-group row">
                 @Html.Label("question", "คำถาม", htmlAttributes: new { @class = "col-sm-2 col-form-label", id = "txtQuestions" })
-                <div class="col-md-10">
-                    @Html.TextAreaFor(model => model.ProductFaq.question, new { htmlAttributes = new { @class = "form-control", id = "txtQuestion", required = "required", oninvalid = "this.setCustomValidity('กรุณาใส่คำถาม')" } })
+                <div class="col-md-10 faq">
+                    @Html.TextAreaFor(model => model.ProductFaq.question, 4,10, new { htmlAttributes = new { @class = "form-control" , id = "txtQuestion", required = "required", oninvalid = "this.setCustomValidity('กรุณาใส่คำถาม')" } })
                     @Html.ValidationMessageFor(model => model.ProductFaq.question, "", new { @class = "text-danger" })
                 </div>
             </div>
 
             <div class="form-group row">
                 @Html.Label("answer", "คำตอบ", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
-                <div class="col-md-10">
-                    @Html.TextAreaFor(model => model.ProductFaq.answer, new { htmlAttributes = new { @class = "form-control", id = "txtAnswer", required = "required", oninvalid = "this.setCustomValidity('กรุณาใส่คำตอบ')" } })
+                <div class="col-md-10 faq">
+                    @Html.TextAreaFor(model => model.ProductFaq.answer, 4,10, new { htmlAttributes = new { @class = "form-control", id = "txtAnswer", required = "required", oninvalid = "this.setCustomValidity('กรุณาใส่คำตอบ')" } })
                     @Html.ValidationMessageFor(model => model.ProductFaq.answer, "", new { @class = "text-danger" })
                 </div>
             </div>

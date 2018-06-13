@@ -65,27 +65,43 @@ namespace HelloQQPortal.Manager
             return productFAQ;
         }
 
-        public hqq_product_faq UpdateProductFAQDetail(hqq_product_faq productManual, int productId)
+        public hqq_product_faq UpdateProductFAQDetail(hqq_product_faq productFaqInfo, int productId)
         {
+            int order;
             using (dbInfo = new helloqqdbEntities())
             {
-                if (productManual.id > 0)
+                if (productFaqInfo.id > 0)
                 {
-                    productManual.modified_on = DateTime.Now;
-                    productManual.modified_by = 1;
-                    dbInfo.Entry(productManual).State = EntityState.Modified;
+                    productFaqInfo.modified_on = DateTime.Now;
+                    productFaqInfo.modified_by = 1;
+                    dbInfo.Entry(productFaqInfo).State = EntityState.Modified;
                     //dbInfo.hqq_product.Attach(productInfo);
                 }
                 else
                 {
-                    productManual.product_id = productId;
-                    dbInfo.hqq_product_faq.Add(productManual);
+                    productFaqInfo.product_id = productId;
+                    productFaqInfo.created_by = 1;
+                    productFaqInfo.created_on = DateTime.Now;
+
+                    if(dbInfo.hqq_product_faq.Where(item => item.hqq_product.id == productId).Count() > 0)
+                    {
+                        order = dbInfo.hqq_product_faq.Where(item => item.hqq_product.id == productId).Max(item => item.order);
+                        order++; 
+                    }
+                    else
+                    {
+                        order = 1;
+                    }
+
+                    productFaqInfo.order = order;
+                    dbInfo.hqq_product_faq.Add(productFaqInfo);
+
                 }
 
                 dbInfo.SaveChanges();
             }
 
-            return productManual;
+            return productFaqInfo;
         }
 
 

@@ -2,21 +2,27 @@
     font-size:13px;
 }
 
-div.admin {
-    /*  font-size:13px; */
+/*div.admin {
+     font-size:13px; 
 }
 
 .admin input {
-    /* font-size: 13px;*/
-}
+     font-size: 13px;
+}*/
 
 .admin textarea {
     min-width:280px;
     /* font-size: 13px;*/
 }
 
-.col-form-label{
-    font-weight:bold;
+.admin .faq textarea {
+    min-width: 400px;
+    /* font-size: 13px;*/
+}
+
+
+.col-form-label {
+    font-weight: bold;
 }
 
 .form-label {
