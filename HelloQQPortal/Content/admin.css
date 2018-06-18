@@ -1,5 +1,5 @@
-﻿.admin.table{
-    font-size:13px;
+﻿.admin.table {
+    font-size: 13px;
 }
 
 /*div.admin {
@@ -11,7 +11,7 @@
 }*/
 
 .admin textarea {
-    min-width:280px;
+    min-width: 280px;
     /* font-size: 13px;*/
 }
 
@@ -29,7 +29,34 @@
     margin-top: 6px;
 }
 
-.custom-file{
+.custom-file {
     margin: 10px 0 4px 0;
-    max-width:300px;
+    max-width: 300px;
+}
+
+/*.question-item {
+    position: relative;
+}*/
+
+.question-tem-text {
+    padding-left: 13px;
+}
+
+.question-item:before {
+    content: "\f078";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: none;
+    color: #000;
+    font-size: 18px;
+    padding-right: 0.5em;
+    position: absolute;
+    top: 23px;
+    left: 16px;
+}
+
+
+.question-item.collapsed:before {
+    content: "\f054";
 }

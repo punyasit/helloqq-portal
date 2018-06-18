@@ -14,5 +14,6 @@ namespace HelloQQPortal.Models
         public List<hqq_product> ProductList { get; set; }
         public hqq_product ProductInfo { get; set; }
         public int SelectedProductId { get; set; }
+        public bool IsEditMode { get; set; }
     }
 }

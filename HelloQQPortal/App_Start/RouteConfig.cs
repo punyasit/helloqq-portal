@@ -34,20 +34,20 @@ namespace HelloQQPortal
 
             routes.MapRoute(
                 name: "admin-product-manual-edit",
-                url: "admin/product-manual/{id}",
+                url: "admin/product-manual/id",
                 defaults: new { controller = "admin", action = "ProductManualDetail", id = UrlParameter.Optional }
                 );
 
-            routes.MapRoute(
-                 name: "admin-product-faq",
-                 url: "admin/product-faq/",
-                 defaults: new { controller = "admin", action = "ProductFaqList", id = UrlParameter.Optional }
-             );
+            //routes.MapRoute(
+            //     name: "admin-product-faq",
+            //     url: "admin/product-faq/{id}",
+            //     defaults: new { controller = "admin", action = "ProductFaqList", id = UrlParameter.Optional }
+            // );
 
             routes.MapRoute(
                 name: "admin-product-faq-edit",
-                url: "admin/product-faq/{id}",
-                defaults: new { controller = "admin", action = "ProductFaqDetail", id = UrlParameter.Optional }
+                url: "admin/product-faq/{productId}/{faqId}",
+                defaults: new { controller = "admin", action = "ProductFaqDetail", productId = UrlParameter.Optional, faqId = UrlParameter.Optional }
                 );
 
             routes.MapRoute(

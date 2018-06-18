@@ -19,14 +19,15 @@
                 @Html.Label("product", "สินค้า", htmlAttributes: new { @class = "col-sm-2 col-form-label", id = "lbProductName" })
                 <div class="col-md-10">
                     @Html.DropDownListFor(model => model.SelectedProductId,
-                   new SelectList(Model.ProductList, "id", "name", Model.SelectedProductId),
-                   new { @class = "custom-select", id = "ddlProduct" })
+                                                    new SelectList(Model.ProductList, "id", "name", Model.SelectedProductId),
+                                                    new { @class = "custom-select", id = "ddlProduct" })
                 </div>
             </div>
 
             @if (Model.ProductFaq.id > 0)
             {
                 @Html.HiddenFor(model => model.ProductFaq.id)
+                @Html.HiddenFor(model => model.ProductFaq.product_id)
                 @Html.HiddenFor(model => model.ProductFaq.created_by)
 
                 <div class="form-group row">
@@ -40,7 +41,7 @@
             <div class="form-group row">
                 @Html.Label("question", "คำถาม", htmlAttributes: new { @class = "col-sm-2 col-form-label", id = "txtQuestions" })
                 <div class="col-md-10 faq">
-                    @Html.TextAreaFor(model => model.ProductFaq.question, 4,10, new { htmlAttributes = new { @class = "form-control" , id = "txtQuestion", required = "required", oninvalid = "this.setCustomValidity('กรุณาใส่คำถาม')" } })
+                    @Html.TextAreaFor(model => model.ProductFaq.question, 4, 10, new { htmlAttributes = new { @class = "form-control", id = "txtQuestion", required = "required", oninvalid = "this.setCustomValidity('กรุณาใส่คำถาม')" } })
                     @Html.ValidationMessageFor(model => model.ProductFaq.question, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -48,7 +49,7 @@
             <div class="form-group row">
                 @Html.Label("answer", "คำตอบ", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
                 <div class="col-md-10 faq">
-                    @Html.TextAreaFor(model => model.ProductFaq.answer, 4,10, new { htmlAttributes = new { @class = "form-control", id = "txtAnswer", required = "required", oninvalid = "this.setCustomValidity('กรุณาใส่คำตอบ')" } })
+                    @Html.TextAreaFor(model => model.ProductFaq.answer, 4, 10, new { htmlAttributes = new { @class = "form-control", id = "txtAnswer", required = "required", oninvalid = "this.setCustomValidity('กรุณาใส่คำตอบ')" } })
                     @Html.ValidationMessageFor(model => model.ProductFaq.answer, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -65,43 +66,45 @@
                 </div>
             </div>
 
-            @if (Model.ProductFaqList != null)
+
+            @if (!Model.IsEditMode)
             {
-                foreach (var item in Model.ProductFaqList)
-                {
-                    <div class="form-group row">
-                        @Html.Label("recordId", "ไอดี", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
-                        <div class="col-sm-10">
-                            @Html.LabelForModel(item.id.ToString(), htmlAttributes: new { @class = "form-label" })
-                        </div>
-                    </div>
+                <div id="accordion">
+                    @if (Model.ProductFaqList != null)
+                    {
+                        foreach (var item in Model.ProductFaqList)
+                        {
+                            <div class="card">
+                                <div class="card-header" id="question-@item.id">
+                                    <h5 class="mb-0">
+                                        @*<i class="fa fa-chevron-down fa-1"></i>*@
+                                        <button class="btn btn-link question-item" data-toggle="collapse" data-target="#questionItem-@item.id" aria-expanded="true" aria-controls="questionItem-@item.id">
+                                            @Html.LabelForModel(item.question.ToString(), htmlAttributes: new { @class = "form-label question-tem-text" })
+                                        </button>  <a href="/admin/product-faq/@item.product_id/@item.id" class="badge badge-secondary">Edit</a>
+                                        @*@Html.LabelForModel(item.id.ToString(), htmlAttributes: new { @class = "form-label" }) | @Html.LabelForModel(item.order.ToString(), htmlAttributes: new { @class = "form-label" }) |*@
+                                    </h5>
+                                </div>
 
-                    <div class="form-group row">
-                        @Html.Label("order", "ลำดับ", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
-                        <div class="col-sm-10">
-                            @Html.LabelForModel(item.order.ToString(), htmlAttributes: new { @class = "form-label" })
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        @Html.Label("question", "คำถาม", htmlAttributes: new { @class = "col-sm-2 col-form-label", id = "txtQuestions" })
-                        <div class="col-md-10">
-
-                            @Html.LabelForModel(item.question.ToString(), htmlAttributes: new { @class = "form-label" })
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        @Html.Label("answer", "คำตอบ", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
-                        <div class="col-md-10">
-                            @Html.LabelForModel(item.answer.ToString(), htmlAttributes: new { @class = "form-label" })
-                        </div>
-                    </div>
-                }
+                                <div id="questionItem-@item.id" class="collapse show" aria-labelledby="question-@item.id" data-parent="#accordion">
+                                    <div class="card-body">
+                                        @Html.LabelForModel(item.answer.ToString(), htmlAttributes: new { @class = "form-label" })
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
             }
-
-
-
         </div>
     }
 </div>
+
+<script>
+    $(document).ready(function()
+    {
+        $("#ddlProduct").on("change", function()
+        {
+            window.location.href = '/admin/product-faq/' + $(this).val();              
+            
+        });
+    }); </script>

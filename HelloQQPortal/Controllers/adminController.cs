@@ -368,7 +368,7 @@ namespace HelloQQPortal.Controllers
         }
 
         // GET: Admin
-        public ActionResult ProductFaqDetail(int? id)
+        public ActionResult ProductFaqDetail(int? productId, int? faqId)
         {
             productManager = new ProductManager();
             productFaqManager = new ProductFaqManager();
@@ -379,10 +379,28 @@ namespace HelloQQPortal.Controllers
 
             productFaqInfo.ProductList = productManager.GetProductList();
 
-            if (id.HasValue && id.Value > 0)
+            if (!productId.HasValue || productId.Value <= 0)
             {
-                productFaqInfo.ProductFaqList = this.productFaqManager.GetFaqByProductId(id.Value);
-                productFaqInfo.ProductFaq = new hqq_product_faq();               
+                if (productFaqInfo.ProductList.FirstOrDefault() != null)
+                {
+                    productId = productFaqInfo.ProductList.FirstOrDefault().id;
+                }
+            }
+            else
+            {
+                productFaqInfo.SelectedProductId = productId.Value;
+            }
+
+            productFaqInfo.ProductFaqList = this.productFaqManager.GetFaqByProductId(productId.Value);
+            
+            if (faqId.HasValue)
+            {
+                productFaqInfo.IsEditMode = true;
+                productFaqInfo.ProductFaq= this.productFaqManager.GetFaqById(faqId.Value);
+            }
+            else
+            {
+                productFaqInfo.ProductFaq = new hqq_product_faq();
             }
 
             return View(productFaqInfo);
@@ -393,7 +411,11 @@ namespace HelloQQPortal.Controllers
             string rtnURL = "/admin/product-faq";
             productFaqManager = new ProductFaqManager();
 
-            productFaqManager.UpdateProductFAQDetail(productFaqInfo.ProductFaq, productFaqInfo.SelectedProductId);
+            if (!string.IsNullOrEmpty(productFaqInfo.ProductFaq.question) &&
+                !string.IsNullOrEmpty(productFaqInfo.ProductFaq.answer))
+            {
+                productFaqManager.UpdateProductFAQDetail(productFaqInfo.ProductFaq, productFaqInfo.SelectedProductId);
+            }
 
             if (productFaqInfo.SelectedProductId > 0)
             {

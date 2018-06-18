@@ -33,7 +33,11 @@ namespace HelloQQPortal.Manager
 
         public hqq_product_faq GetFaqById(int id)
         {
-            hqq_product_faq productFAQ = dbInfo.hqq_product_faq.Find(id);
+            hqq_product_faq productFAQ = dbInfo.hqq_product_faq
+                .Where(item => item.id == id)
+                .Include("hqq_product")
+                .FirstOrDefault();
+
             return productFAQ;
         }
 
@@ -68,6 +72,7 @@ namespace HelloQQPortal.Manager
         public hqq_product_faq UpdateProductFAQDetail(hqq_product_faq productFaqInfo, int productId)
         {
             int order;
+
             using (dbInfo = new helloqqdbEntities())
             {
                 if (productFaqInfo.id > 0)

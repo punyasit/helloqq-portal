@@ -311,11 +311,6 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
-    <Content Include="fonts\FontAwesome.otf" />
-    <Content Include="fonts\fontawesome-webfont.woff2" />
-    <Content Include="fonts\fontawesome-webfont.woff" />
-    <Content Include="fonts\fontawesome-webfont.ttf" />
-    <Content Include="fonts\fontawesome-webfont.eot" />
     <EntityDeploy Include="Database\HelloQQModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>HelloQQModel.Designer.cs</LastGenOutput>
@@ -323,6 +318,11 @@
     <Content Include="Database\HelloQQModel.edmx.diagram">
       <DependentUpon>HelloQQModel.edmx</DependentUpon>
     </Content>
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\formValidate-product.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
