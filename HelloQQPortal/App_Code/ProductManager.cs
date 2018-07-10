@@ -18,7 +18,7 @@ namespace HelloQQPortal.Manager
     {
         private helloqqdbEntities dbInfo;
         private HttpServerUtility server;
-       
+
         private ImageManager imgMgr = new ImageManager();
 
         public ProductManager() : base()
@@ -131,8 +131,26 @@ namespace HelloQQPortal.Manager
             return prdImgInfo;
         }
 
+        public List<hqq_member_product> GetMemberProduct(int id)
+        {
+
+            List<hqq_member_product> lstMemberProductInfo = new List<hqq_member_product>();
+            using (dbInfo = new helloqqdbEntities())
+            {
+
+                //lstProductInfo = (from item in dbInfo.hqq_product
+                //                  where item.hqq_member_product.All(item2 => item2.member_id.Equals(id))
+                //                  select item).ToList();
+
+                lstMemberProductInfo = dbInfo.hqq_member_product
+                     .Include("hqq_product")
+                     .Where(item => item.hqq_member.id == id)
+                     .ToList();
+
+            }
 
 
-
+            return lstMemberProductInfo;
+        }
     }
 }

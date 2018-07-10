@@ -29,7 +29,10 @@ namespace HelloQQPortal.Manager
 
         public hqq_member GetMemberById(int id)
         {
-            hqq_member hqq_member = dbInfo.hqq_member.Find(id);
+            hqq_member hqq_member = dbInfo.hqq_member
+                .Include("hqq_member_product")
+                .Include("hqq_member_product.hqq_product")
+                .Where(item => item.id == id).FirstOrDefault();
             return hqq_member;
         }
 
@@ -39,6 +42,7 @@ namespace HelloQQPortal.Manager
             using (dbInfo = new helloqqdbEntities())
             {
                 result = dbInfo.hqq_member
+                    .Include("hqq_member_product")
                     .Where(item => item.facebook_id == userInfo.id)
                     .FirstOrDefault();
 
@@ -117,12 +121,12 @@ namespace HelloQQPortal.Manager
             return memberProductInfo;
         }
 
+
         public bool DeleteMemberProduct(int id)
         {
             bool result = false;
             using (dbInfo = new helloqqdbEntities())
             {
-
                 hqq_member_product selectedItem = dbInfo.hqq_member_product.Find(id);
                 if (selectedItem != null)
                 {

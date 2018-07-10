@@ -11,12 +11,12 @@
 
 @media (max-width: 576px) {
     .header-content {
-         padding:0; 
+        padding: 0;
     }
 }
 
-.navbar{
-    padding-top:0;
+.navbar {
+    padding-top: 0;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -57,4 +57,41 @@ textarea {
     border: solid 2px blue !important;
     opacity: .5;
     color: black !important;
+}
+
+@media (min-width: 576px) {
+    .card-deck .card {
+        max-width: 323px;
+        min-width: 323px;
+        margin-bottom: 15px;
+    }
+}
+
+.card {
+    max-width: 323px;
+    min-width: 323px;
+}
+
+.card-title {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 0;
+}
+
+.card-text.expired-date {
+    color: #b1bacc;
+}
+
+.card a:link {
+    color: #fff;
+    text-decoration:none;
+}
+
+.card a:visited {
+    color: #fff;
+    text-decoration: none;
+}
+
+.card-text {
+    font-size: 15px;
 }

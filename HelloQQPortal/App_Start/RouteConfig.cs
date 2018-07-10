@@ -34,7 +34,7 @@ namespace HelloQQPortal
 
             routes.MapRoute(
                 name: "admin-product-manual-edit",
-                url: "admin/product-manual/id",
+                url: "admin/product-manual/{id}",
                 defaults: new { controller = "admin", action = "ProductManualDetail", id = UrlParameter.Optional }
                 );
 
@@ -95,7 +95,7 @@ namespace HelloQQPortal
             routes.MapRoute(
               name: "Product",
               url: "product/{id}/{action}",
-              defaults: new { controller = "product" }
+              defaults: new { controller = "product", action = "Index", id = UrlParameter.Optional }
             );
 
             routes.MapRoute(
