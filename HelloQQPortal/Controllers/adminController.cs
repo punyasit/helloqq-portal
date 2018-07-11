@@ -263,7 +263,7 @@ namespace HelloQQPortal.Controllers
 
             if (id.HasValue)
             {
-                productManualInfo.ProductManual = productManualMgr.GetProdutManualById(id.Value);
+                productManualInfo.ProductManual = productManualMgr.GetProductManualById(id.Value);
                 productManualInfo.ProductManualContent = productManualInfo.ProductManual.content;
                 productManualInfo.SelectedProductId = productManualInfo.ProductManual.product_id;
                 productManualInfo.ProductManualImage = productManualMgr.GetManualImagesList(id.Value);

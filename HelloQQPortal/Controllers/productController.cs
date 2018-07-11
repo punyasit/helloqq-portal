@@ -6,12 +6,13 @@ using System.Web.Mvc;
 
 using HelloQQPortal.Database;
 using HelloQQPortal.Manager;
+using HelloQQPortal.Models;
+
 
 namespace HelloQQPortal.Controllers
 {
     public class productController : Controller
     {
-       
         // GET: Product
         public ActionResult Index()
         {
@@ -20,10 +21,8 @@ namespace HelloQQPortal.Controllers
             //    Response.Redirect("/home/login");
             //}
 
-            //Example::
             List<hqq_product> lstHqqProductInfo = new List<hqq_product>();
             ProductManager productMgr = new ProductManager();
-
             List<hqq_member_product> lstMemberProductInfo = productMgr.GetMemberProduct(2);
 
             return View(lstMemberProductInfo);
@@ -34,11 +33,35 @@ namespace HelloQQPortal.Controllers
             return View();
         }
 
-        public ActionResult Manual(int id)
+        public ActionResult Manual(int? id)
         {
-            ViewBag.Message = "Your application description page.";
+            ManualFaqInfo manualFaqInfo = new ManualFaqInfo();
+        
 
-            return View();
+            //if(Session["memberInfo"] == null)
+            //{
+            //    Response.Redirect("/home/login");
+            //}
+
+            // Check Session Info
+            // Check Product Id  with product member info
+
+            if (id.HasValue)
+            {
+                ProductManualManager productManualMgr = new ProductManualManager();
+                ProductFaqManager productFaqMgr = new ProductFaqManager();
+
+                manualFaqInfo.ManualInfo = productManualMgr.GetProductManualByProductId(id.Value);
+                manualFaqInfo.FaqInfoList = productFaqMgr.GetFaqByProductId(id.Value);
+
+                ViewBag.Message = manualFaqInfo.ManualInfo.subject;
+            }
+            else
+            {
+                Response.Redirect("/home");
+            }
+
+            return View(manualFaqInfo);
         }
 
         public ActionResult FAQ()

@@ -32,9 +32,16 @@ namespace HelloQQPortal.Manager
             return lstProductManual;
         }
 
-        public hqq_product_manual GetProdutManualById(int id)
+        public hqq_product_manual GetProductManualById(int id)
         {
             hqq_product_manual hqqProductManual = dbInfo.hqq_product_manual.Find(id);
+            return hqqProductManual;
+        }
+
+        public hqq_product_manual GetProductManualByProductId(int id)
+        {
+            hqq_product_manual hqqProductManual = dbInfo.hqq_product_manual
+                .Where(item => item.product_id == id).FirstOrDefault();
             return hqqProductManual;
         }
 
