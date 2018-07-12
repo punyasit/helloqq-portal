@@ -2,15 +2,19 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Adminstrator Page</h1>
-<h3>@ViewBag.Message</h3>
+<div class="container-admin">
+    <h1>Adminstrator Page</h1>
+    <h3>@ViewBag.Message</h3>
 
-<p>Use this area to provide additional information.</p>
+    <p>Use this area to provide additional information.</p>
 
-<div class="card bg-light mb-3" style="max-width: 18rem;">
-    <div class="card-header">Header</div>
-    <div class="card-body">
-        <h5 class="card-title">Light card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+    <div class="card text-white bg-secondary " style=" max-width:500px; font-size:12px">
+        <ul class="list-group list-group-flush" style="width: 500px;">
+            <li class="list-group-item bg-secondary"> <a href="/admin/member"><strong>สมาชิก</strong></a> แก้ไขสมาชิก เพิ่มสินค้าที่ลูกค้าซื้อ</li>
+            <li class="list-group-item bg-secondary"> <a href="/admin/product"><strong>สินค้่า</strong> </a>เพิ่ม/แก้ไขสินค้า และรายละเอียดสินค้า</li>
+            <li class="list-group-item bg-secondary"> <a href="/admin/product-faq"><strong>คู่มือสินค้่า</strong></a> เพิ่ม/แก้ไข คู่มือสินค้า</li>
+            <li class="list-group-item bg-secondary"> <a href="/admin/product-manual"><strong>คำถามที่พบบ่อยเกี่ยวกับสินค้า</strong></a> คำถามที่พบบ่อยเกี่ยวกับสินค้า</li>
+        </ul>
     </div>
 </div>

@@ -72,10 +72,10 @@ textarea {
     min-width: 323px;
 }
 
-.card.faq {
-    max-width: 100%;
-    min-width: 323px;
-}
+    .card.faq {
+        max-width: 100%;
+        min-width: 323px;
+    }
 
 .card-header.faq {
     padding: 0.25rem 0.25rem;
@@ -83,7 +83,9 @@ textarea {
 
 .card-body.faq {
     font-size: 14px;
+    padding: 0.85rem 0.25rem;
     padding-left: 22px;
+    background: #889;
 }
 
 .card-title {
@@ -114,6 +116,10 @@ textarea {
     padding: 0 10px 0 10px;
 }
 
+.manual-content img {
+        padding: 10px;
+}
+
 .btn-link {
     font-weight: 400;
     color: #cad1d8;
@@ -121,8 +127,8 @@ textarea {
 }
 
 .btn-link:hover {
-    color: #fff;
-    text-decoration: underline;
-    background-color: transparent;
-    border-color: transparent;
+        color: #fff;
+        text-decoration: underline;
+        background-color: transparent;
+        border-color: transparent;
 }

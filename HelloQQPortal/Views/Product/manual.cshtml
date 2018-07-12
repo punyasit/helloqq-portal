@@ -8,40 +8,41 @@
     ViewBag.Title = "Manual";
 }
 
-
-<h2>@Model.ManualInfo.subject</h2>
-@if (Model.ManualInfo.modified_on.HasValue)
-{
-    <div>อัพเดทล่าสุด: @Model.ManualInfo.created_on.ToString("dd MMM yyyy hh:mm")</div>
-}
-else
-{
-    <div>เขียนเมื่อ: @Model.ManualInfo.modified_on.Value.ToString("dd MMM yyyy hh:mm")</div>
-}
 <div class="manual-content">
-    @Html.Raw(@Model.ManualInfo.content)
+    <h2>@Model.ManualInfo.subject</h2>
+    @if (Model.ManualInfo.modified_on.HasValue)
+    {
+        <div>อัพเดทล่าสุด: @Model.ManualInfo.created_on.ToString("dd MMM yyyy hh:mm")</div>
+    }
+    else
+    {
+        <div>เขียนเมื่อ: @Model.ManualInfo.modified_on.Value.ToString("dd MMM yyyy hh:mm")</div>
+    }
+    <div class="manual-content">
 
-    <h4>คำถามที่พบบ่อย</h4>
-    <div id="accordion">
-        @foreach (var item in Model.FaqInfoList)
-        {
-            <div class="card faq text-white bg-dark">
-                <div class="card-header faq" id="heading_@item.id">
-                    <h5 class="mb-0">
-                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapse_@item.id" aria-expanded="true" aria-controls="collapse_@item.id">
-                            @item.question
-                        </button>
-                    </h5>
-                </div>
+        @Html.Raw(@Model.ManualInfo.content)
 
-                <div id="collapse_@item.id" class="collapse collapsed" aria-labelledby="heading_@item.id" data-parent="#accordion">
-                    <div class="card-body faq">
-                        @item.answer
+        <h4>คำถามที่พบบ่อย</h4>
+        <div id="accordion">
+            @foreach (var item in Model.FaqInfoList)
+            {
+                <div class="card faq text-white bg-dark">
+                    <div class="card-header faq" id="heading_@item.id">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapse_@item.id" aria-expanded="true" aria-controls="collapse_@item.id">
+                                @item.question
+                            </button>
+                        </h5>
+                    </div>
+
+                    <div id="collapse_@item.id" class="collapse collapsed" aria-labelledby="heading_@item.id" data-parent="#accordion">
+                        <div class="card-body faq">
+                            @item.answer
+                        </div>
                     </div>
                 </div>
-            </div>
-        }
-
+            }
+        </div>
     </div>
 </div>
 

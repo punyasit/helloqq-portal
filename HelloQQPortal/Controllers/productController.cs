@@ -28,7 +28,7 @@ namespace HelloQQPortal.Controllers
             return View(lstMemberProductInfo);
         }
 
-       public ActionResult View(int id)
+        public ActionResult View(int id)
         {
             return View();
         }
@@ -36,7 +36,7 @@ namespace HelloQQPortal.Controllers
         public ActionResult Manual(int? id)
         {
             ManualFaqInfo manualFaqInfo = new ManualFaqInfo();
-        
+
 
             //if(Session["memberInfo"] == null)
             //{
@@ -54,7 +54,10 @@ namespace HelloQQPortal.Controllers
                 manualFaqInfo.ManualInfo = productManualMgr.GetProductManualByProductId(id.Value);
                 manualFaqInfo.FaqInfoList = productFaqMgr.GetFaqByProductId(id.Value);
 
-                ViewBag.Message = manualFaqInfo.ManualInfo.subject;
+                if (manualFaqInfo.ManualInfo.id > 0)
+                {
+                    ViewBag.Message = manualFaqInfo.ManualInfo.subject;
+                }
             }
             else
             {

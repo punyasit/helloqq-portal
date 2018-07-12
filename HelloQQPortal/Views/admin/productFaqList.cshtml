@@ -5,67 +5,69 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>การจัดการคำถามที่พบบ่อย</h2>
+<div class="container-admin">
+    <h2>การจัดการคำถามที่พบบ่อย</h2>
 
-<p>
-    <i class="fas fa-camera-retro fa-2x"></i>
-    @*@Html.ActionLink("Create New", "productDetail","admin")*@
-    <a href="/admin/productManualDetail">สร้างคำถามที่พบบ่อย</a>
-</p>
+    <p>
+        <i class="fas fa-camera-retro fa-2x"></i>
+        @*@Html.ActionLink("Create New", "productDetail","admin")*@
+        <a href="/admin/productManualDetail">สร้างคำถามที่พบบ่อย</a>
+    </p>
 
-<table class="admin table">
-    <tr>
-        <th>
-            ไอดี
-        </th>
-        <th>
-            สินค้า
-        </th>
-        <th>
-            สร้างเมื่อ
-        </th>
-        <th>
-            แก้ไขเมื่อ
-        </th>
-        <th>
-            สถานะ
-        </th>
-        <th></th>
-    </tr>
+    <table class="admin table">
+        <tr>
+            <th>
+                ไอดี
+            </th>
+            <th>
+                สินค้า
+            </th>
+            <th>
+                สร้างเมื่อ
+            </th>
+            <th>
+                แก้ไขเมื่อ
+            </th>
+            <th>
+                สถานะ
+            </th>
+            <th></th>
+        </tr>
 
-    @if (Model != null)
-    {
-        foreach (var item in Model)
+        @if (Model != null)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.hqq_product.name)
-                </td>
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.hqq_product.name)
+                    </td>
 
-                <td>
-                    @item.created_on.ToString("dd MMM yyyy")
-                </td>
-                <td>
-                    @if (item.modified_on.HasValue)
-                    {
-                        @item.modified_on.Value.ToString("dd MMM yyyy");
-                    }
-                </td>
-                <td>
-                    @((item.status == 1) ? "ใช้งาน" : "ปิดการใช้งาน")
+                    <td>
+                        @item.created_on.ToString("dd MMM yyyy")
+                    </td>
+                    <td>
+                        @if (item.modified_on.HasValue)
+                        {
+                            @item.modified_on.Value.ToString("dd MMM yyyy");
+                        }
+                    </td>
+                    <td>
+                        @((item.status == 1) ? "ใช้งาน" : "ปิดการใช้งาน")
 
-                </td>
-                <td>
-                    <a href="/admin/product-manual/@item.id">แก้ไข</a>
-                    @*@Html.ActionLink("Edit", "userdetail", new { id = item.id }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.id })*@
-                </td>
-            </tr>
+                    </td>
+                    <td>
+                        <a href="/admin/product-manual/@item.id">แก้ไข</a>
+                        @*@Html.ActionLink("Edit", "userdetail", new { id = item.id }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.id })*@
+                    </td>
+                </tr>
+            }
         }
-    }
 
-</table>
+    </table>
+</div>

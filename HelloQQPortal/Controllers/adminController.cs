@@ -33,8 +33,9 @@ namespace HelloQQPortal.Controllers
             return View();
         }
 
-        public ActionResult UserList()
+        public ActionResult MemberList()
         {
+            memberMgr = new MemberManager();
             return View(memberMgr.GetMemberList());
         }
 
@@ -44,6 +45,7 @@ namespace HelloQQPortal.Controllers
             MemberInfo memberInfo = new MemberInfo();
             hqq_member member;
             memberMgr = new MemberManager();
+            productManager = new ProductManager();
 
             memberInfo.MemberDetail = new hqq_member();
 
