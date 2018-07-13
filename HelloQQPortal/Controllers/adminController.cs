@@ -12,6 +12,7 @@ using HelloQQPortal.Models;
 using System.Web.Configuration;
 using System.Collections.Specialized;
 using System.Globalization;
+using System.Web.Routing;
 
 namespace HelloQQPortal.Controllers
 {
@@ -22,8 +23,17 @@ namespace HelloQQPortal.Controllers
         private ProductManager productManager;
         private ProductFaqManager productFaqManager;
         private ProductManualManager productManualMgr;
+        private UIManager uiManager;
 
         private NameValueCollection webConfig = WebConfigurationManager.AppSettings;
+
+        protected override void Initialize(System.Web.Routing.RequestContext requestContext)
+        {
+            base.Initialize(requestContext);
+            uiManager = new UIManager();
+
+            uiManager.ValidatePermission(this.ToString());
+        }
 
         // GET: Admin
         public ActionResult Index()
@@ -232,7 +242,7 @@ namespace HelloQQPortal.Controllers
 
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return View(productInfo);
             }

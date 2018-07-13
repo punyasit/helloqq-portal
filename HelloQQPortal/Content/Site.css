@@ -9,6 +9,10 @@
     padding-right: 15px;*/
 }
 
+.qq-content {
+    padding: 0 10px 0 10px;
+}
+
 @media (max-width: 576px) {
     .header-content {
         padding: 0;
@@ -72,10 +76,10 @@ textarea {
     min-width: 323px;
 }
 
-    .card.faq {
-        max-width: 100%;
-        min-width: 323px;
-    }
+.card.faq {
+    max-width: 100%;
+    min-width: 323px;
+}
 
 .card-header.faq {
     padding: 0.25rem 0.25rem;
@@ -117,7 +121,7 @@ textarea {
 }
 
 .manual-content img {
-        padding: 10px;
+   padding: 10px;
 }
 
 .btn-link {
@@ -127,8 +131,8 @@ textarea {
 }
 
 .btn-link:hover {
-        color: #fff;
-        text-decoration: underline;
-        background-color: transparent;
-        border-color: transparent;
+    color: #fff;
+    text-decoration: underline;
+    background-color: transparent;
+    border-color: transparent;
 }

@@ -1,0 +1,19 @@
+<?xml version="1.0" standalone="yes"?>
+<UIConfigs>
+  <UIConfig>
+    <Controller>adminController</Controller>
+    <Permission>99</Permission>
+  </UIConfig>
+  <UIConfig>
+    <Controller>homeController</Controller>
+    <Permission>1</Permission>
+  </UIConfig>
+  <UIConfig>
+    <Controller>memberController</Controller>
+    <Permission>2</Permission>
+  </UIConfig>
+  <UIConfig>
+    <Controller>productController</Controller>
+    <Permission>2</Permission>
+  </UIConfig>
+</UIConfigs>

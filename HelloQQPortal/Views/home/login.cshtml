@@ -3,14 +3,21 @@
 }
 
 <br />
-<h1>LOGIN</h1>
-<div id="fb-root"></div>
 
-@*<div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with"
-    data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="false" onlogin="checkLoginState();"></div>*@
+<div style="width: 100%;">
+    <div style="width: 500px;text-align: center;display: table;margin: 0 auto;">
+        <h1>ลงชื่อเข้าใช้งาน</h1>
+        <div id="fb-root"></div>
 
-<div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with"
-     data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="true" onlogin="checkLoginState();"></div>
+        @*<div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with"
+            data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="false" onlogin="checkLoginState();"></div>*@
+
+        <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with"
+             data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="true" onlogin="checkLoginState();">
+        </div>
+    </div>
+</div>
+
 
 <script>
 
@@ -41,8 +48,6 @@
             });
         });
     });
-
-
 
     function checkLoginState(response) {
 
