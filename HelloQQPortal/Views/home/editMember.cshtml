@@ -1,4 +1,4 @@
-﻿@model HelloQQPortal.Database.member
+﻿@model HelloQQPortal.Database.hqq_member
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -18,35 +18,31 @@
     <br />
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @*<div class="form-group">
-                @Html.LabelFor(model => model.facebook_id, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.facebook_id, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.facebook_id, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
-
+        @Html.HiddenFor(model => model.id, new { id = "hdnMemberId" })
 
         <div class="row">
             <div class="col-12 col-sm-12 col-lg-4" style="min-width: 362px;">
-                <div class="card text-white bg-dark mb-3">
+                <div class="card register text-white bg-dark mb-3">
                     <div class="card-header">Facebook โปรไฟล์</div>
                     <div class="card-body">
                         <h5 class="card-title">
-                            <div class="row">
+                            <div class="row" style="padding-bottom: 10px;">
                                 <div class="col-2 col-sm-2 col-md-2 col-lg-2" style="min-width:50px;">
                                     <img id="imgFBProfile" src="@Html.DisplayFor(model =>model.picture_url)" width="50" height="50" />
                                 </div>
                                 <div class="col-10 col-sm-10 col-md-10 col-lg-10"><label id="lbFBUsername">@Html.DisplayFor(model => model.facebook_name)</label></div>
                             </div>
                         </h5>
-                        <p class="card-text">เป็นสมาชิกตั้งแต่ : </p>
-                        <p class="card-text">เข้าใช้ล่าสุดเมื่อ : </p>
+                        <p class="card-text" style="margin-bottom: 4px;">เป็นสมาชิกตั้งแต่: @Model.created_on.ToString("dd MMM yyyy")</p>
+                        @if (Model.modified_on.HasValue)
+                        {
+                            <p class="card-text" >อัพเดทล่าสุดเมื่อ: @Model.modified_on.Value.ToString("dd MMM yyyy")</p>
+                        }
                     </div>
                 </div>
             </div>
             <div class="col-12 col-sm-12 col-lg-8">
-                <div class="card bg-light mb-3" style="width:100%; min-width: 362px;">
+                <div class="card register bg-light mb-3">
                     <div class="card-header">สมัครสมาชิกส่วนช่วยเหลือการใช้งาน HelloQQShop </div>
                     <div class="card-body">
                         <h5 class="card-title">ข้อมูลผู้ใช้งานเพิ่มเติม</h5>
@@ -66,7 +62,7 @@
                         </div>
                         <div class="form-group">
                             <div class="no-padding">
-                                <input type="submit" value="ยืนยันการสมัครสมาชิก" class="btn btn-lg btn-primary" />
+                                <input type="submit" value="อัพเดทโปรไฟล์" class="btn btn-lg btn-primary" />
                             </div>
                         </div>
                     </div>

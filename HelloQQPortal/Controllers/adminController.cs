@@ -31,7 +31,6 @@ namespace HelloQQPortal.Controllers
         {
             base.Initialize(requestContext);
             uiManager = new UIManager();
-
             uiManager.ValidatePermission(this.ToString());
         }
 

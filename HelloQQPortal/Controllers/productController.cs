@@ -13,19 +13,39 @@ namespace HelloQQPortal.Controllers
 {
     public class productController : Controller
     {
+        private UIManager uiManager;
+
+        protected override void Initialize(System.Web.Routing.RequestContext requestContext)
+        {
+            base.Initialize(requestContext);
+            uiManager = new UIManager();
+            uiManager.ValidatePermission(this.ToString());
+        }
+
         // GET: Product
         public ActionResult Index()
         {
-            //if(Session["memberInfo"] == null)
-            //{
-            //    Response.Redirect("/home/login");
-            //}
+            hqq_member memeberInfo;
+            MemberProductInfo memberPrdInfo = new MemberProductInfo();
 
-            List<hqq_product> lstHqqProductInfo = new List<hqq_product>();
-            ProductManager productMgr = new ProductManager();
-            List<hqq_member_product> lstMemberProductInfo = productMgr.GetMemberProduct(2);
+            if (Session["memberInfo"] != null)
+            {
+                memeberInfo = (hqq_member)Session["memberInfo"];
 
-            return View(lstMemberProductInfo);
+                List<hqq_product> lstHqqProductInfo = new List<hqq_product>();
+                List<int> lstProductId = new List<int>();
+                ProductManager productMgr = new ProductManager();
+                ProductManualManager productManualMgr = new ProductManualManager();
+
+                memberPrdInfo.MemberProducts = productMgr.GetMemberProduct(memeberInfo.id);
+                if (memberPrdInfo.MemberProducts.Count() > 0)
+                {
+                    lstProductId = memberPrdInfo.MemberProducts.Select(item => item.product_id).ToList();
+                    memberPrdInfo.LstManualProductId = productManualMgr.CheckAvailableManual(lstProductId);
+                }
+            }        
+
+            return View(memberPrdInfo);
         }
 
         public ActionResult View(int id)
@@ -36,7 +56,6 @@ namespace HelloQQPortal.Controllers
         public ActionResult Manual(int? id)
         {
             ManualFaqInfo manualFaqInfo = new ManualFaqInfo();
-
 
             //if(Session["memberInfo"] == null)
             //{

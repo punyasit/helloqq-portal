@@ -242,6 +242,7 @@
     </Compile>
     <Compile Include="Models\ManualFaqInfo.cs" />
     <Compile Include="Models\MemberInfo.cs" />
+    <Compile Include="Models\MemberProductInfo.cs" />
     <Compile Include="Models\ProductFaqInfo.cs" />
     <Compile Include="Models\ProductInfo.cs" />
     <Compile Include="Models\ProductManualInfo.cs" />

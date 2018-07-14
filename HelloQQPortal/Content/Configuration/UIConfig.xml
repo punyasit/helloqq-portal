@@ -6,14 +6,14 @@
   </UIConfig>
   <UIConfig>
     <Controller>homeController</Controller>
-    <Permission>1</Permission>
+    <Permission>0</Permission>
   </UIConfig>
   <UIConfig>
     <Controller>memberController</Controller>
-    <Permission>2</Permission>
+    <Permission>1</Permission>
   </UIConfig>
   <UIConfig>
     <Controller>productController</Controller>
-    <Permission>2</Permission>
+    <Permission>1</Permission>
   </UIConfig>
 </UIConfigs>

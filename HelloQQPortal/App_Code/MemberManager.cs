@@ -108,7 +108,9 @@ namespace HelloQQPortal.Manager
                 }
                 else
                 {
-                    if (!dbInfo.hqq_member_product.Any(item => item.product_id == memberProductInfo.product_id))
+                    if (!dbInfo.hqq_member_product.Any(
+                        item => item.product_id == memberProductInfo.product_id
+                        && item.member_id == memberProductInfo.member_id))
                     {
                         dbInfo.hqq_member_product.Add(memberProductInfo);
                         dbInfo.SaveChanges();

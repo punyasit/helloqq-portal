@@ -9,6 +9,31 @@
     padding-right: 15px;*/
 }
 
+.content-section {
+    width: 100%;
+}
+
+.box-center {
+    width: 500px;
+    text-align: center;
+    display: table;
+    margin: 0 auto;
+}
+
+.content-secion .box-center {
+    text-align: center;
+    display: table;
+    margin: 0 auto;
+}
+
+.information-box {
+    border: 1px solid #AAA;
+    height: 70px;
+    padding-top: 19px;
+    color: #666;
+    font-size: 22px;
+}
+
 .qq-content {
     padding: 0 10px 0 10px;
 }
@@ -76,10 +101,15 @@ textarea {
     min-width: 323px;
 }
 
-.card.faq {
-    max-width: 100%;
-    min-width: 323px;
-}
+    .card.faq {
+        max-width: 100%;
+        min-width: 323px;
+    }
+
+    .card.register {
+        max-width: 100%;
+        min-width: 100%;
+    }
 
 .card-header.faq {
     padding: 0.25rem 0.25rem;
@@ -120,9 +150,9 @@ textarea {
     padding: 0 10px 0 10px;
 }
 
-.manual-content img {
-   padding: 10px;
-}
+    .manual-content img {
+        padding: 10px;
+    }
 
 .btn-link {
     font-weight: 400;
@@ -130,9 +160,9 @@ textarea {
     background-color: transparent;
 }
 
-.btn-link:hover {
-    color: #fff;
-    text-decoration: underline;
-    background-color: transparent;
-    border-color: transparent;
-}
+    .btn-link:hover {
+        color: #fff;
+        text-decoration: underline;
+        background-color: transparent;
+        border-color: transparent;
+    }

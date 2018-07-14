@@ -23,15 +23,18 @@ namespace HelloQQPortal.Manager
             strPageLogin = webConfig["page.login"];
         }
 
-        public void ValidatePermission(string strController)
+        public void ValidatePermission(string strFullControllerName)
         {
             bool isValidate = false;
             int role = 1;
+            string strContrller = strFullControllerName.Split('.').Last();
+            HttpContext context = HttpContext.Current;
+
             try
             {
                 if (HttpContext.Current.Session["memberInfo"] != null)
                 {
-                    memberInfo = (hqq_member)HttpContext.Current.Session["memberInfo"];
+                    memberInfo = (hqq_member)context.Session["memberInfo"];
 
                     if (memberInfo != null && memberInfo.role > 0)
                     {
@@ -41,10 +44,10 @@ namespace HelloQQPortal.Manager
                     DataSet dsInfo = new DataSet();
                     DataTable dtInfo = new DataTable();
                     DataRow drInfo = null;
-                    dsInfo.ReadXml(strUIXMLPath);
+                    dsInfo.ReadXml(context.Server.MapPath(strUIXMLPath));
 
                     dtInfo = dsInfo.Tables["UIConfig"];
-                    drInfo = dtInfo.Select(string.Format("Controller = '{0}'", "Adminstrator")).FirstOrDefault();
+                    drInfo = dtInfo.Select(string.Format("Controller = '{0}'", strContrller)).FirstOrDefault();
 
                     isValidate = role >= int.Parse(drInfo["permission"].ToString());
                 }               

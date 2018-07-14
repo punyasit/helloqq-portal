@@ -1,31 +1,46 @@
-﻿@model IEnumerable<HelloQQPortal.Database.hqq_member_product>
+﻿@model HelloQQPortal.Models.MemberProductInfo
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="content-section">
+    <h1>สินค้าของท่าน</h1>
 
-<h1>สินค้าของท่าน</h1>
+    <div class="card-deck">
+        @if (Model.MemberProducts.Count() == 0)
+        {
+            <div class="content-section">
+                <div class="box-center">
+                    <div class="box information-box">
+                        ยังไม่พบข้อมูลสินค้าที่ท่านซื้อค่ะ
+                    </div>
+                </div>
+            </div>
+        }
+        @foreach (var item in Model.MemberProducts)
+        {
+            <div class="card text-white bg-dark mb-3">
 
-<div class="card-deck">
-    @foreach (var item in Model)
-    {
-        <div class="card text-white bg-dark mb-3">
-            <a href="/product/@item.product_id/manual">
                 <img class="card-img-top" data-src="holder.js/100px180/" alt="100%x180" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22358%22%20height%3D%22180%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20358%20180%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_1645be70222%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A18pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_1645be70222%22%3E%3Crect%20width%3D%22358%22%20height%3D%22180%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22132.9609375%22%20y%3D%2298.1%22%3E358x180%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true" style="height: 180px; width: 100%; display: block;">
-            </a>
-            <div class="card-body">
-                <a href="/product/@item.product_id/manual">
+                <div class="card-body">
                     <div class="card-title"> @Html.DisplayFor(modelItem => item.hqq_product.name)</div>
-                </a>
-            <div class="card-text"> @Html.DisplayFor(modelItem => item.hqq_product.description)</div>
-                @if (item.garantee_expired.HasValue)
-                {
-                    <div class="card-text expired-date"> รับประกันถึงวันที่ : @item.garantee_expired.Value.ToString("dd MMM yyyy")</div>
-                }
+                    <div class="card-text"> @Html.DisplayFor(modelItem => item.hqq_product.description)</div>
+                    @if (item.garantee_expired.HasValue)
+                    {
+                        <div class="card-text expired-date"> รับประกันถึงวันที่ : @item.garantee_expired.Value.ToString("dd MMM yyyy")</div>
+                    }
+
+                    @if (Model.LstManualProductId.Contains(item.product_id))
+                    {
+                        <div> <a href="/product/@item.product_id/manual" class="badge badge-info">คู่มือการใช้งาน</a></div>
+                        @*<div class="card-text expired-date"> คู่มือการใช้งาน :  <a href="/product/@item.product_id/manual">@Html.DisplayFor(modelItem => item.hqq_product.name)</a></div>*@
+                    }
+                </div>
+
+                <div class="card-footer">
+                    <small class="text-muted">Last updated: @item.hqq_product.created_on.ToString("dd MMM yyyy")</small>
+                </div>
             </div>
-            <div class="card-footer">
-                <small class="text-muted">Last updated: @item.hqq_product.created_on.ToString("dd MMM yyyy")</small>
-            </div>
-        </div>
-    }
+        }
+    </div>
 </div>

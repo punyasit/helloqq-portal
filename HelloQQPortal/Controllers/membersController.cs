@@ -14,7 +14,16 @@ namespace HelloQQPortal.Controllers
 {
     public class membersController : Controller
     {        
-        private helloqqdbEntities dbInfo = new helloqqdbEntities(); 
+        private helloqqdbEntities dbInfo = new helloqqdbEntities();
+        private MemberManager memberManager;
+        private UIManager uiManager;        
+
+        protected override void Initialize(System.Web.Routing.RequestContext requestContext)
+        {
+            base.Initialize(requestContext);
+            uiManager = new UIManager();
+            uiManager.ValidatePermission(this.ToString());
+        }
 
         // GET: members
         public ActionResult Index()
@@ -60,19 +69,18 @@ namespace HelloQQPortal.Controllers
             return View(member);
         }
 
-        // GET: members/Edit/5
-        public ActionResult Edit(int? id)
+        // GET: members/Edit
+        public ActionResult Edit()
         {
-            if (id == null)
+           memberManager = new MemberManager();
+
+            if(Session["memberInfo"] == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                Response.Redirect("/home/login");
             }
-            hqq_member member = dbInfo.hqq_member.Find(id);
-            if (member == null)
-            {
-                return HttpNotFound();
-            }
-            return View(member);
+
+            hqq_member memberInfo = (hqq_member)Session["memberInfo"];
+            return View(memberInfo);
         }
 
         // POST: members/Edit/5

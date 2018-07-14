@@ -7,6 +7,7 @@ using HelloQQPortal.Models;
 
 using HelloQQPortal.Database;
 using HelloQQPortal.Manager;
+using System.Data.Entity;
 
 namespace HelloQQPortal.Controllers
 {
@@ -41,21 +42,25 @@ namespace HelloQQPortal.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult ValidateUserExist(UserInfo userInfo)
+        {
+            string result = string.Empty;
+
+            if (dbInfo.hqq_member.Any(item => item.facebook_id == userInfo.id))
+            {
+                result = "home/editMember";
+            }
+
+            return Json(new { redirectToUrl = result });
+        }
+
         public ActionResult Register(hqq_member memberInfo)
         {
-
             if (ModelState.IsValid && this.Request.RequestType == "POST")
             {
-                if (dbInfo.hqq_member.Any(item => item.facebook_id == memberInfo.facebook_id))
-                {
-                  // return RedirectToAction("editMember");
-                }
-                else
-                {
-                    //#Add Record
-                    memberInfo = AddNewEntity(memberInfo);
-                }
-
+                //#Add Record
+                memberInfo = AddNewEntity(memberInfo);
                 return RedirectToAction("Index");
             }
             return View(memberInfo);
@@ -67,16 +72,22 @@ namespace HelloQQPortal.Controllers
             hqq_meta_location metaLocation = null;
             memeberInfo = this.AddProperty(memeberInfo);
             // Find Location Code
-            metaLocation = metadataMgr.GetMetaLocationInfo(memeberInfo.location_code.Replace(", Thailand", ""));
-            if (metaLocation != null && metaLocation.id > 0)
+            if (memeberInfo.location_code != null)
             {
-                memeberInfo.location_code = metaLocation.ISO_code;
+                metaLocation = metadataMgr.GetMetaLocationInfo(memeberInfo.location_code.Replace(", Thailand", ""));
+                if (metaLocation != null && metaLocation.id > 0)
+                {
+                    memeberInfo.location_code = metaLocation.ISO_code;
+                }
             }
             // Find HomeTown Code 
-            metaLocation = metadataMgr.GetMetaLocationInfo(memeberInfo.hometown_code.Replace(", Thailand", ""));
-            if (metaLocation != null && metaLocation.id > 0)
+            if (memeberInfo.hometown_code != null)
             {
-                memeberInfo.hometown_code = metaLocation.ISO_code;
+                metaLocation = metadataMgr.GetMetaLocationInfo(memeberInfo.hometown_code.Replace(", Thailand", ""));
+                if (metaLocation != null && metaLocation.id > 0)
+                {
+                    memeberInfo.hometown_code = metaLocation.ISO_code;
+                }
             }
 
             dbInfo.hqq_member.Add(memeberInfo);
@@ -97,13 +108,22 @@ namespace HelloQQPortal.Controllers
         {
             if (Session["memberInfo"] == null)
             {
-                Response.Redirect("/home/login");
+                Response.Redirect(string.Format("/home/login?RedirectURL={0}",
+                    HttpUtility.HtmlEncode("/member/edit")));
             }
             else
             {
                 if (ModelState.IsValid && this.Request.RequestType == "POST")
                 {
+                    hqq_member memberInfo = dbInfo.hqq_member.Find(member.id);
 
+                    memberInfo.fullname = member.fullname;
+                    memberInfo.address = member.address;
+
+                    dbInfo.Entry(memberInfo).State = EntityState.Modified;
+                    dbInfo.SaveChanges();
+
+                    member = memberInfo;
                 }
                 else
                 {
@@ -137,7 +157,7 @@ namespace HelloQQPortal.Controllers
             return View();
         }
 
-       // [OutputCache(Duration = 20, VaryByParam = "photoId")]
+        // [OutputCache(Duration = 20, VaryByParam = "photoId")]
         public ActionResult GetImage(int id, string param)
         {
             byte[] img = null;

@@ -23,6 +23,16 @@ namespace HelloQQPortal.Manager
 
         }
 
+        public List<int> CheckAvailableManual(List<int> lstProductId)
+        {
+            List<int> lstAvailableManual = new List<int>();
+
+            lstAvailableManual = dbInfo.hqq_product_manual.Where(item => 
+            lstProductId.Contains(item.product_id)).Select(item => item.product_id).ToList();
+
+            return lstAvailableManual;
+        }
+
         public List<hqq_product_manual> GetProductManualList()
         {
             List<hqq_product_manual> lstProductManual = dbInfo.hqq_product_manual
