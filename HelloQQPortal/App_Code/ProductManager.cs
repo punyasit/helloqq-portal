@@ -144,13 +144,13 @@ namespace HelloQQPortal.Manager
 
                 lstMemberProductInfo = dbInfo.hqq_member_product
                      .Include("hqq_product")
+                     .Include("hqq_product.hqq_product_images")
                      .Where(item => item.hqq_member.id == id)
                      .ToList();
-
             }
-
 
             return lstMemberProductInfo;
         }
+
     }
 }

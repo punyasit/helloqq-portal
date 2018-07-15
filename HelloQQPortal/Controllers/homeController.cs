@@ -157,26 +157,40 @@ namespace HelloQQPortal.Controllers
             return View();
         }
 
-        // [OutputCache(Duration = 20, VaryByParam = "photoId")]
+        [OutputCache(Duration = 20, VaryByParam = "photoId")]
         public ActionResult GetImage(int id, string param)
         {
             byte[] img = null;
 
-            if (param == "thumbnail" || param == "thmb")
+            switch (param)
             {
-                img = imgMgr.GetHQQImage(id, true);
-            }
-            else if (param == "delete" || param == "del")
-            {
-                //Check Admin Permission 
-                //imgMgr.DeleteImage(id);
-            }
-            else
-            {
-                img = imgMgr.GetHQQImage(id, false);
+                case "thumbnail":
+                case "thmb":
+                    img = imgMgr.GetHQQImage(id, true);
+                    break;
+
+                case "delete":
+                case "del":
+                    //Check Admin Permission 
+                    //imgMgr.DeleteImage(id);
+                    break;
+
+                case "product":
+                case "prdt":
+                    img = imgMgr.GetHQQProductImage(id, 0,0);
+                    break;
+
+                case "prdt-321":
+                    img = imgMgr.GetHQQProductImage(id, 321, 180);
+                    break;                
+
+                default:
+                    img = imgMgr.GetHQQImage(id, false);
+                    break;
             }
 
             return File(img, "image/png");
         }
     }
+
 }

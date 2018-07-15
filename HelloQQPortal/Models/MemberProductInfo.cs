@@ -9,7 +9,13 @@ namespace HelloQQPortal.Models
 {
     public class MemberProductInfo
     {
-        public List<hqq_member_product> MemberProducts { get; set; }
-        public List<int> LstManualProductId { get; set; }
+        public int ProductId { get; set; }
+        public string ProductName{ get; set; }
+        public string ProductDesc { get; set; }
+        public DateTime PurchaseDate { get; set; }
+        public DateTime? GuaranteeExpire { get; set; }
+        public bool HaveManual { get; set; }
+        public List<int> ProductImagesId { get; set; }
     }
+
 }

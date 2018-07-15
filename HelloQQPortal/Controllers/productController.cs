@@ -26,6 +26,7 @@ namespace HelloQQPortal.Controllers
         public ActionResult Index()
         {
             hqq_member memeberInfo;
+            List<MemberProductInfo> lstMemberPrdInfo = new List<MemberProductInfo>();
             MemberProductInfo memberPrdInfo = new MemberProductInfo();
 
             if (Session["memberInfo"] != null)
@@ -33,19 +34,37 @@ namespace HelloQQPortal.Controllers
                 memeberInfo = (hqq_member)Session["memberInfo"];
 
                 List<hqq_product> lstHqqProductInfo = new List<hqq_product>();
-                List<int> lstProductId = new List<int>();
+                List<int> lstSelectItem = new List<int>();
+
                 ProductManager productMgr = new ProductManager();
                 ProductManualManager productManualMgr = new ProductManualManager();
 
-                memberPrdInfo.MemberProducts = productMgr.GetMemberProduct(memeberInfo.id);
-                if (memberPrdInfo.MemberProducts.Count() > 0)
+                List<hqq_member_product> lstMemberProduct = productMgr.GetMemberProduct(memeberInfo.id);
+                if (lstMemberProduct.Count > 0)
                 {
-                    lstProductId = memberPrdInfo.MemberProducts.Select(item => item.product_id).ToList();
-                    memberPrdInfo.LstManualProductId = productManualMgr.CheckAvailableManual(lstProductId);
+                    lstSelectItem = lstMemberProduct.Select(item => item.product_id).ToList();
+                    lstSelectItem = productManualMgr.CheckAvailableManual(lstSelectItem);
+
+                    foreach (var item in lstMemberProduct)
+                    {                        
+                        memberPrdInfo = new MemberProductInfo();
+                        memberPrdInfo.ProductId = item.product_id;
+                        memberPrdInfo.ProductName = item.hqq_product.name;
+                        memberPrdInfo.ProductDesc = item.hqq_product.description;
+
+                        memberPrdInfo.PurchaseDate = item.purchase_date;
+                        memberPrdInfo.GuaranteeExpire = item.garantee_expired;
+
+                        memberPrdInfo.ProductImagesId = item.hqq_product.hqq_product_images.Select(selecteItem => selecteItem.id).ToList();
+                        memberPrdInfo.HaveManual = lstSelectItem.Contains(item.product_id);
+
+                        lstMemberPrdInfo.Add(memberPrdInfo);
+                    }
                 }
+               
             }        
 
-            return View(memberPrdInfo);
+            return View(lstMemberPrdInfo);
         }
 
         public ActionResult View(int id)

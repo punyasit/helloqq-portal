@@ -14,7 +14,7 @@
 }
 
 .box-center {
-    width: 500px;
+    max-width: 500px;
     text-align: center;
     display: table;
     margin: 0 auto;
@@ -166,3 +166,15 @@ textarea {
         background-color: transparent;
         border-color: transparent;
     }
+
+.bd-example-modal-lg .modal-dialog {
+    display: table;
+    position: relative;
+    margin: 0 auto;
+    top: calc(50% - 24px);
+}
+
+.bd-example-modal-lg .modal-dialog .modal-content {
+        background-color: transparent;
+        border: none;
+}
